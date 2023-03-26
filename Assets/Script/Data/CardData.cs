@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[CreateAssetMenu(fileName = "New Item", menuName = "Cards/New Cards")]
 
-public class Card : MonoBehaviour
+public class CardData : ScriptableObject
 {
     // Start is called before the first frame update
     [SerializeField] private int number_ ;
@@ -25,7 +26,7 @@ public class Card : MonoBehaviour
     public void Play(){
 
     }
-    public Card(string color, int number){
+    public CardData(string color, int number){
         color_  = color;
         number_ = number;
     }
