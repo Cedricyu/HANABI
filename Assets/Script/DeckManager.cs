@@ -14,9 +14,19 @@ public class DeckManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void generateCards(){
-        for(int i=0;i<5;i++)
-            Deck.Add(new CardData("red",i+1));
-        return;
+    private void generateCards()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            var card = ScriptableObject.CreateInstance<CardData>();
+            card.Color = "red";
+            card.Number = i + 1;
+            Deck.Add(card);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            Deck.Add(new CardData("blue",i));
+        }
     }
+
 }
