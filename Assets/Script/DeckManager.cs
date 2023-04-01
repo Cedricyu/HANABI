@@ -40,6 +40,7 @@ public class DeckManager : MonoBehaviour
                 string CardName = colors_[i] + " " + (j+1);
                 GameObject newCardObject = new GameObject(CardName);
                 newCardObject.transform.SetParent(parentTransform);
+                newCardObject.transform.position = this.transform.position;
                 SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
 
                 Card CardObject = newCardObject.AddComponent<Card>();
