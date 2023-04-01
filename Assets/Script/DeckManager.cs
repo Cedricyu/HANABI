@@ -6,7 +6,7 @@ public class DeckManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] List<Card> Deck = new List<Card>();
-    public static DeckManager DM;
+    public static DeckManager Instance;
 
     public List<Card> discard;
 
@@ -20,7 +20,7 @@ public class DeckManager : MonoBehaviour
     void Start()
     {
         parentTransform = this.transform;
-        DM = this;
+        Instance = this;
 
         colors_.Add("red");
         colors_.Add("blue");
