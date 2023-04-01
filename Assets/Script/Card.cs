@@ -7,7 +7,12 @@ public class Card : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private int number_ ;
     [SerializeField] private string color_ ;
+    DeckManager dm;
     static int totalNumCard = 30;
+
+    void Start(){
+        dm = FindObjectOfType<DeckManager>();
+    }
 
     public int getNumber(){
         return number_;

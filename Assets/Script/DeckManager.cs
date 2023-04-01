@@ -6,6 +6,9 @@ public class DeckManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] List<CardData> Deck;
+
+    public List<CardData> discard;
+
     public CardData Cards;
 
     void Start()
@@ -27,6 +30,17 @@ public class DeckManager : MonoBehaviour
         {
             Deck.Add(new CardData("blue",i));
         }
+    }
+
+    public void DrawCard(){
+        if(Deck.Count <=0 )
+            return;
+
+        CardData randomCard = Deck[Random.Range(0, Deck.Count)];
+
+
+        discard.Add(randomCard);
+        Deck.Remove(randomCard);
     }
 
 }
