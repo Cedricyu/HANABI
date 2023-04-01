@@ -35,16 +35,17 @@ public class DeckManager : MonoBehaviour
     {
         for (int i = 0; i < colors_.Count ; i++)
         {
-           for(int j=0 ; j <5 ; j++ ){
-                Card newCard = new Card(colors_[i],i);
-                GameObject newCardObject = new GameObject("New Card");
+           for(int j=0 ; j < 5 ; j++ ){
+                Card newCard = new Card(colors_[i], j+1);
+                string CardName = colors_[i] + " " + (j+1);
+                GameObject newCardObject = new GameObject(CardName);
                 newCardObject.transform.SetParent(parentTransform);
                 SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
 
                 Card CardObject = newCardObject.AddComponent<Card>();
                 CardObject.GetComponent<Card>().CopyFrom(newCard);
 
-                Sprite mySprite = Card.sprites[i];
+                Sprite mySprite = Card.sprites[j];
                 CardSprite.sprite = mySprite;
 
                 Deck.Add(CardObject);
@@ -53,15 +54,17 @@ public class DeckManager : MonoBehaviour
         
     }
 
-    public void DrawCard(){
-        // if(Deck.Count <=0 )
-        //     return;
+    // call this using 
+    public Card DrawCard(){
 
-        // CardData randomCard = Deck[Random.Range(0, Deck.Count)];
+        if(Deck.Count <=0 )
+            return null;
 
+        Card randomCard = Deck[Random.Range(0, Deck.Count)];
 
-        // discard.Add(randomCard);
-        // Deck.Remove(randomCard);
+        Deck.Remove(randomCard);
+
+        return randomCard;
     }
 
 }

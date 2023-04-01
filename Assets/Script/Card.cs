@@ -8,7 +8,7 @@ public class Card : MonoBehaviour
     [SerializeField] private int number_ ;
     [SerializeField] private string color_ ;
     public Sprite[] sprites;
-    DeckManager dm;
+    //DeckManager dm;
     static int totalNumCard = 30;
 
     void Start(){
