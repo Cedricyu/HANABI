@@ -33,6 +33,7 @@ public class DeckManager : MonoBehaviour
     // Update is called once per frame
     private void generateCards()
     {
+        int cnt =0;
         for (int i = 0; i < colors_.Count ; i++)
         {
            for(int j=0 ; j < 5 ; j++ ){
@@ -61,7 +62,7 @@ public class DeckManager : MonoBehaviour
                     string CardName = colors_[i] + " " + (j+1);
                     GameObject newCardObject = new GameObject(CardName);
                     newCardObject.transform.SetParent(parentTransform);
-                    newCardObject.transform.position = this.transform.position;
+                    newCardObject.transform.position = new Vector3((float)(this.transform.position.x - 0.01 *cnt),(float) (this.transform.position.y + 0.01*cnt) , (float)(this.transform.position.z));
                     SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
                     Card CardObject = null;
                     switch (i)
@@ -94,6 +95,7 @@ public class DeckManager : MonoBehaviour
                     CardSprite.sprite = mySprite;
 
                     Deck.Add(CardObject);
+                    cnt+=1;
                 }
            }
         }
