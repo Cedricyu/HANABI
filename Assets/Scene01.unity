@@ -171,7 +171,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Deck: []
   discard: []
-  Card: {fileID: 914273650}
+  sprites:
+  - {fileID: -2046621808, guid: b922d3369baae4e479ff1294d644fb88, type: 3}
+  - {fileID: 871237640, guid: b922d3369baae4e479ff1294d644fb88, type: 3}
+  - {fileID: -50235737, guid: b922d3369baae4e479ff1294d644fb88, type: 3}
+  - {fileID: 1091858922, guid: b922d3369baae4e479ff1294d644fb88, type: 3}
+  - {fileID: 960540728, guid: b922d3369baae4e479ff1294d644fb88, type: 3}
+  - {fileID: -1517973395, guid: b922d3369baae4e479ff1294d644fb88, type: 3}
   colors_: []
 --- !u!212 &330053192
 SpriteRenderer:
@@ -495,17 +501,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 467631e9e51688d4898d5ed3988b7635, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &914273650 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4460358307117720847, guid: 1fd617f91b6b1ef4dade1be11945ae0c, type: 3}
-  m_PrefabInstance: {fileID: 4460358307420852349}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be1657132d8334c56894f815b6a424e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &914273652 stripped
@@ -988,6 +983,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4460358307117720846, guid: 1fd617f91b6b1ef4dade1be11945ae0c, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460358307117720847, guid: 1fd617f91b6b1ef4dade1be11945ae0c, type: 3}
+      propertyPath: color_
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460358307117720847, guid: 1fd617f91b6b1ef4dade1be11945ae0c, type: 3}
+      propertyPath: number_
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
