@@ -69,23 +69,23 @@ public class DeckManager : MonoBehaviour
                     {
                         case 0:
                             CardObject = newCardObject.AddComponent<redCard>();
-                            CardObject.GetComponent<redCard>().cardInit(j);
+                            CardObject.GetComponent<redCard>().cardInit(j+1);
                             break;
                         case 1:
                             CardObject = newCardObject.AddComponent<blueCard>();
-                            CardObject.GetComponent<blueCard>().cardInit(j);
+                            CardObject.GetComponent<blueCard>().cardInit(j+1);
                             break;
                         case 2:
                             CardObject = newCardObject.AddComponent<yellowCard>();
-                            CardObject.GetComponent<yellowCard>().cardInit(j);
+                            CardObject.GetComponent<yellowCard>().cardInit(j+1);
                             break;
                         case 3:
                             CardObject = newCardObject.AddComponent<whiteCard>();
-                            CardObject.GetComponent<whiteCard>().cardInit(j);
+                            CardObject.GetComponent<whiteCard>().cardInit(j+1);
                             break;
                         case 4:
                             CardObject = newCardObject.AddComponent<greenCard>();
-                            CardObject.GetComponent<greenCard>().cardInit(j);
+                            CardObject.GetComponent<greenCard>().cardInit(j+1);
                             break;
                         default:
                             break;
