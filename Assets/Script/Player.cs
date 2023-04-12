@@ -23,18 +23,20 @@ public class Player : MonoBehaviour
     }
 
     public void drawCard(){
-        if(Hands.Count > 5 )
+        if(Hands.Count > hand_max )
             return;
         Card newCard = DeckManager.Instance.DrawCard();
         Debug.Log("draw one card");
         Hands.Add(newCard);
-        // int place = 0;
-        Vector3 move = newCard.transform.position;
-        move = new Vector3(-6f, move.y, move.z);
-        newCard.transform.position = move;
-    
-        
-
+    }
+    public void playCard(){
+        if(FieldManager.Instance.canPlay(Hands[Hands.Count-1])){
+            Debug.Log(true);
+        }
+        else{
+            Debug.Log(false);
+        }
+        Hands.Remove(Hands[Hands.Count-1]);
     }
 
 }
