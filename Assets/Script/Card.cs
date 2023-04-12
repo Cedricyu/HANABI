@@ -10,6 +10,7 @@ public class Card : MonoBehaviour
     public Sprite[] sprites;
     DeckManager dm;
     static int totalNumCard = 30;
+    Player player; // who owns card
 
     void Start(){
         dm = FindObjectOfType<DeckManager>();
@@ -35,7 +36,7 @@ public class Card : MonoBehaviour
     }
     
     public void Play(){
-
+        
     }
     public Card(string color, int number){
         color_  = color;
