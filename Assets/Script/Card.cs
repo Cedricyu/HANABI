@@ -9,19 +9,13 @@ public class Card : MonoBehaviour
     [SerializeField] protected string color_ ;
     
     DeckManager dm;
-    static int totalNumCard = 30;
-
+    
     protected virtual void Start(){
         dm = FindObjectOfType<DeckManager>();
     }
 
     public int getNumber(){
         return number_;
-    }
-
-    public void ChangeNumber(int n){
-        number_ = n;
-        return;
     }
 
     public string getColor(){
