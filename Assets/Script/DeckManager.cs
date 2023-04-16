@@ -61,8 +61,12 @@ public class DeckManager : MonoBehaviour
                 for(int k=0 ; k < number_of_card ; k++ ){
                     string CardName = colors_[i] + " " + (j+1);
                     GameObject newCardObject = new GameObject(CardName);
+                    BoxCollider2D collider = newCardObject.AddComponent<BoxCollider2D>();
+                    collider.size = new Vector3(2f, 2f, 2f);
+
                     newCardObject.transform.SetParent(parentTransform);
                     newCardObject.transform.position = new Vector3((float)(this.transform.position.x - 0.01 *cnt),(float) (this.transform.position.y + 0.01*cnt) , (float)(this.transform.position.z));
+                    newCardObject.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
                     SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
                     Card CardObject = null;
                     switch (i)
