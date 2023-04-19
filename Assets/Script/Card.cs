@@ -26,4 +26,10 @@ public class Card : MonoBehaviour
         number_ = n;
         return;
     }
+    void OnMouseDown()
+    {
+        // Destroy the gameObject after clicking on it
+        Debug.Log("clicked !");
+        Destroy(gameObject);
+    }
 }
