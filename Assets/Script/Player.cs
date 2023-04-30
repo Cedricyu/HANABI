@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static Player instance_;
     [SerializeField] List<Card> Hands;
     int[] position = new int[]{-6, -4, -2, 0, 2, 4};
     static int hand_max = 5;
     GameObject Card;
     int position_count = 0;
+    private PhotonView _pv;
     //DeckManager DM;
-    
+
+    private void Awake()
+    {
+        instance_ = this;
+    }
     void Start()
     {
-        
+        _pv = GetComponent<PhotonView>();
+        if (!_pv.IsMine)
+            Destroy(this);
     }
 
     // Update is called once per frame

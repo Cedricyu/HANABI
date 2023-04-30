@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class DeckManager : MonoBehaviour
 {
@@ -64,10 +65,12 @@ public class DeckManager : MonoBehaviour
                     BoxCollider2D collider = newCardObject.AddComponent<BoxCollider2D>();
                     collider.size = new Vector3(2f, 2f, 2f);
 
+                    newCardObject.AddComponent<PhotonView>();
                     newCardObject.transform.SetParent(parentTransform);
                     newCardObject.transform.position = new Vector3((float)(this.transform.position.x - 0.01 *cnt),(float) (this.transform.position.y + 0.01*cnt) , (float)(this.transform.position.z));
                     newCardObject.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
                     SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
+                    CardSprite.sortingOrder = 1;
                     Card CardObject = null;
                     switch (i)
                     {
