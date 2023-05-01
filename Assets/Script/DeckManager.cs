@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class DeckManager : MonoBehaviour
+public class DeckManager : MonoBehaviourPun
 {
     // Start is called before the first frame update
+  
     [SerializeField] List<Card> Deck = new List<Card>();
+    [SerializeField] List<int> cardIds;
     public static DeckManager Instance;
 
     public List<Card> discard;
@@ -64,32 +67,34 @@ public class DeckManager : MonoBehaviour
                     BoxCollider2D collider = newCardObject.AddComponent<BoxCollider2D>();
                     collider.size = new Vector3(2f, 2f, 2f);
 
+                    newCardObject.AddComponent<PhotonView>();
                     newCardObject.transform.SetParent(parentTransform);
                     newCardObject.transform.position = new Vector3((float)(this.transform.position.x - 0.01 *cnt),(float) (this.transform.position.y + 0.01*cnt) , (float)(this.transform.position.z));
                     newCardObject.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
                     SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
+                    CardSprite.sortingOrder = 1;
                     Card CardObject = null;
                     switch (i)
                     {
                         case 0:
                             CardObject = newCardObject.AddComponent<redCard>();
-                            CardObject.GetComponent<redCard>().cardInit(j+1);
+                            CardObject.GetComponent<redCard>().cardInit(j+1,cnt);
                             break;
                         case 1:
                             CardObject = newCardObject.AddComponent<blueCard>();
-                            CardObject.GetComponent<blueCard>().cardInit(j+1);
+                            CardObject.GetComponent<blueCard>().cardInit(j+1,cnt);
                             break;
                         case 2:
                             CardObject = newCardObject.AddComponent<yellowCard>();
-                            CardObject.GetComponent<yellowCard>().cardInit(j+1);
+                            CardObject.GetComponent<yellowCard>().cardInit(j+1,cnt);
                             break;
                         case 3:
                             CardObject = newCardObject.AddComponent<whiteCard>();
-                            CardObject.GetComponent<whiteCard>().cardInit(j+1);
+                            CardObject.GetComponent<whiteCard>().cardInit(j+1,cnt);
                             break;
                         case 4:
                             CardObject = newCardObject.AddComponent<greenCard>();
-                            CardObject.GetComponent<greenCard>().cardInit(j+1);
+                            CardObject.GetComponent<greenCard>().cardInit(j+1,cnt);
                             break;
                         default:
                             break;
@@ -98,7 +103,9 @@ public class DeckManager : MonoBehaviour
                     Sprite mySprite = sprites[j];
                     CardSprite.sprite = mySprite;
 
+                    GameManager.instance_.objectPool_.Add(CardObject);
                     Deck.Add(CardObject);
+                    cardIds.Add(cnt);
                     cnt+=1;
                 }
            }
@@ -115,8 +122,37 @@ public class DeckManager : MonoBehaviour
         Card randomCard = Deck[Random.Range(0, Deck.Count)];
 
         Deck.Remove(randomCard);
+        cardIds.Remove(randomCard.getId());
+        sendMessage(randomCard.getId());
 
         return randomCard;
     }
+    private void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
+    }
+
+    private void NetworkingClient_EventReceived(ExitGames.Client.Photon.EventData obj)
+    {
+        if (obj.Code == 0)
+        {
+            object[] datas = (object[])obj.CustomData;
+            int cardId = (int)datas[0];
+            cardIds.Remove(cardId);
+            Deck.Remove(GameManager.instance_.GetCardbyId(cardId));
+        }
+    }
+
+    private void sendMessage(int cardId)
+    {
+        object[] datas = new object[] { cardId };
+        PhotonNetwork.RaiseEvent(0, datas, Photon.Realtime.RaiseEventOptions.Default, ExitGames.Client.Photon.SendOptions.SendUnreliable);
+    }
+
 
 }
