@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class GamesceneManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
-
     void Start()
     {
         if(PhotonNetwork.CurrentRoom == null)

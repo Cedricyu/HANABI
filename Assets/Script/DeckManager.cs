@@ -123,36 +123,23 @@ public class DeckManager : MonoBehaviourPun
 
         Deck.Remove(randomCard);
         cardIds.Remove(randomCard.getId());
-        sendMessage(randomCard.getId());
+        CallRPC(randomCard.getId());
 
         return randomCard;
     }
-    private void OnEnable()
+
+    public void CallRPC(int id)
     {
-        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
+        this.photonView.RPC("ReceiveData",RpcTarget.All ,id);
     }
 
-    private void OnDisable()
+    [PunRPC]
+    void ReceiveData(int id)
     {
-        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
+        cardIds.Remove(id);
+        Deck.Remove(GameManager.instance_.GetCardbyId(id));
+        return;
     }
-
-    private void NetworkingClient_EventReceived(ExitGames.Client.Photon.EventData obj)
-    {
-        if (obj.Code == 0)
-        {
-            object[] datas = (object[])obj.CustomData;
-            int cardId = (int)datas[0];
-            cardIds.Remove(cardId);
-            Deck.Remove(GameManager.instance_.GetCardbyId(cardId));
-        }
-    }
-
-    private void sendMessage(int cardId)
-    {
-        object[] datas = new object[] { cardId };
-        PhotonNetwork.RaiseEvent(0, datas, Photon.Realtime.RaiseEventOptions.Default, ExitGames.Client.Photon.SendOptions.SendUnreliable);
-    }
-
+    
 
 }

@@ -10,12 +10,5 @@ public class drawButton : MonoBehaviour
     void Start()
     {
         mybutton_ = GetComponent<Button>();
-        mybutton_.onClick.AddListener(onClick);
-    }
-
-    void onClick()
-    {
-        print("click");
-        Player.instance_.drawCard();
     }
 }
