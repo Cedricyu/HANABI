@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    public drawButton db;
     public List<Card> objectPool_;
     public static GameManager instance_;
 

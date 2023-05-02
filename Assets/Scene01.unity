@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046a8f89cad2b95458f0c82603f1df20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  db: {fileID: 1045522803}
   objectPool_: []
 --- !u!4 &98795203
 Transform:
@@ -215,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Deck: []
+  cardIds: 
   discard: []
   sprites:
   - {fileID: -2046621808, guid: b922d3369baae4e479ff1294d644fb88, type: 3}
