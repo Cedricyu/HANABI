@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public abstract class Card : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private int id_;
@@ -12,7 +12,7 @@ public class Card : MonoBehaviour
     DeckManager dm;
     
     protected virtual void Start(){
-        dm = FindObjectOfType<DeckManager>();
+        dm = DeckManager.Instance;
     }
 
     public int getNumber(){
@@ -36,6 +36,11 @@ public class Card : MonoBehaviour
     {
         // Destroy the gameObject after clicking on it
         Debug.Log("clicked !");
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
+
+   public virtual void GernerateHints()
+   {
+
+   }
 }

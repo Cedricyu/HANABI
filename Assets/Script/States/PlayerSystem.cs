@@ -69,6 +69,7 @@ public class PlayerSystem : StateMeachine
 
         print(_pv.ViewID);
         Hands.Add(newCard);
+        UpdatePlayerHands(0, newCard.getId());
 
         position_count = position_count + 1;
         if (position_count > 5)
@@ -76,6 +77,11 @@ public class PlayerSystem : StateMeachine
             position_count = 0;
         }
         return true;
+    }
+
+    public void UpdatePlayerHands(int option, int id)
+    {
+        PhotonView.Get(this).RPC("UpdateHands", RpcTarget.All, option, id);
     }
 
     public bool PlayCard()
