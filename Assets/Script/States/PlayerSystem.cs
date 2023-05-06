@@ -41,9 +41,12 @@ public class PlayerSystem : StateMeachine
     {
         stateView = GetState().GetType().ToString();
     }
+
     [PunRPC]
     public void StartTurn()
     {
+        if (!_pv.IsMine)
+            return;
         GameManager.instance_.db.gameObject.SetActive(true);
         SetState(new PlayerTurn(this));
     }
