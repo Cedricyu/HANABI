@@ -33,11 +33,12 @@ public class Player : MonoBehaviour
 
     public async void StartTurn()
     {
-        if (!pv_.IsMine)
-            return ;
-        PhotonView.Get(this).RPC("StartTurn", RpcTarget.All);
-        await Turn();
-        EndTurn();
+        if (pv_.IsMine)
+        {
+            PhotonView.Get(this).RPC("StartTurn", RpcTarget.All);
+            await Turn();
+            EndTurn();
+        }
     }
 
     public async Task Turn()
