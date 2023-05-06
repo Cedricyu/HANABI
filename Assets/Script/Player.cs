@@ -4,12 +4,20 @@ using System;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
-
+using System.Threading.Tasks;
 
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] List<Card> Hands;
+    private PhotonView pv_;
+    private PlayerSystem player_;
+
+    public void Start()
+    {
+        pv_ = GetComponent<PhotonView>();
+        player_ = GetComponent<PlayerSystem>();
+    }
 
 
     [PunRPC]
@@ -23,5 +31,26 @@ public class Player : MonoBehaviour
         else if(option == 1){
             Hands.Remove(GameManager.instance_.GetCardbyId(id));
         }
+    }
+
+    public async void StartTurn()
+    {
+        PhotonView.Get(this).RPC("StartTurn", RpcTarget.All);
+        await Turn();
+        EndTurn();
+    }
+
+    public async Task Turn()
+    {
+
+        while( !(player_.GetState() is EndTurn) ) {
+            Debug.Log(player_.GetState());
+            await Task.Delay(1000);
+        }
+    }
+
+    public void EndTurn()
+    {
+        player_.EndTurn();
     }
 }

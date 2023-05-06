@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State
+[System.Serializable]
+public abstract class State 
 {
     //public void setState(State newstate);
     protected PlayerSystem player_;

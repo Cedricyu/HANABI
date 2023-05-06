@@ -136,7 +136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hands: []
+  stateView: 
   hand_max: 5
+  active: 0
 --- !u!1 &2372236552087520034
 GameObject:
   m_ObjectHideFlags: 0

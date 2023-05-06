@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using System;
 
 public class PlayerSystem : StateMeachine
 {
     // Start is called before the first frame update
     [SerializeField] List<Card> Hands;
+    [SerializeField] string stateView ;
+
     private Player player_;
     public Player Player_ { get { return player_; } }
     int[] position = new int[] { -6, -4, -2, 0, 2, 4 };
@@ -16,6 +19,8 @@ public class PlayerSystem : StateMeachine
     int position_count = 0;
     private PhotonView _pv;
     private Button button;
+
+    public bool active =  false;
     //DeckManager DM;
 
     void Start()
@@ -23,17 +28,27 @@ public class PlayerSystem : StateMeachine
         player_ = GetComponent<Player>();
         _pv = GetComponent<PhotonView>();
         if (!_pv.IsMine)
-            Destroy(this);
+            SetState(new EnemyTurn(this));
         button = GameManager.instance_.db.GetComponent<Button>();
         button.onClick.AddListener(OnDrawButton);
-
-        SetState(new PlayerTurn(this));
+        GameManager.instance_.AddPlayer(this.GetComponent<Player>());
+        SetState(new EnemyTurn(this));
+        Debug.Log(state_);
     }
 
     // Update is called once per frame
     void Update()
     {
+        stateView = GetState().GetType().ToString();
+    }
 
+    [PunRPC]
+    public void StartTurn()
+    {
+        if (!_pv.IsMine)
+            return;
+        GameManager.instance_.db.gameObject.SetActive(true);
+        SetState(new PlayerTurn(this));
     }
 
     void OnDrawButton()
@@ -102,6 +117,11 @@ public class PlayerSystem : StateMeachine
     public bool Discard()
     {
         return true;
+    }
+
+    public void EndTurn()
+    {
+        StartCoroutine(state_.End());
     }
 
 }

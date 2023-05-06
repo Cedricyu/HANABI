@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerTurn : State 
 {
     public PlayerTurn(PlayerSystem player) : base(player) { }
@@ -13,6 +14,7 @@ public class PlayerTurn : State
 
         }
         player_.SetState(new EndTurn(player_));
+        Debug.Log("player turn to end state");
         yield return new WaitForSeconds(1f);
     }
 
@@ -26,6 +28,7 @@ public class PlayerTurn : State
             }
         }
         player_.SetState(new EndTurn(player_));
+        Debug.Log("player turn to end state");
         yield return new WaitForSeconds(1f);
     }
 
