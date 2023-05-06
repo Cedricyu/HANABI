@@ -13,7 +13,13 @@ public class DeckManager : MonoBehaviourPun
 
     public List<Card> discard;
 
-    public Sprite[] sprites;
+    public List<Sprite[]> CardImages = new List<Sprite[]>();
+
+    [SerializeField] Sprite[] white;
+    [SerializeField] Sprite[] red;
+    [SerializeField] Sprite[] green;
+    [SerializeField] Sprite[] blue;
+    [SerializeField] Sprite[] yellow;
 
 
     public List<string> colors_;
@@ -30,6 +36,12 @@ public class DeckManager : MonoBehaviourPun
         colors_.Add("yellow");
         colors_.Add("white");
         colors_.Add("green");
+
+        CardImages.Add(red);
+        CardImages.Add(blue);
+        CardImages.Add(yellow);
+        CardImages.Add(white);
+        CardImages.Add(green);
         generateCards();
     }
 
@@ -70,7 +82,7 @@ public class DeckManager : MonoBehaviourPun
                     newCardObject.AddComponent<PhotonView>();
                     newCardObject.transform.SetParent(parentTransform);
                     newCardObject.transform.position = new Vector3((float)(this.transform.position.x - 0.01 *cnt),(float) (this.transform.position.y + 0.01*cnt) , (float)(this.transform.position.z));
-                    newCardObject.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
+                    newCardObject.transform.localScale = new Vector3(0.2f,0.2f,0.2f);
                     SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
                     CardSprite.sortingOrder = 1;
                     Card CardObject = null;
@@ -100,7 +112,7 @@ public class DeckManager : MonoBehaviourPun
                             break;
                     }
                 
-                    Sprite mySprite = sprites[j];
+                    Sprite mySprite = CardImages[i][j];
                     CardSprite.sprite = mySprite;
 
                     GameManager.instance_.objectPool_.Add(CardObject);
