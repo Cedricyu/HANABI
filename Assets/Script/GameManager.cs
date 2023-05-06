@@ -13,12 +13,10 @@ public class GameManager : MonoBehaviour
     public List<Player> players_ = new List<Player>();
     public static GameManager instance_;
     private int playerIndex = 0;
-    private bool game_running;
     private void Start()
     {
         instance_ = this;
         StartCoroutine(InitGame());
-        game_running = true;
     }
 
     public Player FindPlayerInView(Photon.Realtime.Player myPlayer)
@@ -33,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator InitGame()
     {
-        yield return new WaitUntil(() => players_views.Count == 2 );
+        yield return new WaitUntil(() => players_views.Count == PhotonNetwork.CurrentRoom.PlayerCount);
         foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
             players_.Add(FindPlayerInView(player));

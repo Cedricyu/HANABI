@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 public class GamesceneManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
-        var tasks = new List<Task>();
         if(PhotonNetwork.CurrentRoom == null)
         {
             SceneManager.LoadScene("LobbyScene");
