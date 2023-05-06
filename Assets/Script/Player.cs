@@ -11,10 +11,12 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] List<Card> Hands;
     private PhotonView pv_;
+    private PlayerSystem player_;
 
     public void Start()
     {
         pv_ = GetComponent<PhotonView>();
+        player_ = GetComponent<PlayerSystem>();
     }
 
 
@@ -41,14 +43,14 @@ public class Player : MonoBehaviour
     public async Task Turn()
     {
 
-        while( !(GetComponent<PlayerSystem>().GetState() is EndTurn) ) {
-            Debug.Log(GetComponent<PlayerSystem>().GetState());
+        while( !(player_.GetState() is EndTurn) ) {
+            Debug.Log(player_.GetState());
             await Task.Delay(1000);
         }
     }
 
     public void EndTurn()
     {
-        GameManager.instance_.TurnEnds();
+        player_.EndTurn();
     }
 }

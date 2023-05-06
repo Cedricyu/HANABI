@@ -9,7 +9,8 @@ public class EndTurn : State
 
     public override IEnumerator End()
     {
-        player_.Player_.EndTurn();
+        player_.SetState(new EnemyTurn(player_));
+        GameManager.instance_.TurnEnds();
         return base.End();
     }
 }

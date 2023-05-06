@@ -119,11 +119,9 @@ public class PlayerSystem : StateMeachine
         return true;
     }
 
-    [PunRPC]
     public void EndTurn()
     {
-        SetState(new EnemyTurn(this));
-        GameManager.instance_.db.gameObject.SetActive(false);
+        StartCoroutine(state_.End());
     }
 
 }
