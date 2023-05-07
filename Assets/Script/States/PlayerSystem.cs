@@ -14,13 +14,13 @@ public class PlayerSystem : StateMeachine
     private Player player_;
     public Player Player_ { get { return player_; } }
     int[] position = new int[] { -6, -4, -2, 0, 2, 4 };
-    public int hand_max = 5;
+    [HideInInspector] public int hand_max = 5;
     GameObject Card;
     int position_count = 0;
     private PhotonView _pv;
     private Button button;
 
-    public bool active =  false;
+    [HideInInspector] public bool active =  false;
     //DeckManager DM;
 
     void Start()

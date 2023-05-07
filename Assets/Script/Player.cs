@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] List<Card> Hands;
+    public List<Card> Hands;
     private PhotonView pv_;
     private PlayerSystem player_;
 
@@ -17,6 +17,11 @@ public class Player : MonoBehaviour
     {
         pv_ = GetComponent<PhotonView>();
         player_ = GetComponent<PlayerSystem>();
+
+        // test code
+        if (!pv_.IsMine)
+            Enemy.instance_.AddPlayer(this);
+        ///
     }
 
 
@@ -45,7 +50,7 @@ public class Player : MonoBehaviour
 
         while( !(player_.GetState() is EndTurn) ) {
             Debug.Log(player_.GetState());
-            await Task.Delay(1000);
+            await Task.Delay(5000);
         }
     }
 
