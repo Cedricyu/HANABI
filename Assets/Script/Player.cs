@@ -13,6 +13,11 @@ public class Player : MonoBehaviour
     private PhotonView pv_;
     private PlayerSystem player_;
 
+    private void FixedUpdate()
+    {
+        Hands = player_.GetHands;
+    }
+
     public void Start()
     {
         pv_ = GetComponent<PhotonView>();
@@ -20,22 +25,10 @@ public class Player : MonoBehaviour
 
         // test code
         if (!pv_.IsMine)
-            Enemy.instance_.AddPlayer(this);
+            GameManager.instance_.SetEnemy(this);
+        else
+            GameManager.instance_.SetPlayer(this);
         ///
-    }
-
-
-    [PunRPC]
-    public void UpdateHands(int option,int id, PhotonMessageInfo info)
-    {
-        Debug.Log("Info : ", info.photonView);
-        if(option == 0)
-        {
-            Hands.Add(GameManager.instance_.GetCardbyId(id));
-        }
-        else if(option == 1){
-            Hands.Remove(GameManager.instance_.GetCardbyId(id));
-        }
     }
 
     public async void StartTurn()
