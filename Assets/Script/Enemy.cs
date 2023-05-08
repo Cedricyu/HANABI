@@ -7,11 +7,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] List<Transform> transforms_;
     [SerializeField] Player player_;
 
-    public static Enemy instance_; 
+    //public static Enemy instance_; 
    
     private void Start()
     {
-        instance_ = this;
+        //nstance_ = this;
     }
 
     private void FixedUpdate()

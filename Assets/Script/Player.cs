@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
         // test code
         if (!pv_.IsMine)
-            Enemy.instance_.AddPlayer(this);
+            GameManager.instance_.SetEnemy(this);
         ///
     }
 

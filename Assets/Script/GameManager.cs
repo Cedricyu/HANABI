@@ -11,12 +11,19 @@ public class GameManager : MonoBehaviour
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
+    public List<Enemy> enemies_ = new List<Enemy>();
     public static GameManager instance_;
     private int playerIndex = 0;
+    private int enemyIndex = 0;
     private void Start()
     {
         instance_ = this;
         StartCoroutine(InitGame());
+    }
+
+    public void SetEnemy(Player p)
+    {
+        enemies_[enemyIndex++].AddPlayer(p);
     }
 
     public Player FindPlayerInView(Photon.Realtime.Player myPlayer)
