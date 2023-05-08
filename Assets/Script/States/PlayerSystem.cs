@@ -77,17 +77,9 @@ public class PlayerSystem : StateMeachine
         if (Hands.Count > hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        Debug.Log("draw one card");
-
-        print(_pv.ViewID);
-        //Hands.Add(newCard);
+        
         UpdatePlayerHands(0, newCard.getId());
 
-        position_count = position_count + 1;
-        if (position_count > 5)
-        {
-            position_count = 0;
-        }
         return true;
     }
 
