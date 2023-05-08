@@ -9,6 +9,7 @@ public class PlayerSystem : StateMeachine
 {
     // Start is called before the first frame update
     [SerializeField] List<Card> Hands;
+    public List<Card> GetHands { get { return Hands; } }
     [SerializeField] string stateView ;
 
     private Player player_;
@@ -79,7 +80,7 @@ public class PlayerSystem : StateMeachine
         Debug.Log("draw one card");
 
         print(_pv.ViewID);
-        Hands.Add(newCard);
+        //Hands.Add(newCard);
         UpdatePlayerHands(0, newCard.getId());
 
         position_count = position_count + 1;
@@ -93,6 +94,20 @@ public class PlayerSystem : StateMeachine
     public void UpdatePlayerHands(int option, int id)
     {
         PhotonView.Get(this).RPC("UpdateHands", RpcTarget.All, option, id);
+    }
+
+    [PunRPC]
+    public void UpdateHands(int option, int id, PhotonMessageInfo info)
+    {
+        Debug.Log("Info : ", info.photonView);
+        if (option == 0)
+        {
+            Hands.Add(GameManager.instance_.GetCardbyId(id));
+        }
+        else if (option == 1)
+        {
+            Hands.Remove(GameManager.instance_.GetCardbyId(id));
+        }
     }
 
     public bool PlayCard()
