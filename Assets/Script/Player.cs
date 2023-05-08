@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
         // test code
         if (!pv_.IsMine)
             GameManager.instance_.SetEnemy(this);
+        else
+            GameManager.instance_.SetPlayer(this);
         ///
     }
 

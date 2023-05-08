@@ -13,7 +13,7 @@ public class PlayerSystem : StateMeachine
 
     private Player player_;
     public Player Player_ { get { return player_; } }
-    int[] position = new int[] { -6, -4, -2, 0, 2, 4 };
+
     [HideInInspector] public int hand_max = 5;
     GameObject Card;
     int position_count = 0;
@@ -77,10 +77,6 @@ public class PlayerSystem : StateMeachine
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
         Debug.Log("draw one card");
-        Vector3 move = newCard.transform.position;
-        move.x = position[position_count];
-        move.y = -1;
-        newCard.transform.position = move;
 
         print(_pv.ViewID);
         Hands.Add(newCard);

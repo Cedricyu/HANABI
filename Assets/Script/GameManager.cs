@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
     public List<Enemy> enemies_ = new List<Enemy>();
+    public Enemy player_;
     public static GameManager instance_;
     private int playerIndex = 0;
     private int enemyIndex = 0;
@@ -26,6 +27,10 @@ public class GameManager : MonoBehaviour
         enemies_[enemyIndex++].AddPlayer(p);
     }
 
+    public void SetPlayer(Player p)
+    {
+        player_.AddPlayer(p);
+    }
     public Player FindPlayerInView(Photon.Realtime.Player myPlayer)
     {
         foreach (PhotonView photonView in players_views)
