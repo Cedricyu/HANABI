@@ -15,9 +15,8 @@ public class PlayerSystem : StateMeachine
     private Player player_;
     public Player Player_ { get { return player_; } }
 
-    [HideInInspector] public int hand_max = 5;
+    private int hand_max = 5;
     GameObject Card;
-    int position_count = 0;
     private PhotonView _pv;
     private Button button;
 
