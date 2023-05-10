@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class StartSceneManager : MonoBehaviourPunCallbacks
 {
     public void OnclickStart() {
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
         print("click start");
     }
