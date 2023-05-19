@@ -18,7 +18,8 @@ public class PlayerSystem : StateMeachine
     private int hand_max = 5;
     GameObject Card;
     private PhotonView _pv;
-    private Button button;
+    private Button drawbutton;
+    private Button playbutton;
 
     [HideInInspector] public bool active =  false;
     //DeckManager DM;
@@ -29,8 +30,10 @@ public class PlayerSystem : StateMeachine
         _pv = GetComponent<PhotonView>();
         if (!_pv.IsMine)
             SetState(new EnemyTurn(this));
-        button = GameManager.instance_.db.GetComponent<Button>();
-        button.onClick.AddListener(OnDrawButton);
+        drawbutton = GameManager.instance_.db.GetComponent<Button>();
+        drawbutton.onClick.AddListener(OnDrawButton);
+        playbutton = GameManager.instance_.pb.GetComponent<Button>();
+        playbutton.onClick.AddListener(OnPlayButton);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new EnemyTurn(this));
         Debug.Log(state_);
@@ -73,7 +76,7 @@ public class PlayerSystem : StateMeachine
 
     public bool DrawCard()
     {
-        if (Hands.Count > hand_max)
+        if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
         
@@ -103,14 +106,15 @@ public class PlayerSystem : StateMeachine
 
     public bool PlayCard()
     {
-        Hands.Remove(Hands[Hands.Count - 1]);
         if (FieldManager.Instance.canPlay(Hands[Hands.Count - 1]))
         {
+            Hands.Remove(Hands[Hands.Count - 1]);
             Debug.Log(true);
             return true;
         }
         else
         {
+            Hands.Remove(Hands[Hands.Count - 1]);
             Debug.Log(false);
             return false;
         }

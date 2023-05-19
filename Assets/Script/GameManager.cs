@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public drawButton db;
+    public playButton pb;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
