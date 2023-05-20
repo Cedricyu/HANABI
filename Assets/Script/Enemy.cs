@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
             {
                 Card tmp = player_.Hands[i];
                 tmp.transform.position = transforms_[i].position;
+                tmp.transform.rotation = transforms_[i].rotation;
             }
     }
 
