@@ -10,18 +10,19 @@ public class PlayerSystem : StateMeachine
     // Start is called before the first frame update
     [SerializeField] List<Card> Hands;
     public List<Card> GetHands { get { return Hands; } }
-    [SerializeField] string stateView ;
+    [SerializeField] string stateView;
 
     private Player player_;
     public Player Player_ { get { return player_; } }
 
     private int hand_max = 5;
     GameObject Card;
+    public int play_id;
     private PhotonView _pv;
     private Button drawbutton;
     private Button playbutton;
 
-    [HideInInspector] public bool active =  false;
+    [HideInInspector] public bool active = false;
     //DeckManager DM;
 
     void Start()
@@ -59,7 +60,7 @@ public class PlayerSystem : StateMeachine
         StartCoroutine(state_.DrawCard());
         //drawCard();
     }
-    
+
     void OnPlayButton()
     {
         StartCoroutine(state_.PlayCard());
@@ -79,7 +80,7 @@ public class PlayerSystem : StateMeachine
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        
+
         UpdatePlayerHands(0, newCard.getId());
 
         return true;
