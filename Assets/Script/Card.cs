@@ -45,11 +45,11 @@ public abstract class Card : MonoBehaviour
     }
     void OnMouseDown()
     {
-        player_ = GetComponent<PlayerSystem>();
+        this.transform.Translate(new Vector3(0, 0.5f));
         // Destroy the gameObject after clicking on it
-        // transform.position += Vector3.up * 5;
         Debug.Log("clicked !");
-        player_.play_id = id_;
+        player_.SetClickCardId(id_);
+        Debug.Log(id_);
         //Destroy(gameObject);
     }
 
