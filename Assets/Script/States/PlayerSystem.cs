@@ -136,7 +136,23 @@ public class PlayerSystem : StateMeachine
 
     public bool Discard()
     {
-        return true;
+        if (clickcard_id == -1)
+        {
+            Debug.Log("No click card operation");
+            return false;
+        }
+
+        if (FieldManager.Instance.canDiscard(GameManager.instance_.GetCardbyId(clickcard_id)))
+        {
+            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
+            Debug.Log("Discard success");
+            return true;
+        }
+        else
+        {
+            Debug.Log("Discard false");
+            return false;
+        }
     }
 
     public void EndTurn()
