@@ -81,6 +81,7 @@ public class PlayerSystem : StateMeachine
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
         newCard.SetPlayer(this);
+        newCard.SetClickable(true);
 
         UpdatePlayerHands(0, newCard.getId());
 
