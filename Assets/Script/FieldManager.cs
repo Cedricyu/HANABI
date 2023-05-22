@@ -79,6 +79,20 @@ public class FieldManager : MonoBehaviourPun
         }
         return true;
     }
+    public bool canDiscard(Card playCard)
+    {
+        if (true) //TODO: determine hint Point is full or not 
+        {
+            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 5);
+            AdjustLayerOrder(playCard, discardPile);
+            //TODO: hint Point + 1
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
     [PunRPC]
