@@ -17,12 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: cc538df94e0e7984d818ba1928b08743
   m_SerializeEntries:
-  - m_GUID: 80fa17689669b6b43a8e7a934e61e259
-    m_Address: Assets/Sprites/blue.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 02873a59fd9cfd148800406356b6b3ba
     m_Address: Assets/Sprites
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e9d1aa015430ed04bb72451bc0c8bc45
+    m_Address: blue
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
