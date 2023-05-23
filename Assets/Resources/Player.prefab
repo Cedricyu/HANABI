@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hands: []
   stateView: 
+  play_id: 0
   active: 0
 --- !u!1 &2372236552087520034
 GameObject:

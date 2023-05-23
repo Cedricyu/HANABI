@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: cc538df94e0e7984d818ba1928b08743
+  m_SerializeEntries:
+  - m_GUID: 80fa17689669b6b43a8e7a934e61e259
+    m_Address: Assets/Sprites/blue.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 02873a59fd9cfd148800406356b6b3ba
+    m_Address: Assets/Sprites
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7c553554c51b12a4ea921b41ba9f108e, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ce65b2b3767bdc946ad61d48a6fb04c3, type: 2}
+    - {fileID: 11400000, guid: 57986ed49ffafaf42974ed4e47d92fc3, type: 2}

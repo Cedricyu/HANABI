@@ -10,4 +10,8 @@ public class greenCard : Card
         base.Start(); // Call the base class Start() method first
         color_ = "Green"; // Initialize the color_ variable in the derived class
     }
+    public override void GernerateHints(){
+        base.GernerateHints();//先創數字hint
+        
+    }
 }
