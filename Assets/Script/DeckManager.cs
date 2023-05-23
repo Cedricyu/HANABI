@@ -6,7 +6,7 @@ using Photon.Pun;
 public class DeckManager : MonoBehaviourPun
 {
     // Start is called before the first frame update
-  
+
     [SerializeField] List<Card> Deck = new List<Card>();
     [SerializeField] List<int> cardIds;
     public static DeckManager Instance;
@@ -24,7 +24,7 @@ public class DeckManager : MonoBehaviourPun
 
     public List<string> colors_;
 
-    Transform parentTransform ;
+    Transform parentTransform;
 
     void Start()
     {
@@ -48,13 +48,15 @@ public class DeckManager : MonoBehaviourPun
     // Update is called once per frame
     private void generateCards()
     {
-        int cnt =0;
-        for (int i = 0; i < colors_.Count ; i++)
+        int cnt = 0;
+        for (int i = 0; i < colors_.Count; i++)
         {
-           for(int j=0 ; j < 5 ; j++ ){
-                int number_of_card =0;
+            for (int j = 0; j < 5; j++)
+            {
+                int number_of_card = 0;
 
-                switch (j){
+                switch (j)
+                {
                     case 0:
                         number_of_card = 3;
                         break;
@@ -68,21 +70,22 @@ public class DeckManager : MonoBehaviourPun
                         number_of_card = 2;
                         break;
                     case 4:
-                        number_of_card  =1;
+                        number_of_card = 1;
                         break;
                     default:
                         break;
                 }
-                for(int k=0 ; k < number_of_card ; k++ ){
-                    string CardName = colors_[i] + " " + (j+1);
+                for (int k = 0; k < number_of_card; k++)
+                {
+                    string CardName = colors_[i] + " " + (j + 1);
                     GameObject newCardObject = new GameObject(CardName);
                     BoxCollider2D collider = newCardObject.AddComponent<BoxCollider2D>();
-                    collider.size = new Vector3(2f, 2f, 2f);
+                    collider.size = new Vector3(9f, 12f, 2f);
 
                     newCardObject.AddComponent<PhotonView>();
                     newCardObject.transform.SetParent(parentTransform);
-                    newCardObject.transform.position = new Vector3((float)(this.transform.position.x - 0.01 *cnt),(float) (this.transform.position.y + 0.01*cnt) , (float)(this.transform.position.z));
-                    newCardObject.transform.localScale = new Vector3(0.2f,0.2f,0.2f);
+                    newCardObject.transform.position = new Vector3((float)(this.transform.position.x - 0.01 * cnt), (float)(this.transform.position.y + 0.01 * cnt), (float)(this.transform.position.z));
+                    newCardObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                     SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
                     CardSprite.sortingOrder = 1;
                     Card CardObject = null;
@@ -90,45 +93,46 @@ public class DeckManager : MonoBehaviourPun
                     {
                         case 0:
                             CardObject = newCardObject.AddComponent<redCard>();
-                            CardObject.GetComponent<redCard>().cardInit(j+1,cnt);
+                            CardObject.GetComponent<redCard>().cardInit(j + 1, cnt);
                             break;
                         case 1:
                             CardObject = newCardObject.AddComponent<blueCard>();
-                            CardObject.GetComponent<blueCard>().cardInit(j+1,cnt);
+                            CardObject.GetComponent<blueCard>().cardInit(j + 1, cnt);
                             break;
                         case 2:
                             CardObject = newCardObject.AddComponent<yellowCard>();
-                            CardObject.GetComponent<yellowCard>().cardInit(j+1,cnt);
+                            CardObject.GetComponent<yellowCard>().cardInit(j + 1, cnt);
                             break;
                         case 3:
                             CardObject = newCardObject.AddComponent<whiteCard>();
-                            CardObject.GetComponent<whiteCard>().cardInit(j+1,cnt);
+                            CardObject.GetComponent<whiteCard>().cardInit(j + 1, cnt);
                             break;
                         case 4:
                             CardObject = newCardObject.AddComponent<greenCard>();
-                            CardObject.GetComponent<greenCard>().cardInit(j+1,cnt);
+                            CardObject.GetComponent<greenCard>().cardInit(j + 1, cnt);
                             break;
                         default:
                             break;
                     }
-                
+
                     Sprite mySprite = CardImages[i][j];
                     CardSprite.sprite = mySprite;
 
                     GameManager.instance_.objectPool_.Add(CardObject);
                     Deck.Add(CardObject);
                     cardIds.Add(cnt);
-                    cnt+=1;
+                    cnt += 1;
                 }
-           }
+            }
         }
-        
+
     }
 
     // call this using 
-    public Card DrawCard(){
+    public Card DrawCard()
+    {
 
-        if(Deck.Count <=0 )
+        if (Deck.Count <= 0)
             return null;
 
         Card randomCard = Deck[Random.Range(0, Deck.Count)];
@@ -142,7 +146,7 @@ public class DeckManager : MonoBehaviourPun
 
     public void CallRPC(int id)
     {
-        this.photonView.RPC("ReceiveData",RpcTarget.All ,id);
+        this.photonView.RPC("ReceiveData", RpcTarget.All, id);
     }
 
     [PunRPC]
@@ -152,6 +156,6 @@ public class DeckManager : MonoBehaviourPun
         Deck.Remove(GameManager.instance_.GetCardbyId(id));
         return;
     }
-    
+
 
 }

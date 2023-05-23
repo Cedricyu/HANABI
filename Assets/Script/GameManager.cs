@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public List<Enemy> enemies_ = new List<Enemy>();
     public Enemy player_;
     public static GameManager instance_;
+    public int errorPoint = 0;
     private int playerIndex = 0;
     private int enemyIndex = 0;
     private void Start()
@@ -73,13 +74,13 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void UpdatePlayerList(int playId)
     {
-        PhotonView tmp =  PhotonView.Find(playId);
+        PhotonView tmp = PhotonView.Find(playId);
         if (!players_views.Contains(tmp))
             players_views.Add(tmp);
     }
 
     public void ChangeTurn()
-    {  
+    {
         playerIndex %= players_.Count;
         Debug.LogFormat("start player {0} turn", playerIndex);
         players_[playerIndex].StartTurn();

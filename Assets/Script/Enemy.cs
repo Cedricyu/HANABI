@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] Player player_;
 
     //public static Enemy instance_; 
-   
+
     private void Start()
     {
         //nstance_ = this;
@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(player_!=null)
+        if (player_ != null)
             for (int i = 0; i < player_.Hands.Count; i++)
             {
                 Card tmp = player_.Hands[i];
