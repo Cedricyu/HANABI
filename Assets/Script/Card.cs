@@ -9,19 +9,17 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     [SerializeField] private int id_;
     [SerializeField] protected int number_;
     [SerializeField] protected string color_;
-
+    //[SerializeField] public int hint_control;
+    //public static int hint_control;    
+    public static int hint_mousedown;
     private bool clickable = false;
-
-    //[SerializeField] public Text card_hint_number;
-    //[SerializeField] public GameObject card_hint_ccccc;
-
-
     DeckManager dm;
     PlayerSystem player_;
 
     protected virtual void Start()
     {
         dm = DeckManager.Instance;
+        hint_mousedown=0;
 
     }
     public void SetPlayer(PlayerSystem playerSystem_)
@@ -56,7 +54,11 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
 
     void OnMouseDown()
     {
-
+     
+        //else if (button_hint_number.hint_number_control==1){
+        //    GernerateHints();
+        //}
+        
         if (clickable)
         {
             this.transform.Translate(new Vector3(0, 0.5f));
@@ -64,6 +66,11 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
             player_.SetClickCardId(id_);
             Debug.Log("clicked ! " + color_ + " " + number_);
             //Destroy(gameObject);
+
+            if(button_hint_color.hint_color_control==1){
+                hint_mousedown=1;
+                GernerateHints();
+            }
         }
         else
         {
@@ -75,10 +82,11 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
 
     public virtual void GernerateHints()
     {
-        Debug.Log(number_);
-        /*if (number_==1){ //創text_object
-             card_hint_number.text = "1";
-        }*/
-        
+        Debug.Log(color_);
+        /*GameObject textObject = new GameObject("TextObject");
+        Text textComponent = textObject.AddComponent<Text>();
+        if (number_==1){      //創text_object
+             textComponent.text = "1";
+        }*/     
     }
 }
