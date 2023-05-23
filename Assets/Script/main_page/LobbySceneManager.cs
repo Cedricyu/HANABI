@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Photon.Realtime;
 using System.Text;
+
 public class LobbySceneManager : MonoBehaviourPunCallbacks
 {
     //[SerializeField]
