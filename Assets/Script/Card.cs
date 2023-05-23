@@ -9,8 +9,11 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     [SerializeField] private int id_;
     [SerializeField] protected int number_;
     [SerializeField] protected string color_;
-    [SerializeField] public Text card_hint_number;
-    [SerializeField] public GameObject card_hint_ccccc;
+
+    private bool clickable = false;
+
+    //[SerializeField] public Text card_hint_number;
+    //[SerializeField] public GameObject card_hint_ccccc;
 
 
     DeckManager dm;
@@ -46,15 +49,28 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         id_ = id;
         return;
     }
+    public void SetClickable(bool tmp)
+    {
+        clickable = tmp;
+    }
+
     void OnMouseDown()
     {
-        player_ = GetComponent<PlayerSystem>();
-        // Destroy the gameObject after clicking on it
-        // transform.position += Vector3.up * 5;
-        Debug.Log("clicked !");
-        //player_.play_id = id_;
-        GernerateHints();
-        //Destroy(gameObject);
+
+        if (clickable)
+        {
+            this.transform.Translate(new Vector3(0, 0.5f));
+            // Destroy the gameObject after clicking on it
+            player_.SetClickCardId(id_);
+            Debug.Log("clicked ! " + color_ + " " + number_);
+            //Destroy(gameObject);
+        }
+        else
+        {
+            return;
+        }
+
+
     }
 
     public virtual void GernerateHints()
