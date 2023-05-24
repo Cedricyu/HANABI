@@ -87,7 +87,7 @@ public class DeckManager : MonoBehaviourPun
                     newCardObject.transform.position = new Vector3((float)(this.transform.position.x - 0.01 * cnt), (float)(this.transform.position.y + 0.01 * cnt), (float)(this.transform.position.z));
                     newCardObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                     SpriteRenderer CardSprite = newCardObject.AddComponent<SpriteRenderer>();
-                    CardSprite.sortingOrder = 1;
+                    CardSprite.sortingOrder = 2;
                     Card CardObject = null;
                     switch (i)
                     {

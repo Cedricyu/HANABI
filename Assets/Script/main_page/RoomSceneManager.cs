@@ -16,7 +16,6 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
     TMPro.TMP_Text textPlayerList;
     [SerializeField]
     Button buttonStartGame;
-
     void Start()
     {
         if (PhotonNetwork.CurrentRoom == null)
@@ -40,8 +39,19 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
     {
         StringBuilder sb = new StringBuilder();
         int count = 1;
-        foreach (var kvp in PhotonNetwork.CurrentRoom.Players) {
-            sb.AppendLine(count.ToString() + ". " + kvp.Value.NickName);
+        string playerlist;
+        foreach (var kvp in PhotonNetwork.PlayerList) {
+            switch(count) {
+                default:
+                    playerlist = "  " + count.ToString() + "TH\t\t" + kvp.NickName;break;
+                case 1:
+                    playerlist = "  " + count.ToString() + "ST\t\t" + kvp.NickName; break;
+                case 2:
+                    playerlist = "  " + count.ToString() + "ND\t\t" + kvp.NickName; break;
+                case 3:
+                    playerlist = "  " + count.ToString() + "RD\t\t" + kvp.NickName; break;
+            }
+            sb.AppendLine(playerlist);
             count += 1;
         }
         textPlayerList.text = sb.ToString();
@@ -59,6 +69,8 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
     }
     public void OnclickStartGame() {
         SceneManager.LoadScene("Scene01");
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        
     }
     public void OnclickLeaveRoom() {
         PhotonNetwork.LeaveRoom();

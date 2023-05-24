@@ -3,7 +3,9 @@ guid: 398997df618d4984482118b622308318
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - card_hint_number: {instanceID: 0}
+  - blueSquareSprite: {fileID: 7482667652216324306, guid: 17711093116181b4692e13a8e9b536b7, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
