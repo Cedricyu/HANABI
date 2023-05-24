@@ -21,6 +21,7 @@ public class PlayerSystem : StateMeachine
     private PhotonView _pv;
     private Button drawbutton;
     private Button playbutton;
+    private Button discardbutton;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
@@ -35,6 +36,9 @@ public class PlayerSystem : StateMeachine
         drawbutton.onClick.AddListener(OnDrawButton);
         playbutton = GameManager.instance_.pb.GetComponent<Button>();
         playbutton.onClick.AddListener(OnPlayButton);
+        // TODO fix the bug
+        // discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
+        // discardbutton.onClick.AddListener(OnDiscardButton);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new EnemyTurn(this));
         Debug.Log(state_);
