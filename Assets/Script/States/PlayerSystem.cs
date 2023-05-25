@@ -10,18 +10,20 @@ public class PlayerSystem : StateMeachine
     // Start is called before the first frame update
     [SerializeField] List<Card> Hands;
     public List<Card> GetHands { get { return Hands; } }
-    [SerializeField] string stateView ;
+    [SerializeField] string stateView;
 
     private Player player_;
     public Player Player_ { get { return player_; } }
 
     private int hand_max = 5;
     GameObject Card;
+    private int clickcard_id = -1;
     private PhotonView _pv;
     private Button drawbutton;
     private Button playbutton;
+    private Button discardbutton;
 
-    [HideInInspector] public bool active =  false;
+    [HideInInspector] public bool active = false;
     //DeckManager DM;
 
     void Start()
@@ -34,6 +36,8 @@ public class PlayerSystem : StateMeachine
         drawbutton.onClick.AddListener(OnDrawButton);
         playbutton = GameManager.instance_.pb.GetComponent<Button>();
         playbutton.onClick.AddListener(OnPlayButton);
+        discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
+        discardbutton.onClick.AddListener(OnDiscardButton);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new EnemyTurn(this));
         Debug.Log(state_);
@@ -59,7 +63,7 @@ public class PlayerSystem : StateMeachine
         StartCoroutine(state_.DrawCard());
         //drawCard();
     }
-    
+
     void OnPlayButton()
     {
         StartCoroutine(state_.PlayCard());
@@ -79,7 +83,8 @@ public class PlayerSystem : StateMeachine
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        
+        newCard.SetPlayer(this);
+        newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());
 
         return true;
@@ -104,25 +109,53 @@ public class PlayerSystem : StateMeachine
         }
     }
 
+    public void SetClickCardId(int id)
+    {
+        clickcard_id = id;
+    }
+
     public bool PlayCard()
     {
-        if (FieldManager.Instance.canPlay(Hands[Hands.Count - 1]))
+        if (clickcard_id == -1)
         {
-            Hands.Remove(Hands[Hands.Count - 1]);
-            Debug.Log(true);
+            Debug.Log("No click card operation");
+            return false;
+        }
+
+        if (FieldManager.Instance.canPlay(GameManager.instance_.GetCardbyId(clickcard_id)))
+        {
+            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
+            Debug.Log("PlayCard success");
             return true;
         }
         else
         {
-            Hands.Remove(Hands[Hands.Count - 1]);
-            Debug.Log(false);
+            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
+            Debug.Log("PlayCard false");
             return false;
         }
     }
 
     public bool Discard()
     {
-        return true;
+        Debug.Log("test");
+        if (clickcard_id == -1)
+        {
+            Debug.Log("No click card operation");
+            return false;
+        }
+
+        if (FieldManager.Instance.canDiscard(GameManager.instance_.GetCardbyId(clickcard_id)))
+        {
+            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
+            Debug.Log("Discard success");
+            return true;
+        }
+        else
+        {
+            Debug.Log("Discard false");
+            return false;
+        }
     }
 
     public void EndTurn()

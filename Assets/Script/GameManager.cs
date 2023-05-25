@@ -9,12 +9,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public drawButton db;
     public playButton pb;
+    public discardButton dcb;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
     public List<Enemy> enemies_ = new List<Enemy>();
     public Enemy player_;
     public static GameManager instance_;
+    public int errorPoint = 0;
     private int playerIndex = 0;
     private int enemyIndex = 0;
     private void Start()
@@ -73,13 +75,13 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void UpdatePlayerList(int playId)
     {
-        PhotonView tmp =  PhotonView.Find(playId);
+        PhotonView tmp = PhotonView.Find(playId);
         if (!players_views.Contains(tmp))
             players_views.Add(tmp);
     }
 
     public void ChangeTurn()
-    {  
+    {
         playerIndex %= players_.Count;
         Debug.LogFormat("start player {0} turn", playerIndex);
         players_[playerIndex].StartTurn();
