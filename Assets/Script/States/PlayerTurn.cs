@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 [System.Serializable]
 public class PlayerTurn : State
 {
@@ -39,6 +39,11 @@ public class PlayerTurn : State
         }
         player_.SetState(new EndTurn(player_));
         Debug.Log("player turn to end state");
+        yield return new WaitForSeconds(1f);
+    }
+    public override IEnumerator End()
+    {
+        SceneManager.LoadScene("GameOver");
         yield return new WaitForSeconds(1f);
     }
 
