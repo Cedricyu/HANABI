@@ -36,9 +36,8 @@ public class PlayerSystem : StateMeachine
         drawbutton.onClick.AddListener(OnDrawButton);
         playbutton = GameManager.instance_.pb.GetComponent<Button>();
         playbutton.onClick.AddListener(OnPlayButton);
-        // TODO fix the bug
-        // discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
-        // discardbutton.onClick.AddListener(OnDiscardButton);
+        discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
+        discardbutton.onClick.AddListener(OnDiscardButton);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new EnemyTurn(this));
         Debug.Log(state_);
@@ -139,6 +138,7 @@ public class PlayerSystem : StateMeachine
 
     public bool Discard()
     {
+        Debug.Log("test");
         if (clickcard_id == -1)
         {
             Debug.Log("No click card operation");
