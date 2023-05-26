@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public drawButton db;
     public playButton pb;
     public discardButton dcb;
+    public quitGameButton qgb;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
