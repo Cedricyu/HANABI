@@ -10,12 +10,14 @@ public class GameManager : MonoBehaviour
     public drawButton db;
     public playButton pb;
     public discardButton dcb;
+    public quitGameButton qgb;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
     public List<Enemy> enemies_ = new List<Enemy>();
     public Enemy player_;
     public static GameManager instance_;
+    public int number_of_hint;
     public int errorPoint = 0;
     private int playerIndex = 0;
     private int enemyIndex = 0;
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
     {
         instance_ = this;
         StartCoroutine(InitGame());
+        number_of_hint = 10;
     }
 
     public void SetEnemy(Player p)
