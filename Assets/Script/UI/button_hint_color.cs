@@ -21,6 +21,6 @@ public class button_hint_color : MonoBehaviour
     }
     public void click_hint_color(){
         hint_color_control=1;
-        //Debug.Log("click_hint_color_success");
+        Debug.Log("click_hint_color_success");
     }
 }
