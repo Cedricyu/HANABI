@@ -143,7 +143,7 @@ public class PlayerSystem : StateMeachine
         else
         {
             GameManager.instance_.errorPoint += 1;
-            if (GameManager.instance_.errorPoint == 3)
+            if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max)
             {
                 StartCoroutine(state_.End());
             }
