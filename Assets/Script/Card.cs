@@ -11,8 +11,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     [SerializeField] protected string color_;
     //[SerializeField] public int hint_control;
     //public static int hint_control;    
-    public static int hint_mousedown;//查看是按下hint_color還是hint_number
-    public static int number_of_hint;
+    public static int hint_mousedown;
     private bool clickable = false;
     DeckManager dm;
     PlayerSystem player_;
@@ -21,7 +20,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     {
         dm = DeckManager.Instance;
         hint_mousedown=0;
-        number_of_hint=10;
+
     }
     public void SetPlayer(PlayerSystem playerSystem_)
     {
@@ -62,7 +61,6 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         
         if (clickable)
         {
-           
             this.transform.Translate(new Vector3(0, 0.5f));
             // Destroy the gameObject after clicking on it
             player_.SetClickCardId(id_);
@@ -71,13 +69,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
 
             if(button_hint_color.hint_color_control==1){
                 hint_mousedown=1;
-                Debug.Log("hint_mousedown");
-                Gernerate_color_Hints();  /////////////////////////
-                
-            }
-            else if (button_hint_number.hint_number_control==1){
-                hint_mousedown=2;
-                Gernerate_numbers_Hints();
+                GernerateHints();
             }
         }
         else
@@ -88,14 +80,13 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
 
     }
 
-    public virtual void Gernerate_color_Hints()
+    public virtual void GernerateHints()
     {
-        number_of_hint=number_of_hint-1;
-        Debug.Log(number_of_hint);    
-    }
-
-    public virtual void Gernerate_numbers_Hints(){
-        number_of_hint=number_of_hint-1;
-        Debug.Log(number_of_hint);
+        Debug.Log(color_);
+        /*GameObject textObject = new GameObject("TextObject");
+        Text textComponent = textObject.AddComponent<Text>();
+        if (number_==1){      //創text_object
+             textComponent.text = "1";
+        }*/     
     }
 }

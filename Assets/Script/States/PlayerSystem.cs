@@ -133,10 +133,6 @@ public class PlayerSystem : StateMeachine
         {
             Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
             Debug.Log("PlayCard success");
-            //hint移掉
-            //greenCard.destory_hint();
-            //redCard.destory_hint();
-            //blueCard.destory_hint();
             return true;
         }
         else
