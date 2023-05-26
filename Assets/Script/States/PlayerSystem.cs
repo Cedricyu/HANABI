@@ -121,6 +121,11 @@ public class PlayerSystem : StateMeachine
         clickcard_id = id;
     }
 
+    public int GetClickCardId()
+    {
+        return clickcard_id;
+    }
+
     public bool PlayCard()
     {
         if (clickcard_id == -1)

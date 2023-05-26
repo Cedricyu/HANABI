@@ -41,6 +41,10 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     {
         return id_;
     }
+    public PlayerSystem GetPlayerSystem()
+    {
+        return player_;
+    }
 
     public void cardInit(int n, int id)
     {
@@ -63,7 +67,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         if (clickable)
         {
 
-            this.transform.Translate(new Vector3(0, 0.5f));
+            // this.transform.Translate(new Vector3(0, 0.5f));
             // Destroy the gameObject after clicking on it
             player_.SetClickCardId(id_);
             Debug.Log("clicked ! " + color_ + " " + number_);
