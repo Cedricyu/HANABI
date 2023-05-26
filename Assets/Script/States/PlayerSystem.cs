@@ -22,6 +22,7 @@ public class PlayerSystem : StateMeachine
     private Button drawbutton;
     private Button playbutton;
     private Button discardbutton;
+    private Button quitbutton;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
@@ -36,9 +37,10 @@ public class PlayerSystem : StateMeachine
         drawbutton.onClick.AddListener(OnDrawButton);
         playbutton = GameManager.instance_.pb.GetComponent<Button>();
         playbutton.onClick.AddListener(OnPlayButton);
-        // TODO fix the bug
-        // discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
-        // discardbutton.onClick.AddListener(OnDiscardButton);
+        discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
+        discardbutton.onClick.AddListener(OnDiscardButton);
+        quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
+        quitbutton.onClick.AddListener(EndTurn);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new EnemyTurn(this));
         Debug.Log(state_);
@@ -77,6 +79,10 @@ public class PlayerSystem : StateMeachine
     void OnGiveHint()
     {
         StartCoroutine(state_.GiveHints());
+    }
+    public void EndTurn()
+    {
+        StartCoroutine(state_.End());
     }
 
     public bool DrawCard()
@@ -135,6 +141,11 @@ public class PlayerSystem : StateMeachine
         }
         else
         {
+            GameManager.instance_.errorPoint += 1;
+            if (GameManager.instance_.errorPoint == 3)
+            {
+                StartCoroutine(state_.End());
+            }
             Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
             Debug.Log("PlayCard false");
             return false;
@@ -162,9 +173,6 @@ public class PlayerSystem : StateMeachine
         }
     }
 
-    public void EndTurn()
-    {
-        StartCoroutine(state_.End());
-    }
+
 
 }
