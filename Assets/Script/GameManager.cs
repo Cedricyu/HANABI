@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public List<Enemy> enemies_ = new List<Enemy>();
     public Enemy player_;
     public static GameManager instance_;
+    public int number_of_hint;
     public int errorPoint = 0;
     private int playerIndex = 0;
     private int enemyIndex = 0;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     {
         instance_ = this;
         StartCoroutine(InitGame());
+        number_of_hint = 10;
     }
 
     public void SetEnemy(Player p)
