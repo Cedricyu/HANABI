@@ -122,4 +122,15 @@ public class FieldManager : MonoBehaviourPun
 
         playCard.GetComponent<SpriteRenderer>().sortingOrder = 2;
     }
+    public bool canWinGame()
+    {
+        if (redCards.Count == 5 && blueCards.Count == 5 && yellowCards.Count == 5 && whiteCards.Count == 5 && greenCards.Count == 5)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
