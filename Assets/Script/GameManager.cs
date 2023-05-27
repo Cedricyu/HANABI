@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class GameManager : MonoBehaviour
     public playButton pb;
     public discardButton dcb;
     public quitGameButton qgb;
+    public TMPro.TMP_Text ShowState;
+    public button_hint_color h_c_b;
+    public button_hint_number h_n_b;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
@@ -22,6 +27,8 @@ public class GameManager : MonoBehaviour
     public int errorPoint = 0;
     public int errorPoint_max;
     private int playerIndex = 0;
+    public int PlayerIndex { get { return playerIndex; } }
+
     private int enemyIndex = 0;
 
     public enum Point{
@@ -37,7 +44,6 @@ public class GameManager : MonoBehaviour
         hint_max = 10;
         errorPoint_max = 3;
     }
-
     [PunRPC]
     private void UpdatePoints(int option)
     {
@@ -68,6 +74,18 @@ public class GameManager : MonoBehaviour
                 return photonView.GetComponent<Player>();
         }
         return null;
+    }
+    public void SetRPCPlayerSystem(int card_id)
+    {
+        PhotonView.Get(this).RPC("SetCardPlayerSystem", RpcTarget.All, card_id);
+    }
+    [PunRPC]
+    public void SetCardPlayerSystem(int card_id)
+    {
+        Card tmpCard = this.GetCardbyId(card_id);
+        Player tmpPlayer = players_[playerIndex];
+        PlayerSystem tmpPlayerSystem = tmpPlayer.Player_;
+        tmpCard.SetPlayer(tmpPlayerSystem);
     }
 
     IEnumerator InitGame()
