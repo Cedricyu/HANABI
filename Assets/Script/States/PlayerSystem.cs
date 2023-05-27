@@ -42,9 +42,18 @@ public class PlayerSystem : StateMeachine
         quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
         quitbutton.onClick.AddListener(EndTurn);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
-        SetState(new EnemyTurn(this));
+        SetState(new Begin(this));
         Debug.Log(state_);
     }
+   
+    [PunRPC]
+    public void InitializePlayer()
+    {
+        if (!_pv.IsMine)
+            return;
+        StartCoroutine(state_.Start());
+    }
+
 
     // Update is called once per frame
     void Update()

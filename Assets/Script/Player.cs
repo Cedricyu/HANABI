@@ -30,6 +30,11 @@ public class Player : MonoBehaviour
             GameManager.instance_.SetPlayer(this);
         ///
     }
+    public void Initialize()
+    {
+        PhotonView.Get(this).RPC("InitializePlayer", RpcTarget.All);
+    }
+
 
     public async void StartTurn()
     {

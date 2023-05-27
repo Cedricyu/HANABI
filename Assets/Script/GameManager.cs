@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
     public int errorPoint_max;
     private int playerIndex = 0;
     private int enemyIndex = 0;
+
+    public enum Point{
+        HintPoint,
+        ErrorPoint
+    }
+
     private void Start()
     {
         instance_ = this;
@@ -30,6 +36,19 @@ public class GameManager : MonoBehaviour
         number_of_hint = 10;
         hint_max = 10;
         errorPoint_max = 3;
+    }
+
+    [PunRPC]
+    private void UpdatePoints(int option)
+    {
+        switch (option) {
+            case (int)Point.HintPoint :
+                number_of_hint -= 1;
+                break;
+            case (int)Point.ErrorPoint :
+                errorPoint += 1;
+                break;
+        }
     }
 
     public void SetEnemy(Player p)
@@ -58,6 +77,16 @@ public class GameManager : MonoBehaviour
         {
             players_.Add(FindPlayerInView(player));
         }
+
+        /// initialize player hand
+
+        foreach (Player p in players_)
+        {
+            p.Initialize();
+        }
+
+        ///
+
         PhotonView.Get(this).RPC("Game", RpcTarget.All);
     }
 
