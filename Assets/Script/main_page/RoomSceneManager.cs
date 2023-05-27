@@ -71,7 +71,7 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
         UpdatePlayerList();
     }
     public void OnclickStartGame() {
-        SceneManager.LoadScene("Scene01");
+        SceneManager.LoadScene("Scene01");  
         PhotonNetwork.CurrentRoom.IsOpen = false;
         
     }

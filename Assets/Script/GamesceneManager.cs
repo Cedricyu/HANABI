@@ -25,6 +25,9 @@ public class GamesceneManager : MonoBehaviourPunCallbacks
     {
         
     }
+
+
+    // test the failed and finish work correctly 
     public void FailedTheGame() {
         SceneManager.LoadScene("GameOverScene");
     }
