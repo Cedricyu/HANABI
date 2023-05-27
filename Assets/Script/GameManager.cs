@@ -9,19 +9,27 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public drawButton db;
     public playButton pb;
+    public discardButton dcb;
+    public quitGameButton qgb;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
     public List<Enemy> enemies_ = new List<Enemy>();
     public Enemy player_;
     public static GameManager instance_;
+    public int number_of_hint;
+    public int hint_max;
     public int errorPoint = 0;
+    public int errorPoint_max;
     private int playerIndex = 0;
     private int enemyIndex = 0;
     private void Start()
     {
         instance_ = this;
         StartCoroutine(InitGame());
+        number_of_hint = 10;
+        hint_max = 10;
+        errorPoint_max = 3;
     }
 
     public void SetEnemy(Player p)
