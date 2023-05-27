@@ -56,4 +56,18 @@ public class PlayerTurn : State
         yield return new WaitForSeconds(1f);
     }
 
+        public override IEnumerator click_hint_color()
+    {
+        PlayerSystem.hint_color_control=1;
+        Debug.Log("click_hint_color_success");
+        yield return new WaitForSeconds(1f);
+    }
+
+
+        public override IEnumerator click_hint_number()
+    {
+        PlayerSystem.hint_number_control=1;
+        yield return new WaitForSeconds(1f);
+    }
+
 }
