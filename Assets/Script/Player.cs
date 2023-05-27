@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
     {
 
         while( !(player_.GetState() is EndTurn) ) {
-            Debug.Log(player_.GetState());
-            await Task.Delay(5000);
+            //Debug.Log(player_.GetState());
+            await Task.Delay(3000);
         }
     }
 
