@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
     public playButton pb;
     public discardButton dcb;
     public quitGameButton qgb;
+    public TMPro.TMP_Text ShowState;
     public button_hint_color h_c_b;
     public button_hint_number h_n_b;
     public List<Card> objectPool_;
@@ -41,7 +44,6 @@ public class GameManager : MonoBehaviour
         hint_max = 10;
         errorPoint_max = 3;
     }
-
     [PunRPC]
     private void UpdatePoints(int option)
     {
