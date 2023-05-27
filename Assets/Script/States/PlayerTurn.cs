@@ -18,7 +18,7 @@ public class PlayerTurn : State
         yield return new WaitForSeconds(1f);
     }
 
-    public override IEnumerator PlayCard() 
+    public override IEnumerator PlayCard()
     {
         if (!player_.PlayCard())
         {
@@ -28,9 +28,19 @@ public class PlayerTurn : State
                 player_.SetState(new EndGame(player_));
             }
         }
-        player_.SetState(new EndTurn(player_));
-        Debug.Log("player turn to end state");
-        yield return new WaitForSeconds(1f);
+        if (FieldManager.Instance.canWinGame())
+        {
+            player_.SetState(new EndGame(player_));
+            yield return new WaitForSeconds(1f);
+
+        }
+        else
+        {
+            player_.SetState(new EndTurn(player_));
+            Debug.Log("player turn to end state");
+            yield return new WaitForSeconds(1f);
+        }
+
     }
     public override IEnumerator DiscardCard() // Player can't playing card and fold the card.
     {
@@ -45,7 +55,7 @@ public class PlayerTurn : State
 
     public override IEnumerator GiveHints()
     {
-        
+
         player_.SetState(new EndTurn(player_));
         yield return new WaitForSeconds(1f);
     }
@@ -56,17 +66,17 @@ public class PlayerTurn : State
         yield return new WaitForSeconds(1f);
     }
 
-        public override IEnumerator click_hint_color()
+    public override IEnumerator click_hint_color()
     {
-        PlayerSystem.hint_color_control=1;
+        PlayerSystem.hint_color_control = 1;
         Debug.Log("click_hint_color_success");
         yield return new WaitForSeconds(1f);
     }
 
 
-        public override IEnumerator click_hint_number()
+    public override IEnumerator click_hint_number()
     {
-        PlayerSystem.hint_number_control=1;
+        PlayerSystem.hint_number_control = 1;
         yield return new WaitForSeconds(1f);
     }
 
