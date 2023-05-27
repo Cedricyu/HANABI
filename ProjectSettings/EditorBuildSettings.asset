@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/start_scene.unity
+    path: Assets/StartScene.unity
     guid: c84f36b9bd3ef664d89964b433975ce6
   - enabled: 1
     path: Assets/LobbyScene.unity
@@ -21,10 +21,10 @@ EditorBuildSettings:
     path: Assets/Scene01.unity
     guid: 2b5f8c9ed264b4310a476a5251022a64
   - enabled: 1
-    path: Assets/GameSuccess.unity
+    path: Assets/GameSuccessScene.unity
     guid: d53c5d1429c07f14b8249d9ee74c426e
   - enabled: 1
-    path: Assets/GameOver.unity
+    path: Assets/GameOverScene.unity
     guid: f0a0d39bdca4ced48b2daf6945dacddb
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: af6e2de6090c1be44b4618e0e9b34f99, type: 2}
