@@ -80,6 +80,10 @@ public class PlayerSystem : StateMeachine
         }else{
            GameManager.instance_.ShowState.text= "It's other's turn";
         };
+
+        foreach(Card c in Hands){
+            c.SetPlayer(this);
+        }
     }
 
     [PunRPC]
