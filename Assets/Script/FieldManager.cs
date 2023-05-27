@@ -83,7 +83,7 @@ public class FieldManager : MonoBehaviourPun
     {
         if (GameManager.instance_.number_of_hint != GameManager.instance_.hint_max) //TODO: determine hint Point is full or not 
         {
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 5);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
             AdjustLayerOrder(playCard, discardPile);
             GameManager.instance_.number_of_hint += 1;
             return true;
@@ -96,7 +96,7 @@ public class FieldManager : MonoBehaviourPun
 
 
     [PunRPC]
-    public void ReveiveData(int id, int pos)
+    public void UpdateField(int id, int pos)
     {
         Card tmp = GameManager.instance_.GetCardbyId(id);
         if (pos > 4)
