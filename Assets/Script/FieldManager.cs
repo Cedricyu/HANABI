@@ -44,36 +44,36 @@ public class FieldManager : MonoBehaviourPun
         if (playCard is redCard && (redCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("red");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 0);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 0);
             AdjustLayerOrder(playCard, redCards);
         }
         else if (playCard is blueCard && (blueCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("blue");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 1);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 1);
             AdjustLayerOrder(playCard, blueCards);
         }
         else if (playCard is whiteCard && (whiteCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("white");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 2);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 2);
             AdjustLayerOrder(playCard, whiteCards);
         }
         else if (playCard is greenCard && (greenCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("green");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 3);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 3);
             AdjustLayerOrder(playCard, greenCards);
         }
         else if (playCard.GetType() == typeof(yellowCard) && (yellowCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("yellow");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 4);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 4);
             AdjustLayerOrder(playCard, yellowCards);
         }
         else
         {
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 5);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
             AdjustLayerOrder(playCard, discardPile);
             return false;
         }
