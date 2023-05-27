@@ -17,17 +17,19 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
     [SerializeField]
     Button buttonStartGame;
     void Start()
-    {
-        if (PhotonNetwork.CurrentRoom == null)
-        {
-            SceneManager.LoadScene("LobbyScene");
+    {   
+            if (PhotonNetwork.CurrentRoom == null)
+            {
+                SceneManager.LoadScene("LobbyScene");
+                print("Room does not exist");
+            }
+            else
+            {
+                textRoomName.text = "Room: " + PhotonNetwork.CurrentRoom.Name;
+                UpdatePlayerList();
+                //print(PhotonNetwork.CurrentRoom.IsOpen);
         }
-        else {
-            textRoomName.text = "Room: "+PhotonNetwork.CurrentRoom.Name;
-            UpdatePlayerList();
-        }
-        buttonStartGame.interactable = PhotonNetwork.IsMasterClient;
-        
+            buttonStartGame.interactable = PhotonNetwork.IsMasterClient;
     }
     public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
     {
@@ -52,6 +54,7 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
                     playerlist = "  " + count.ToString() + "RD\t\t" + kvp.NickName; break;
             }
             sb.AppendLine(playerlist);
+            sb.AppendLine("-------------------------");
             count += 1;
         }
         textPlayerList.text = sb.ToString();

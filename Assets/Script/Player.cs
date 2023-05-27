@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public List<Card> Hands;
     private PhotonView pv_;
     private PlayerSystem player_;
+    public PlayerSystem Player_ { get { return player_; } }
 
     private void FixedUpdate()
     {
@@ -30,6 +31,11 @@ public class Player : MonoBehaviour
             GameManager.instance_.SetPlayer(this);
         ///
     }
+    public void Initialize()
+    {
+        PhotonView.Get(this).RPC("InitializePlayer", RpcTarget.All);
+    }
+
 
     public async void StartTurn()
     {
@@ -41,14 +47,22 @@ public class Player : MonoBehaviour
     public async Task Turn()
     {
 
-        while( !(player_.GetState() is EndTurn) ) {
-            Debug.Log(player_.GetState());
-            await Task.Delay(5000);
+
+        while (!(player_.GetState() is EndTurn))
+        {
+            //Debug.Log(player_.GetState());
+            await Task.Delay(3000);
+
         }
     }
 
     public void EndTurn()
     {
         player_.EndTurn();
+    }
+
+    public PlayerSystem GetPlayerSystem()
+    {
+        return player_;
     }
 }

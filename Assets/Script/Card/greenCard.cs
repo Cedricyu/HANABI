@@ -76,6 +76,7 @@ public class greenCard : Card
     private void Update()
 
     {
+        //base.Update();
         //Debug.Log(number_);
         card_hint_color.transform.position = new Vector3((float)(transform.position.x - 0.4), (float)(transform.position.y + 0.5), (float)(transform.position.z));
 
@@ -94,7 +95,7 @@ public class greenCard : Card
         base.Gernerate_color_Hints();
         card_hint_color.SetActive(true);
         Debug.Log("提示綠色成功");
-        button_hint_color.hint_color_control = 0;
+        PlayerSystem.hint_color_control = 0;
         Card.hint_mousedown = 0;
     }
 
@@ -104,7 +105,7 @@ public class greenCard : Card
         base.Gernerate_numbers_Hints();
         textObject.SetActive(true);
         Debug.Log("提示數字成功");
-        button_hint_number.hint_number_control = 0;
+        PlayerSystem.hint_number_control = 0;
         Card.hint_mousedown = 0;
     }
 

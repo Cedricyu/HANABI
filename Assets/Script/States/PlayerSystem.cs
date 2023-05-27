@@ -23,6 +23,11 @@ public class PlayerSystem : StateMeachine
     private Button playbutton;
     private Button discardbutton;
     private Button quitbutton;
+    private Button hint_color_button;
+    private Button hint_number_button;
+
+    public static int hint_color_control;
+    public static int hint_number_control;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
@@ -41,10 +46,30 @@ public class PlayerSystem : StateMeachine
         discardbutton.onClick.AddListener(OnDiscardButton);
         quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
         quitbutton.onClick.AddListener(EndTurn);
+
+
+        hint_color_control=0;
+        hint_number_control=0;
+        hint_color_button = GameManager.instance_.h_c_b.GetComponent<Button>();
+        hint_color_button.onClick.AddListener(hint_color);
+
+        hint_number_button = GameManager.instance_.h_n_b.GetComponent<Button>();
+        hint_number_button.onClick.AddListener(hint_number);
+
+
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
-        SetState(new EnemyTurn(this));
+        SetState(new Begin(this));
         Debug.Log(state_);
     }
+   
+    [PunRPC]
+    public void InitializePlayer()
+    {
+        if (!_pv.IsMine)
+            return;
+        StartCoroutine(state_.Start());
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -90,12 +115,27 @@ public class PlayerSystem : StateMeachine
         StartCoroutine(state_.End());
     }
 
+    public void hint_color()
+    {
+        StartCoroutine(state_.click_hint_color());
+    }
+
+    public void hint_number()
+    {
+        StartCoroutine(state_.click_hint_number());
+    }
+
+
+
+
     public bool DrawCard()
     {
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        newCard.SetPlayer(this);
+        // GameManager.instance_.SetCardPlayerSystem(newCard.getId());
+        GameManager.instance_.SetRPCPlayerSystem(newCard.getId());
+        // newCard.SetPlayer(this);
         newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());
 
@@ -141,19 +181,12 @@ public class PlayerSystem : StateMeachine
 
         if (FieldManager.Instance.canPlay(GameManager.instance_.GetCardbyId(clickcard_id)))
         {
-            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
+            UpdatePlayerHands(1, clickcard_id);
             Debug.Log("PlayCard success");
             return true;
         }
         else
         {
-            GameManager.instance_.errorPoint += 1;
-            if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max)
-            {
-                StartCoroutine(state_.End());
-            }
-            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
-            Debug.Log("PlayCard false");
             return false;
         }
     }
@@ -168,13 +201,12 @@ public class PlayerSystem : StateMeachine
 
         if (FieldManager.Instance.canDiscard(GameManager.instance_.GetCardbyId(clickcard_id)))
         {
-            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
+            UpdatePlayerHands(1, clickcard_id);
             Debug.Log("Discard success");
             return true;
         }
         else
         {
-            Debug.Log("Discard false");
             return false;
         }
     }
