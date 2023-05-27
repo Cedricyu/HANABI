@@ -39,8 +39,6 @@ public class PlayerSystem : StateMeachine
         playbutton.onClick.AddListener(OnPlayButton);
         discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
         discardbutton.onClick.AddListener(OnDiscardButton);
-        quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
-        quitbutton.onClick.AddListener(EndTurn);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new Begin(this));
         Debug.Log(state_);
