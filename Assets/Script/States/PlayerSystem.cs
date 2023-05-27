@@ -45,8 +45,6 @@ public class PlayerSystem : StateMeachine
         discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
         discardbutton.onClick.AddListener(OnDiscardButton);
 
-        quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
-        quitbutton.onClick.AddListener(EndTurn);
 
 
         hint_color_control=0;

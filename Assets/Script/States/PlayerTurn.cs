@@ -26,12 +26,14 @@ public class PlayerTurn : State
             if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max)
             {
                 Debug.Log("GameOver");
-                player_.SetState(new EndGame(player_));
+                player_.SetState(new EndGame(player_,0));
             }
                 if (!player_.Discard())
             {
-                player_.SetState(new EndGame(player_));
+                player_.SetState(new EndGame(player_,0));
             }
+                Debug.Log("GameWin");
+                player_.SetState(new EndGame(player_, 1));
         }
         player_.SetState(new EndTurn(player_));
         Debug.Log("player turn to end state");
