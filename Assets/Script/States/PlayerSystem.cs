@@ -42,9 +42,18 @@ public class PlayerSystem : StateMeachine
         quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
         quitbutton.onClick.AddListener(EndTurn);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
-        SetState(new EnemyTurn(this));
+        SetState(new Begin(this));
         Debug.Log(state_);
     }
+   
+    [PunRPC]
+    public void InitializePlayer()
+    {
+        if (!_pv.IsMine)
+            return;
+        StartCoroutine(state_.Start());
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -90,7 +99,9 @@ public class PlayerSystem : StateMeachine
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        newCard.SetPlayer(this);
+        // GameManager.instance_.SetCardPlayerSystem(newCard.getId());
+        GameManager.instance_.SetRPCPlayerSystem(newCard.getId());
+        // newCard.SetPlayer(this);
         newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());
 
@@ -136,7 +147,7 @@ public class PlayerSystem : StateMeachine
 
         if (FieldManager.Instance.canPlay(GameManager.instance_.GetCardbyId(clickcard_id)))
         {
-            UpdatePlayerHands(1,clickcard_id);
+            UpdatePlayerHands(1, clickcard_id);
             Debug.Log("PlayCard success");
             return true;
         }

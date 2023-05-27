@@ -49,6 +49,9 @@ MonoBehaviour:
   - ReveiveData
   - UpdateDeck
   - UpdateField
+  - InitializePlayer
+  - UpdatePoints
+  - SetCardPlayerSystem
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
