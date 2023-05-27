@@ -41,6 +41,14 @@ public class PlayerTurn : State
         Debug.Log("player turn to end state");
         yield return new WaitForSeconds(1f);
     }
+
+    public override IEnumerator GiveHints()
+    {
+        
+        player_.SetState(new EndTurn(player_));
+        yield return new WaitForSeconds(1f);
+    }
+
     public override IEnumerator End()
     {
         SceneManager.LoadScene("GameOver");

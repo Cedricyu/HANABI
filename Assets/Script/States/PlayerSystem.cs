@@ -136,19 +136,12 @@ public class PlayerSystem : StateMeachine
 
         if (FieldManager.Instance.canPlay(GameManager.instance_.GetCardbyId(clickcard_id)))
         {
-            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
+            UpdatePlayerHands(1,clickcard_id);
             Debug.Log("PlayCard success");
             return true;
         }
         else
         {
-            GameManager.instance_.errorPoint += 1;
-            if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max)
-            {
-                StartCoroutine(state_.End());
-            }
-            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
-            Debug.Log("PlayCard false");
             return false;
         }
     }
@@ -163,13 +156,12 @@ public class PlayerSystem : StateMeachine
 
         if (FieldManager.Instance.canDiscard(GameManager.instance_.GetCardbyId(clickcard_id)))
         {
-            Hands.Remove(GameManager.instance_.GetCardbyId(clickcard_id));
+            UpdatePlayerHands(1, clickcard_id);
             Debug.Log("Discard success");
             return true;
         }
         else
         {
-            Debug.Log("Discard false");
             return false;
         }
     }
