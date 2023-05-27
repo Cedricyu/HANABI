@@ -725,7 +725,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1892851221}
         m_TargetAssemblyTypeName: GameoverScene, Assembly-CSharp
-        m_MethodName: ReturnLobby
+        m_MethodName: OnclickLeaveRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
