@@ -25,4 +25,13 @@ public class GamesceneManager : MonoBehaviourPunCallbacks
     {
         
     }
+    public void OnclickLeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom()
+    {
+        print("leave the room");
+        SceneManager.LoadScene("GameOverScene");
+    }
 }
