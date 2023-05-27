@@ -23,6 +23,11 @@ public class PlayerSystem : StateMeachine
     private Button playbutton;
     private Button discardbutton;
     private Button quitbutton;
+    private Button hint_color_button;
+    private Button hint_number_button;
+
+    public static int hint_color_control;
+    public static int hint_number_control;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
@@ -41,6 +46,17 @@ public class PlayerSystem : StateMeachine
         discardbutton.onClick.AddListener(OnDiscardButton);
         quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
         quitbutton.onClick.AddListener(EndTurn);
+
+
+        hint_color_control=0;
+        hint_number_control=0;
+        hint_color_button = GameManager.instance_.h_c_b.GetComponent<Button>();
+        hint_color_button.onClick.AddListener(hint_color);
+
+        hint_number_button = GameManager.instance_.h_n_b.GetComponent<Button>();
+        hint_number_button.onClick.AddListener(hint_number);
+
+
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new EnemyTurn(this));
         Debug.Log(state_);
@@ -84,6 +100,19 @@ public class PlayerSystem : StateMeachine
     {
         StartCoroutine(state_.End());
     }
+
+    public void hint_color()
+    {
+        StartCoroutine(state_.click_hint_color());
+    }
+
+    public void hint_number()
+    {
+        StartCoroutine(state_.click_hint_number());
+    }
+
+
+
 
     public bool DrawCard()
     {

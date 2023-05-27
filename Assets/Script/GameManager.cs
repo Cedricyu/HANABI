@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public playButton pb;
     public discardButton dcb;
     public quitGameButton qgb;
+    public button_hint_color h_c_b;
+    public button_hint_number h_n_b;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();

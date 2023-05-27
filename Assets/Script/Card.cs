@@ -13,9 +13,10 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     //public static int hint_control;    
     public static int hint_mousedown;//查看是按下hint_color還是hint_number
 
-    private bool clickable = false;
+   // private bool clickable = true;
+   private bool clickable = false;
     DeckManager dm;
-    PlayerSystem player_;
+    [SerializeField]  PlayerSystem player_;
 
     protected virtual void Start()
     {
@@ -23,6 +24,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         hint_mousedown = 0;
 
     }
+
     public void SetPlayer(PlayerSystem playerSystem_)
     {
         player_ = playerSystem_;
@@ -60,9 +62,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     void OnMouseDown()
     {
 
-        //else if (button_hint_number.hint_number_control==1){
-        //    GernerateHints();
-        //}
+        //Debug.Log(player_); //抓到是誰的
 
         if (clickable)
         {
@@ -72,26 +72,27 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
             Debug.Log("clicked ! " + color_ + " " + number_);
             //Destroy(gameObject);
 
-            if (button_hint_color.hint_color_control == 1)
+            if (PlayerSystem.hint_color_control == 1)
             {
                 hint_mousedown = 1;
-                Debug.Log("hint_mousedown");
-                Gernerate_color_Hints();  /////////////////////////
-
+                Debug.Log("hint_mousedown111111111111");
+                Gernerate_color_Hints(); 
             }
-            else if (button_hint_number.hint_number_control == 1)
+            else if (PlayerSystem.hint_number_control == 1)
             {
                 hint_mousedown = 2;
                 Gernerate_numbers_Hints();
             }
         }
+
         else
         {
             return;
         }
-
-
     }
+
+
+
 
     public virtual void Gernerate_color_Hints()
     {
