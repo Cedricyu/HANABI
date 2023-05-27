@@ -91,7 +91,7 @@ public class PlayerSystem : StateMeachine
         SetState(new PlayerTurn(this));
     }
 
-    void OnDrawButton()
+    public void OnDrawButton()
     {
         StartCoroutine(state_.DrawCard());
         //drawCard();

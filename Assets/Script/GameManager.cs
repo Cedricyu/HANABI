@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
 
     private int enemyIndex = 0;
 
+    //private int CheckDeck = 0;
+
+    private int turn = 0;
+
     public enum Point{
         HintPoint,
         ErrorPoint
@@ -82,11 +86,34 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void SetCardPlayerSystem(int card_id)
     {
-        Card tmpCard = this.GetCardbyId(card_id);
-        Player tmpPlayer = players_[playerIndex];
-        PlayerSystem tmpPlayerSystem = tmpPlayer.Player_;
-        tmpCard.SetPlayer(tmpPlayerSystem);
+
+        if (playerIndex < players_.Count)
+        {
+            Card tmpCard = this.GetCardbyId(card_id);
+            print("player index = " + playerIndex);
+            Player tmpPlayer = players_[playerIndex];
+            PlayerSystem tmpPlayerSystem = tmpPlayer.Player_;
+            tmpCard.SetPlayer(tmpPlayerSystem);
+        }
     }
+    /*
+
+    [PunRPC]
+    private void CheckDeckUpdate(int option)
+    {
+        switch (option)
+        {
+            case 0:
+                CheckDeck = 0;
+                break;
+            case 1:
+                CheckDeck += 1;
+                break;
+        }
+    }
+
+    */
+
 
     IEnumerator InitGame()
     {
@@ -96,17 +123,8 @@ public class GameManager : MonoBehaviour
             players_.Add(FindPlayerInView(player));
         }
 
-        /// initialize player hand
-        int cnt = 1;
-        foreach (Player p in players_)
-        {
-            p.Initialize();
-            yield return new WaitUntil(() => DeckManager.Instance.DeckCount == 50 - 5*cnt);
-            cnt++;
-        }
-
-        ///
-
+        yield return new WaitUntil(() => players_.Count == PhotonNetwork.CurrentRoom.PlayerCount);
+        print("player count " + players_.Count);
         PhotonView.Get(this).RPC("Game", RpcTarget.All);
     }
 
@@ -141,6 +159,10 @@ public class GameManager : MonoBehaviour
         playerIndex %= players_.Count;
         Debug.LogFormat("start player {0} turn", playerIndex);
         players_[playerIndex].StartTurn();
+        if (turn < players_.Count * 5) {
+            players_[playerIndex].Initialize();
+            turn++;
+        }
     }
 
     public void TurnEnds()
