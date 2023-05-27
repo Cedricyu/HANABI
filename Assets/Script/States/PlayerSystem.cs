@@ -121,6 +121,11 @@ public class PlayerSystem : StateMeachine
         clickcard_id = id;
     }
 
+    public int GetClickCardId()
+    {
+        return clickcard_id;
+    }
+
     public bool PlayCard()
     {
         if (clickcard_id == -1)
@@ -138,7 +143,7 @@ public class PlayerSystem : StateMeachine
         else
         {
             GameManager.instance_.errorPoint += 1;
-            if (GameManager.instance_.errorPoint == 3)
+            if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max)
             {
                 StartCoroutine(state_.End());
             }

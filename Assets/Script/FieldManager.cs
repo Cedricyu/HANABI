@@ -81,11 +81,11 @@ public class FieldManager : MonoBehaviourPun
     }
     public bool canDiscard(Card playCard)
     {
-        if (true) //TODO: determine hint Point is full or not 
+        if (GameManager.instance_.number_of_hint != GameManager.instance_.hint_max) //TODO: determine hint Point is full or not 
         {
             PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 5);
             AdjustLayerOrder(playCard, discardPile);
-            //TODO: hint Point + 1
+            GameManager.instance_.number_of_hint += 1;
             return true;
         }
         else
