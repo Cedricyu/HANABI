@@ -26,18 +26,17 @@ public class PlayerTurn : State
             if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max)
             {
                 Debug.Log("GameOver");
-                player_.SetState(new EndGame(player_,0));
+                player_.SetState(new EndGame(player_, 0));
             }
-                if (!player_.Discard())
+            if (!player_.Discard())
             {
-                player_.SetState(new EndGame(player_,0));
+                player_.SetState(new EndGame(player_, 0));
             }
-                Debug.Log("GameWin");
-                player_.SetState(new EndGame(player_, 1));
         }
         if (FieldManager.Instance.canWinGame())
         {
-            player_.SetState(new EndGame(player_));
+            Debug.Log("GameWin");
+            player_.SetState(new EndGame(player_, 1));
             yield return new WaitForSeconds(1f);
 
         }
