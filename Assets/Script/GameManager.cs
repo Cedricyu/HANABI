@@ -79,10 +79,12 @@ public class GameManager : MonoBehaviour
         }
 
         /// initialize player hand
-
+        int cnt = 1;
         foreach (Player p in players_)
         {
             p.Initialize();
+            yield return new WaitUntil(() => DeckManager.Instance.DeckCount == 50 - 5*cnt);
+            cnt++;
         }
 
         ///
