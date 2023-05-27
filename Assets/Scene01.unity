@@ -300,7 +300,10 @@ MonoBehaviour:
   - {fileID: 1912281306}
   - {fileID: 1609661878}
   player_: {fileID: 349901419}
+  number_of_hint: 0
+  hint_max: 0
   errorPoint: 0
+  errorPoint_max: 0
 --- !u!4 &98795203
 Transform:
   m_ObjectHideFlags: 0
@@ -2353,12 +2356,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 02e2e3bbff7839046a4a3c48a432c0f3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5ade3042ac694050bbcd067aef23fc6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 16, y: 9}
+  m_Size: {x: 30.124727, y: 22.519999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
