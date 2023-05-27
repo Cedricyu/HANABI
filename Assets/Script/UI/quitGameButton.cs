@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class quitGameButton : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -10,5 +10,6 @@ public class quitGameButton : MonoBehaviour
     void Start()
     {
         mybutton_ = GetComponent<Button>();
+        
     }
 }

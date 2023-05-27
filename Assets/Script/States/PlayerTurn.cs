@@ -18,10 +18,11 @@ public class PlayerTurn : State
         yield return new WaitForSeconds(1f);
     }
 
-    public override IEnumerator PlayCard()
+    public override IEnumerator PlayCard() 
     {
         if (!player_.PlayCard())
         {
+            GameManager.instance_.errorPoint += 1;
             if (!player_.Discard())
             {
                 player_.SetState(new EndGame(player_));
@@ -31,7 +32,7 @@ public class PlayerTurn : State
         Debug.Log("player turn to end state");
         yield return new WaitForSeconds(1f);
     }
-    public override IEnumerator DiscardCard()
+    public override IEnumerator DiscardCard() // Player can't playing card and fold the card.
     {
         if (!player_.Discard())
         {

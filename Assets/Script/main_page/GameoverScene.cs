@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Realtime;
+using Photon.Pun;
 
-public class GameoverScene : MonoBehaviour
+public class GameoverScene : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
+   public void OnclickLeaveRoom()
+   {
+     PhotonNetwork.LeaveRoom();
+   }
+    public override void OnLeftRoom()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public  void ReturnLobby() {
-        SceneManager.LoadScene("LobbyScene");
+     print("leave the room");
+     SceneManager.LoadScene("LobbyScene");
     }
 }
