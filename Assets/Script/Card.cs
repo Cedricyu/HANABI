@@ -41,10 +41,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     {
         return id_;
     }
-    public PlayerSystem GetPlayerSystem()
-    {
-        return player_;
-    }
+
 
     public void cardInit(int n, int id)
     {
