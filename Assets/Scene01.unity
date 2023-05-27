@@ -426,7 +426,6 @@ MonoBehaviour:
   db: {fileID: 1045522803}
   pb: {fileID: 1544587815}
   dcb: {fileID: 1310910906}
-  qgb: {fileID: 357535084}
   ShowState: {fileID: 84608025}
   h_c_b: {fileID: 1370987861}
   h_n_b: {fileID: 943679846}
@@ -2495,7 +2494,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e95a80596b564497bb97b9357a605a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5ade3042ac694050bbcd067aef23fc6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
