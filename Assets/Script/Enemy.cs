@@ -22,11 +22,11 @@ public class Enemy : MonoBehaviour
                 Card tmp = player_.Hands[i];
                 tmp.transform.position = transforms_[i].position;
                 tmp.transform.rotation = transforms_[i].rotation;
-                PlayerSystem tmpPlayerSystem = tmp.GetPlayerSystem();
-                if (tmpPlayerSystem.GetClickCardId() == tmp.getId())
-                {
-                    tmp.transform.Translate(new Vector3(0, 0.5f));
-                }
+                // PlayerSystem tmpPlayerSystem = tmp.GetPlayerSystem();
+                // if (tmpPlayerSystem.GetClickCardId() == tmp.getId())
+                // {
+                //     tmp.transform.Translate(new Vector3(0, 0.5f));
+                // }
             }
     }
 
