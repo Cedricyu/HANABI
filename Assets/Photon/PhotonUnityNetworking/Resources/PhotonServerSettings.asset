@@ -47,6 +47,10 @@ MonoBehaviour:
   - Game
   - UpdatePlayerList
   - ReveiveData
+  - UpdateDeck
+  - UpdateField
+  - InitializePlayer
+  - UpdatePoints
   - SetCardPlayerSystem
   DisableAutoOpenWizard: 1
   ShowSettings: 0

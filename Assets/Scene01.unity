@@ -292,6 +292,8 @@ MonoBehaviour:
   pb: {fileID: 1544587815}
   dcb: {fileID: 1310910906}
   qgb: {fileID: 357535084}
+  h_c_b: {fileID: 1370987861}
+  h_n_b: {fileID: 943679846}
   objectPool_: []
   players_views: []
   players_: []
@@ -832,7 +834,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 357535082}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1214714883}
+        m_TargetAssemblyTypeName: GamesceneManager, Assembly-CSharp
+        m_MethodName: FailedTheGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &357535082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1648,19 +1662,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 943679844}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 943679846}
-        m_TargetAssemblyTypeName: button_hint_number, Assembly-CSharp
-        m_MethodName: click_hint_number
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &943679844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,6 +1713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b93e3d3c3eb3c4396cc5df8a6ce4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mybutton_: {fileID: 0}
 --- !u!1 &1045522798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,19 +2729,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1370987859}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1370987861}
-        m_TargetAssemblyTypeName: button_hint_color, Assembly-CSharp
-        m_MethodName: click_hint_color
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1370987859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2789,6 +2780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7fb0d54dd4f024c86d1466aa69bc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mybutton_: {fileID: 0}
 --- !u!1 &1405711587
 GameObject:
   m_ObjectHideFlags: 0

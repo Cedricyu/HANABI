@@ -25,4 +25,10 @@ public class GamesceneManager : MonoBehaviourPunCallbacks
     {
         
     }
+    public void FailedTheGame() {
+        SceneManager.LoadScene("GameOverScene");
+    }
+    public void FinishTheGame() {
+        SceneManager.LoadScene("GameSuccessScene");
+    }
 }

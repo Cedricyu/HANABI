@@ -37,4 +37,14 @@ public abstract class State
         yield break;
     }
 
+
+    public virtual IEnumerator click_hint_color()
+    {
+        yield break;
+    }
+    public virtual IEnumerator click_hint_number()
+    {
+        yield break;
+    }
+
 }

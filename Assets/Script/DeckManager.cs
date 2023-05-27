@@ -146,11 +146,11 @@ public class DeckManager : MonoBehaviourPun
 
     public void CallRPC(int id)
     {
-        this.photonView.RPC("ReceiveData", RpcTarget.All, id);
+        this.photonView.RPC("UpdateDeck", RpcTarget.All, id);
     }
 
     [PunRPC]
-    void ReceiveData(int id)
+    void UpdateDeck(int id)
     {
         cardIds.Remove(id);
         Deck.Remove(GameManager.instance_.GetCardbyId(id));
