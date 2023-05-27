@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public drawButton db;
     public playButton pb;
     public discardButton dcb;
+
     public quitGameButton qgb;
     public TMPro.TMP_Text ShowState;
     public button_hint_color h_c_b;

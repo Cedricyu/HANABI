@@ -11,10 +11,7 @@ public class EndGame : State
 
     public override IEnumerator End()
     {
-        if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max) {
-            Debug.Log("GameOver");
-            SceneManager.LoadScene("GameoverScene");
-        }
+        SceneManager.LoadScene("GameoverScene");
         return base.End();
     }
 }
