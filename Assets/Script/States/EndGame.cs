@@ -7,14 +7,23 @@ using Photon.Pun;
 [System.Serializable]
 public class EndGame : State
 {
-    public EndGame(PlayerSystem player):base(player) { }
+    public int WinorLose;
+    public EndGame(PlayerSystem player,int end_state):base(player) {
+       WinorLose = end_state;
+       
+    }
 
     public override IEnumerator End()
     {
-        if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max) {
-            Debug.Log("GameOver");
-            SceneManager.LoadScene("GameoverScene");
+        if (WinorLose == 1) {
+            SceneManager.LoadScene("GameSuccessScene");
+            return base.End();
         }
-        return base.End();
+
+        else
+        {
+            SceneManager.LoadScene("GameoverScene");
+            return base.End();
+        }
     }
 }
