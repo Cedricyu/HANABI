@@ -41,14 +41,21 @@ public class Player : MonoBehaviour
     public async Task Turn()
     {
 
+
         while( !(player_.GetState() is EndTurn) ) {
             //Debug.Log(player_.GetState());
             await Task.Delay(3000);
+
         }
     }
 
     public void EndTurn()
     {
         player_.EndTurn();
+    }
+
+    public PlayerSystem GetPlayerSystem()
+    {
+        return player_;
     }
 }
