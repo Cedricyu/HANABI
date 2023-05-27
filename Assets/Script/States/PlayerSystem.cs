@@ -90,7 +90,9 @@ public class PlayerSystem : StateMeachine
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        newCard.SetPlayer(this);
+        // GameManager.instance_.SetCardPlayerSystem(newCard.getId());
+        GameManager.instance_.SetRPCPlayerSystem(newCard.getId());
+        // newCard.SetPlayer(this);
         newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());
 
@@ -136,7 +138,7 @@ public class PlayerSystem : StateMeachine
 
         if (FieldManager.Instance.canPlay(GameManager.instance_.GetCardbyId(clickcard_id)))
         {
-            UpdatePlayerHands(1,clickcard_id);
+            UpdatePlayerHands(1, clickcard_id);
             Debug.Log("PlayCard success");
             return true;
         }

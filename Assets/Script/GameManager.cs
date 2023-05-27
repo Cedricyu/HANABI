@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public int errorPoint = 0;
     public int errorPoint_max;
     private int playerIndex = 0;
+    public int PlayerIndex { get { return playerIndex; } }
+
     private int enemyIndex = 0;
     private void Start()
     {
@@ -49,6 +51,18 @@ public class GameManager : MonoBehaviour
                 return photonView.GetComponent<Player>();
         }
         return null;
+    }
+    public void SetRPCPlayerSystem(int card_id)
+    {
+        PhotonView.Get(this).RPC("SetCardPlayerSystem", RpcTarget.All, card_id);
+    }
+    [PunRPC]
+    public void SetCardPlayerSystem(int card_id)
+    {
+        Card tmpCard = this.GetCardbyId(card_id);
+        Player tmpPlayer = players_[playerIndex];
+        PlayerSystem tmpPlayerSystem = tmpPlayer.Player_;
+        tmpCard.SetPlayer(tmpPlayerSystem);
     }
 
     IEnumerator InitGame()

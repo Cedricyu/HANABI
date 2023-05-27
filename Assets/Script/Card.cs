@@ -13,9 +13,9 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     //public static int hint_control;    
     public static int hint_mousedown;//查看是按下hint_color還是hint_number
 
-    private bool clickable = false;
+    [SerializeField] private bool clickable = true;
     DeckManager dm;
-    PlayerSystem player_;
+    [SerializeField] PlayerSystem player_;
 
     protected virtual void Start()
     {
@@ -73,8 +73,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
             {
                 hint_mousedown = 1;
                 Debug.Log("hint_mousedown");
-                Gernerate_color_Hints();  /////////////////////////
-
+                Gernerate_color_Hints();
             }
             else if (button_hint_number.hint_number_control == 1)
             {
