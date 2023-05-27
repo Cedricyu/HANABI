@@ -10,7 +10,7 @@ public class PlayerSystem : StateMeachine
     // Start is called before the first frame update
     [SerializeField] List<Card> Hands;
     public List<Card> GetHands { get { return Hands; } }
-    [SerializeField] string stateView;
+    public string stateView;
 
     private Player player_;
     public Player Player_ { get { return player_; } }
@@ -50,6 +50,11 @@ public class PlayerSystem : StateMeachine
     void Update()
     {
         stateView = GetState().GetType().ToString();
+        if(GetState() is PlayerTurn){
+            GameManager.instance_.ShowState.text= "It's your turn!";
+        }else{
+           GameManager.instance_.ShowState.text= "It's other's turn";
+        };
     }
 
     [PunRPC]

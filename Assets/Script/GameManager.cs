@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
     public playButton pb;
     public discardButton dcb;
     public quitGameButton qgb;
+    public TMPro.TMP_Text ShowState;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
@@ -31,7 +34,6 @@ public class GameManager : MonoBehaviour
         hint_max = 10;
         errorPoint_max = 3;
     }
-
     public void SetEnemy(Player p)
     {
         enemies_[enemyIndex++].AddPlayer(p);
