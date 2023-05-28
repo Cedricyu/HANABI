@@ -37,7 +37,7 @@ public class FieldManager : MonoBehaviourPun
         }
     }
 
-    public bool canPlay(Card playCard)
+    public void PlayCard(Card playCard)
     {
         Debug.Log(playCard);
         Debug.Log("color " + playCard.getColor() + " number " + playCard.getNumber());
@@ -71,21 +71,21 @@ public class FieldManager : MonoBehaviourPun
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 4);
             AdjustLayerOrder(playCard, yellowCards);
         }
+        // add to disacrd pile
         else
         {
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
             AdjustLayerOrder(playCard, discardPile);
-            return false;
         }
-        return true;
+        ///
     }
     public bool canDiscard(Card playCard)
     {
-        if (GameManager.instance_.number_of_hint != GameManager.instance_.hint_max) //TODO: determine hint Point is full or not 
+        if (GameManager.instance_.ErrorLessThanMax)//TODO: determine hint Point is full or not 
         {
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
             AdjustLayerOrder(playCard, discardPile);
-            GameManager.instance_.number_of_hint += 1;
+            //GameManager.instance_.number_of_hint += 1;  // not sure want this code is doing
             return true;
         }
         else

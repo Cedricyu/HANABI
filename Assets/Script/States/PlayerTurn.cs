@@ -9,6 +9,7 @@ public class PlayerTurn : State
 
     public override IEnumerator DrawCard()
     {
+        Debug.Log("draw one card");
         if (!player_.DrawCard())
         {
 
@@ -22,16 +23,12 @@ public class PlayerTurn : State
     {
         if (!player_.PlayCard())
         {
-            GameManager.instance_.errorPoint += 1;
-            if (GameManager.instance_.errorPoint == GameManager.instance_.errorPoint_max)
-            {
-                Debug.Log("GameOver");
-                player_.SetState(new EndGame(player_, 0));
-            }
-            if (!player_.Discard())
+            GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
+            if (!GameManager.instance_.ErrorLessThanMax)
             {
                 player_.SetState(new EndGame(player_, 0));
             }
+            yield return null;
         }
         if (FieldManager.Instance.canWinGame())
         {
