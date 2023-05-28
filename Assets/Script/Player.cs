@@ -38,25 +38,6 @@ public class Player : MonoBehaviour
         GetComponent<PlayerSystem>().OnDrawButton();
     }
 
-    /*
-    public async Task WaitInit()
-    {
-        while (!(player_.GetState() is EnemyTurn))
-        {
-            //Debug.Log(player_.GetState());
-            await Task.Delay(1000);
-        }
-    }
-
-    public void EndInit()
-    {
-        player_.EndInit();
-
-    }
-    */
-
-
-
 
     public async void StartTurn()
     {
