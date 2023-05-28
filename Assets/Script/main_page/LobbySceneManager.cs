@@ -76,7 +76,10 @@ public class LobbySceneManager : MonoBehaviourPunCallbacks
                 }
                 else 
                 {
-                    print("full or locked, try another one!");    
+                    string message = "full or locked, try another one!";
+                    print("full or locked, try another one!");
+                    messageshow(message);
+                     
                 }
             }
             else {
@@ -104,6 +107,6 @@ public class LobbySceneManager : MonoBehaviourPunCallbacks
     }
     public void messageshow(string message)
     {
-        LobbyInfo.text = "¡¶ "+message;
+        LobbyInfo.text = "¡¶ "+message.ToString();
     }
 }

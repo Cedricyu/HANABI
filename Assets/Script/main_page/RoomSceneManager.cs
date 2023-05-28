@@ -54,6 +54,7 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
                     playerlist = "  " + count.ToString() + "RD\t\t" + kvp.NickName; break;
             }
             sb.AppendLine(playerlist);
+            sb.AppendLine("-------------------------");
             count += 1;
         }
         textPlayerList.text = sb.ToString();
@@ -70,7 +71,7 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
         UpdatePlayerList();
     }
     public void OnclickStartGame() {
-        SceneManager.LoadScene("Scene01");
+        SceneManager.LoadScene("Scene01");  
         PhotonNetwork.CurrentRoom.IsOpen = false;
         
     }

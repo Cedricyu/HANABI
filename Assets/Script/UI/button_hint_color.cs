@@ -1,26 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class button_hint_color : MonoBehaviour
 {
-    public static int hint_color_control;
+    public Button mybutton_;
     
     // Start is called before the first frame update
     void Start()
     {
-        hint_color_control=0;
-
-        
+        mybutton_ = GetComponent<Button>();
+        //hint_color_control=0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void click_hint_color(){
-        hint_color_control=1;
-        Debug.Log("click_hint_color_success");
-    }
+
 }

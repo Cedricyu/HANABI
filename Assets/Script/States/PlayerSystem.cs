@@ -10,7 +10,7 @@ public class PlayerSystem : StateMeachine
     // Start is called before the first frame update
     [SerializeField] List<Card> Hands;
     public List<Card> GetHands { get { return Hands; } }
-    [SerializeField] string stateView;
+    public string stateView;
 
     private Player player_;
     public Player Player_ { get { return player_; } }
@@ -23,6 +23,11 @@ public class PlayerSystem : StateMeachine
     private Button playbutton;
     private Button discardbutton;
     private Button quitbutton;
+    private Button hint_color_button;
+    private Button hint_number_button;
+
+    public static int hint_color_control;
+    public static int hint_number_control;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
@@ -39,17 +44,49 @@ public class PlayerSystem : StateMeachine
         playbutton.onClick.AddListener(OnPlayButton);
         discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
         discardbutton.onClick.AddListener(OnDiscardButton);
-        quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
-        quitbutton.onClick.AddListener(EndTurn);
+
+
+
+        hint_color_control=0;
+        hint_number_control=0;
+        hint_color_button = GameManager.instance_.h_c_b.GetComponent<Button>();
+        hint_color_button.onClick.AddListener(hint_color);
+
+        hint_number_button = GameManager.instance_.h_n_b.GetComponent<Button>();
+        hint_number_button.onClick.AddListener(hint_number);
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
-        SetState(new EnemyTurn(this));
+        SetState(new Begin(this));
         Debug.Log(state_);
     }
+   
+    [PunRPC]
+    public void InitializePlayer()
+    {
+        if (!_pv.IsMine)
+            return;
+        StartCoroutine(state_.Start());
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         stateView = GetState().GetType().ToString();
+        if(_pv.IsMine)
+        {
+            if(GetState() is PlayerTurn)
+            {
+                GameManager.instance_.ShowState.text= "It's your turn!";
+            }
+            else
+            {
+                GameManager.instance_.ShowState.text= "It's other's turn";
+            }
+        }
+
+        foreach(Card c in Hands){
+            c.SetPlayer(this);
+        }
     }
 
     [PunRPC]
@@ -61,10 +98,9 @@ public class PlayerSystem : StateMeachine
         SetState(new PlayerTurn(this));
     }
 
-    void OnDrawButton()
+    public void OnDrawButton()
     {
         StartCoroutine(state_.DrawCard());
-        //drawCard();
     }
 
     void OnPlayButton()
@@ -85,12 +121,24 @@ public class PlayerSystem : StateMeachine
         StartCoroutine(state_.End());
     }
 
+    public void hint_color()
+    {
+        StartCoroutine(state_.click_hint_color());
+    }
+
+    public void hint_number()
+    {
+        StartCoroutine(state_.click_hint_number());
+    }
+
+
+
+
     public bool DrawCard()
     {
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        newCard.SetPlayer(this);
         newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());
 
@@ -103,9 +151,9 @@ public class PlayerSystem : StateMeachine
     }
 
     [PunRPC]
-    public void UpdateHands(int option, int id, PhotonMessageInfo info)
+    public void UpdateHands(int option, int id)
     {
-        Debug.Log("Info : ", info.photonView);
+        Debug.Log("Info : "+ id);
         if (option == 0)
         {
             Hands.Add(GameManager.instance_.GetCardbyId(id));
@@ -134,20 +182,15 @@ public class PlayerSystem : StateMeachine
             return false;
         }
 
-        if (FieldManager.Instance.canPlay(GameManager.instance_.GetCardbyId(clickcard_id)))
-        {
-            UpdatePlayerHands(1,clickcard_id);
-            Debug.Log("PlayCard success");
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        FieldManager.Instance.PlayCard(GameManager.instance_.GetCardbyId(clickcard_id));
+        UpdatePlayerHands(1, clickcard_id);
+        Debug.Log("PlayCard success");
+        return true;
     }
 
     public bool Discard()
     {
+        print("discard");
         if (clickcard_id == -1)
         {
             Debug.Log("No click card operation");

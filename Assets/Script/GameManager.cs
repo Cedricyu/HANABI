@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +12,9 @@ public class GameManager : MonoBehaviour
     public drawButton db;
     public playButton pb;
     public discardButton dcb;
-    public quitGameButton qgb;
+    public TMPro.TMP_Text ShowState;
+    public button_hint_color h_c_b;
+    public button_hint_number h_n_b;
     public List<Card> objectPool_;
     public List<PhotonView> players_views = new List<PhotonView>();
     public List<Player> players_ = new List<Player>();
@@ -22,14 +26,44 @@ public class GameManager : MonoBehaviour
     public int errorPoint = 0;
     public int errorPoint_max;
     private int playerIndex = 0;
+    public int PlayerIndex { get { return playerIndex; } }
+
     private int enemyIndex = 0;
+    public bool IsHintLeft { get{ return number_of_hint > hint_max; } }
+
+    public bool ErrorLessThanMax { get { return errorPoint < errorPoint_max ; } }
+
+    private int turn = 0;
+
+    public enum Point{
+        HintPoint,
+        ErrorPoint
+    }
+
     private void Start()
     {
         instance_ = this;
         StartCoroutine(InitGame());
         number_of_hint = 10;
-        hint_max = 10;
+        hint_max = 0;
         errorPoint_max = 3;
+    }
+
+    public void updatePoints(Point p){
+        PhotonView.Get(this).RPC("UpdatePoints", RpcTarget.All, p);
+    }
+
+    [PunRPC]
+    private void UpdatePoints(Point option)
+    {
+        switch (option) {
+            case Point.HintPoint :
+                number_of_hint -= 1;
+                break;
+            case Point.ErrorPoint :
+                errorPoint += 1;
+                break;
+        }
     }
 
     public void SetEnemy(Player p)
@@ -50,6 +84,22 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
+   
+    // [PunRPC]
+    // private void CheckDeckUpdate(int option)
+    // {
+    //     switch (option)
+    //     {
+    //         case 0:
+    //             CheckDeck = 0;
+    //             break;
+    //         case 1:
+    //             CheckDeck += 1;
+    //             break;
+    //     }
+    // }
+
+
 
     IEnumerator InitGame()
     {
@@ -58,6 +108,9 @@ public class GameManager : MonoBehaviour
         {
             players_.Add(FindPlayerInView(player));
         }
+
+        yield return new WaitUntil(() => players_.Count == PhotonNetwork.CurrentRoom.PlayerCount);
+        print("player count " + players_.Count);
         PhotonView.Get(this).RPC("Game", RpcTarget.All);
     }
 
@@ -90,6 +143,7 @@ public class GameManager : MonoBehaviour
     public void ChangeTurn()
     {
         playerIndex %= players_.Count;
+        turn++;
         Debug.LogFormat("start player {0} turn", playerIndex);
         players_[playerIndex].StartTurn();
     }
@@ -106,4 +160,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("Turn Ends");
         ChangeTurn();
     }
+
 }

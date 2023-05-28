@@ -76,6 +76,7 @@ public class redCard : Card
     private void Update()
 
     {
+        //base.Update();
         card_hint_color.transform.position = new Vector3((float)(transform.position.x - 0.4), (float)(transform.position.y + 0.5), (float)(transform.position.z));
 
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(card_hint_color.transform.position);
@@ -93,7 +94,7 @@ public class redCard : Card
         base.Gernerate_color_Hints();
         card_hint_color.SetActive(true);
         Debug.Log("提示紅色成功");
-        button_hint_color.hint_color_control = 0;
+        PlayerSystem.hint_color_control = 0;
         Card.hint_mousedown = 0;
     }
     public override void Gernerate_numbers_Hints()
@@ -101,7 +102,7 @@ public class redCard : Card
         base.Gernerate_numbers_Hints();
         textObject.SetActive(true);
         Debug.Log("提示數字成功");
-        button_hint_number.hint_number_control = 0;
+        PlayerSystem.hint_number_control = 0;
         Card.hint_mousedown = 0;
     }
 

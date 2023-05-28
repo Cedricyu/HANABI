@@ -37,55 +37,55 @@ public class FieldManager : MonoBehaviourPun
         }
     }
 
-    public bool canPlay(Card playCard)
+    public void PlayCard(Card playCard)
     {
         Debug.Log(playCard);
         Debug.Log("color " + playCard.getColor() + " number " + playCard.getNumber());
         if (playCard is redCard && (redCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("red");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 0);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 0);
             AdjustLayerOrder(playCard, redCards);
         }
         else if (playCard is blueCard && (blueCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("blue");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 1);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 1);
             AdjustLayerOrder(playCard, blueCards);
         }
         else if (playCard is whiteCard && (whiteCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("white");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 2);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 2);
             AdjustLayerOrder(playCard, whiteCards);
         }
         else if (playCard is greenCard && (greenCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("green");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 3);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 3);
             AdjustLayerOrder(playCard, greenCards);
         }
         else if (playCard.GetType() == typeof(yellowCard) && (yellowCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("yellow");
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 4);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 4);
             AdjustLayerOrder(playCard, yellowCards);
         }
+        // add to disacrd pile
         else
         {
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 5);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
             AdjustLayerOrder(playCard, discardPile);
-            return false;
         }
-        return true;
+        ///
     }
     public bool canDiscard(Card playCard)
     {
-        if (GameManager.instance_.number_of_hint != GameManager.instance_.hint_max) //TODO: determine hint Point is full or not 
+        if (GameManager.instance_.ErrorLessThanMax)//TODO: determine hint Point is full or not 
         {
-            PhotonView.Get(this).RPC("ReveiveData", RpcTarget.All, playCard.getId(), 5);
+            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
             AdjustLayerOrder(playCard, discardPile);
-            GameManager.instance_.number_of_hint += 1;
+            //GameManager.instance_.number_of_hint += 1;  // not sure want this code is doing
             return true;
         }
         else
@@ -96,7 +96,7 @@ public class FieldManager : MonoBehaviourPun
 
 
     [PunRPC]
-    public void ReveiveData(int id, int pos)
+    public void UpdateField(int id, int pos)
     {
         Card tmp = GameManager.instance_.GetCardbyId(id);
         if (pos > 4)
@@ -121,5 +121,16 @@ public class FieldManager : MonoBehaviourPun
         }
 
         playCard.GetComponent<SpriteRenderer>().sortingOrder = 2;
+    }
+    public bool canWinGame()
+    {
+        if (redCards.Count == 5 && blueCards.Count == 5 && yellowCards.Count == 5 && whiteCards.Count == 5 && greenCards.Count == 5)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
