@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
    
     public void Initialize()
     {
-        GetComponent<PlayerSystem>().OnDrawButton();
+        PhotonView.Get(this).RPC("InitializePlayer", RpcTarget.All);
     }
 
 
