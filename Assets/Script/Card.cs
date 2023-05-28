@@ -69,7 +69,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
             Debug.Log("clicked ! " + color_ + " " + number_);
             //Destroy(gameObject);
 
-            if (PlayerSystem.hint_color_control == 1)
+            /*if (PlayerSystem.hint_color_control == 1)
             {
                 hint_mousedown = 1;
 
@@ -81,7 +81,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
             {
                 hint_mousedown = 2;
                 Gernerate_numbers_Hints();
-            }
+            }*/
         }
 
         else
