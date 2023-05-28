@@ -25,6 +25,7 @@ public class PlayerTurn : State
         if (!player_.PlayCard())
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
             Debug.Log("ERROR points:");
             Debug.Log(GameManager.instance_.errorPoint);
@@ -56,6 +57,10 @@ public class PlayerTurn : State
             yield return null;
         }
 >>>>>>> 6261e6095fc21abef133ae73968ad58f0276fd4e
+=======
+            yield return null;
+        }
+>>>>>>> c2c104179d9d80cb8ba0006f7f96afbe1bd404e2
         else
         {
             if (FieldManager.Instance.canWinGame())
