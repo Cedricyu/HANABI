@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     public drawButton db;
     public playButton pb;
     public discardButton dcb;
-    public quitGameButton qgb;
     public TMPro.TMP_Text ShowState;
     public button_hint_color h_c_b;
     public button_hint_number h_n_b;
@@ -30,6 +29,11 @@ public class GameManager : MonoBehaviour
     public int PlayerIndex { get { return playerIndex; } }
 
     private int enemyIndex = 0;
+    public bool IsHintLeft { get{ return number_of_hint > hint_max; } }
+
+    public bool ErrorLessThanMax { get { return errorPoint < errorPoint_max ; } }
+
+    private int turn = 0;
 
     public enum Point{
         HintPoint,
@@ -41,17 +45,22 @@ public class GameManager : MonoBehaviour
         instance_ = this;
         StartCoroutine(InitGame());
         number_of_hint = 10;
-        hint_max = 10;
+        hint_max = 0;
         errorPoint_max = 3;
     }
+
+    public void updatePoints(Point p){
+        PhotonView.Get(this).RPC("UpdatePoints", RpcTarget.All, p);
+    }
+
     [PunRPC]
-    private void UpdatePoints(int option)
+    private void UpdatePoints(Point option)
     {
         switch (option) {
-            case (int)Point.HintPoint :
+            case Point.HintPoint :
                 number_of_hint -= 1;
                 break;
-            case (int)Point.ErrorPoint :
+            case Point.ErrorPoint :
                 errorPoint += 1;
                 break;
         }
@@ -75,23 +84,22 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
-    public void SetRPCPlayerSystem(int card_id)
-    {
-        PhotonView.Get(this).RPC("SetCardPlayerSystem", RpcTarget.All, card_id);
-    }
-    [PunRPC]
-    public void SetCardPlayerSystem(int card_id)
-    {
-        print("player count in card " + players_.Count);
-        if (playerIndex < players_.Count)
-        {
-            Card tmpCard = this.GetCardbyId(card_id);
-            print("player index = " + playerIndex);
-            Player tmpPlayer = players_[playerIndex];
-            PlayerSystem tmpPlayerSystem = tmpPlayer.Player_;
-            tmpCard.SetPlayer(tmpPlayerSystem);
-        }
-    }
+   
+    // [PunRPC]
+    // private void CheckDeckUpdate(int option)
+    // {
+    //     switch (option)
+    //     {
+    //         case 0:
+    //             CheckDeck = 0;
+    //             break;
+    //         case 1:
+    //             CheckDeck += 1;
+    //             break;
+    //     }
+    // }
+
+
 
     IEnumerator InitGame()
     {
@@ -135,6 +143,7 @@ public class GameManager : MonoBehaviour
     public void ChangeTurn()
     {
         playerIndex %= players_.Count;
+        turn++;
         Debug.LogFormat("start player {0} turn", playerIndex);
         players_[playerIndex].StartTurn();
     }
@@ -151,4 +160,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("Turn Ends");
         ChangeTurn();
     }
+
 }

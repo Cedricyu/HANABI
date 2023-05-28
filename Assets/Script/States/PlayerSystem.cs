@@ -44,8 +44,7 @@ public class PlayerSystem : StateMeachine
         playbutton.onClick.AddListener(OnPlayButton);
         discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
         discardbutton.onClick.AddListener(OnDiscardButton);
-        quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
-        quitbutton.onClick.AddListener(EndTurn);
+
 
 
         hint_color_control=0;
@@ -55,8 +54,6 @@ public class PlayerSystem : StateMeachine
 
         hint_number_button = GameManager.instance_.h_n_b.GetComponent<Button>();
         hint_number_button.onClick.AddListener(hint_number);
-
-
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new Begin(this));
         Debug.Log(state_);
@@ -75,22 +72,21 @@ public class PlayerSystem : StateMeachine
     void Update()
     {
         stateView = GetState().GetType().ToString();
-        if (_pv.IsMine)
+        if(_pv.IsMine)
         {
-            if (GetState() is PlayerTurn)
+            if(GetState() is PlayerTurn)
             {
-                GameManager.instance_.ShowState.text = "It's your turn!";
+                GameManager.instance_.ShowState.text= "It's your turn!";
             }
             else
             {
-                GameManager.instance_.ShowState.text = "It's other's turn";
-            };
+                GameManager.instance_.ShowState.text= "It's other's turn";
+            }
         }
-        foreach (Card c in Hands)
-        {
+
+        foreach(Card c in Hands){
             c.SetPlayer(this);
         }
-        
     }
 
     [PunRPC]
@@ -105,7 +101,6 @@ public class PlayerSystem : StateMeachine
     public void OnDrawButton()
     {
         StartCoroutine(state_.DrawCard());
-        //drawCard();
     }
 
     void OnPlayButton()
@@ -144,9 +139,6 @@ public class PlayerSystem : StateMeachine
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        // GameManager.instance_.SetCardPlayerSystem(newCard.getId());
-        // GameManager.instance_.SetRPCPlayerSystem(newCard.getId());
-        // newCard.SetPlayer(this);
         newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());
 
@@ -159,9 +151,9 @@ public class PlayerSystem : StateMeachine
     }
 
     [PunRPC]
-    public void UpdateHands(int option, int id, PhotonMessageInfo info)
+    public void UpdateHands(int option, int id)
     {
-        Debug.Log("Info : ", info.photonView);
+        Debug.Log("Info : "+ id);
         if (option == 0)
         {
             Hands.Add(GameManager.instance_.GetCardbyId(id));
@@ -190,20 +182,15 @@ public class PlayerSystem : StateMeachine
             return false;
         }
 
-        if (FieldManager.Instance.canPlay(GameManager.instance_.GetCardbyId(clickcard_id)))
-        {
-            UpdatePlayerHands(1, clickcard_id);
-            Debug.Log("PlayCard success");
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        FieldManager.Instance.PlayCard(GameManager.instance_.GetCardbyId(clickcard_id));
+        UpdatePlayerHands(1, clickcard_id);
+        Debug.Log("PlayCard success");
+        return true;
     }
 
     public bool Discard()
     {
+        print("discard");
         if (clickcard_id == -1)
         {
             Debug.Log("No click card operation");
