@@ -18,57 +18,35 @@ public class PlayerTurn : State
         Debug.Log("player turn to end state");
         yield return new WaitForSeconds(1f);
     }
-
-    public override IEnumerator PlayCard()
+public override IEnumerator PlayCard()
     {
         // check card is clicked
         if (!player_.PlayCard())
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
-            Debug.Log("ERROR points:");
-            Debug.Log(GameManager.instance_.errorPoint);
-            Debug.Log(GameManager.instance_.ErrorLessThanMax);
-            if (!GameManager.instance_.ErrorLessThanMax)
-            {
-                player_.SetState(new EndGame(player_, 0));
-            }
-            else
-            {
-                SceneManager.LoadScene("GameOverScene");
-                
-            }
             yield return null;
         }
-        if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame())
-        {
-            SceneManager.LoadScene("GameSuccessScene");
-            Debug.Log("GameWin1");
-            player_.SetState(new EndGame(player_, 1));
-            yield return new WaitForSeconds(1f);
-
-        }
-        else if (DeckManager.Instance.DeckCount <= 0) {
-            SceneManager.LoadScene("GameSuccessScene");
-            Debug.Log("GameWin2");
-        }
-=======
-            yield return null;
-        }
->>>>>>> 6261e6095fc21abef133ae73968ad58f0276fd4e
-=======
-            yield return null;
-        }
->>>>>>> c2c104179d9d80cb8ba0006f7f96afbe1bd404e2
         else
         {
-            if (FieldManager.Instance.canWinGame())
+            //Debug.Log("ERROR points:");
+            //Debug.Log(GameManager.instance_.errorPoint);
+            //Debug.Log(GameManager.instance_.ErrorLessThanMax);
+            if (!GameManager.instance_.ErrorLessThanMax)
             {
-                Debug.Log("GameWin");
+                SceneManager.LoadScene("GameOverScene");
+
+            }
+            else if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame())
+            {
+                SceneManager.LoadScene("GameSuccessScene");
+                Debug.Log("GameWin1");
                 player_.SetState(new EndGame(player_, 1));
                 yield return new WaitForSeconds(1f);
 
+            }
+            else if (DeckManager.Instance.DeckCount <= 0)
+            {
+                SceneManager.LoadScene("GameSuccessScene");
+                Debug.Log("GameWin2");
             }
             else
             {
