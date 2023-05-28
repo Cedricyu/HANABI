@@ -33,8 +33,11 @@ public class FieldManager : MonoBehaviourPun
             foreach (Card c in field[i])
             {
                 c.transform.position = fields[i].position;
+                c.transform.rotation = fields[i].rotation;
+
             }
         }
+
     }
 
     public void PlayCard(Card playCard)
@@ -45,31 +48,27 @@ public class FieldManager : MonoBehaviourPun
         {
             Debug.Log("red");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 0);
-            AdjustLayerOrder(playCard, redCards);
+
         }
         else if (playCard is blueCard && (blueCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("blue");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 1);
-            AdjustLayerOrder(playCard, blueCards);
         }
         else if (playCard is whiteCard && (whiteCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("white");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 2);
-            AdjustLayerOrder(playCard, whiteCards);
         }
         else if (playCard is greenCard && (greenCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("green");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 3);
-            AdjustLayerOrder(playCard, greenCards);
         }
         else if (playCard.GetType() == typeof(yellowCard) && (yellowCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("yellow");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 4);
-            AdjustLayerOrder(playCard, yellowCards);
         }
         // add to disacrd pile
         else
@@ -77,26 +76,18 @@ public class FieldManager : MonoBehaviourPun
             GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
             if (!GameManager.instance_.ErrorLessThanMax)
             {
-                 /// end game 
+                /// end game 
             }
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
-            AdjustLayerOrder(playCard, discardPile);
         }
         ///
     }
-    public bool canDiscard(Card playCard)
+    public void Discard(Card playCard)
     {
-        if (GameManager.instance_.ErrorLessThanMax)//TODO: determine hint Point is full or not 
-        {
-            PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
-            AdjustLayerOrder(playCard, discardPile);
-            //GameManager.instance_.number_of_hint += 1;  // not sure want this code is doing
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
+        AdjustLayerOrder(playCard, discardPile);
+        //GameManager.instance_.number_of_hint += 1;  // not sure want this code is doing
+
     }
 
 

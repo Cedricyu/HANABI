@@ -61,11 +61,15 @@ public override IEnumerator PlayCard()
     {
         if (!player_.Discard())
         {
-            // TODO player_.SetState()
+            yield return null;
         }
-        player_.SetState(new EndTurn(player_));
-        Debug.Log("player turn to end state");
-        yield return new WaitForSeconds(1f);
+        else
+        {
+            player_.SetState(new EndTurn(player_));
+            Debug.Log("player turn to end state");
+            yield return new WaitForSeconds(1f);
+        }
+
     }
 
     public override IEnumerator GiveHints()
