@@ -11,6 +11,8 @@ public class DeckManager : MonoBehaviourPun
     [SerializeField] List<int> cardIds;
     public static DeckManager Instance;
 
+    public int DeckCount { get { return Deck.Count; } }
+
     public List<Card> discard;
 
     public List<Sprite[]> CardImages = new List<Sprite[]>();

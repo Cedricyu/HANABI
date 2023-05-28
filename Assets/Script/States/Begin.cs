@@ -13,4 +13,9 @@ public class Begin : State
         player_.SetState(new EnemyTurn(player_));
         yield return new WaitForSeconds(3f);
     }
+
+    public override IEnumerator End()
+    {
+        yield return new WaitForSeconds(3f);
+    }
 }
