@@ -723,6 +723,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f42b926927d39c4439a15781fc2260e8, type: 3}
   - {fileID: 21300000, guid: a4db7fdd673601545b31df2e0c7f37f3, type: 3}
   - {fileID: 21300000, guid: 3bc92c64eb578dc429109dc0eb8543bd, type: 3}
+  back:
+  - {fileID: 21300000, guid: 313c958a3ed111f4cbc86b1bf8150c62, type: 3}
   colors_: []
 --- !u!212 &330053192
 SpriteRenderer:

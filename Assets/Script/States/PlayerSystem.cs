@@ -17,7 +17,8 @@ public class PlayerSystem : StateMeachine
 
     private int hand_max = 5;
     GameObject Card;
-    private int clickcard_id = -1;
+    [SerializeField] private int clickcard_id = -1;
+    public int Clickcard_id { get { return clickcard_id; } }
     private PhotonView _pv;
     private Button drawbutton;
     private Button playbutton;
@@ -152,7 +153,6 @@ public class PlayerSystem : StateMeachine
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());
 
         return true;
@@ -182,11 +182,10 @@ public class PlayerSystem : StateMeachine
         clickcard_id = id;
     }
 
-    public int GetClickCardId()
+    public void InitClickCardId()
     {
-        return clickcard_id;
+        clickcard_id = -1;
     }
-
     public bool PlayCard()
     {
         if (clickcard_id == -1)
@@ -204,7 +203,7 @@ public class PlayerSystem : StateMeachine
     public bool Discard()
     {
         print("discard");
-        if (clickcard_id == -1 || !GameManager.instance_.HintEqualTen)
+        if (clickcard_id == -1 || GameManager.instance_.HintEqualTen)
         {
             Debug.Log("No click card operation");
             return false;

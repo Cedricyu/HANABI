@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
                 tmp.transform.position = transforms_[i].position;
                 tmp.transform.rotation = transforms_[i].rotation;
                 PlayerSystem tmpPlayerSystem = player_.GetPlayerSystem();
-                if (tmpPlayerSystem.GetClickCardId() == tmp.getId())
+                if (tmpPlayerSystem.Clickcard_id == tmp.getId())
                 {
                     tmp.transform.Translate(new Vector3(0, 0.5f));
                 }
