@@ -75,11 +75,22 @@ public class PlayerSystem : StateMeachine
     void Update()
     {
         stateView = GetState().GetType().ToString();
-        if(GetState() is PlayerTurn){
-            GameManager.instance_.ShowState.text= "It's your turn!";
-        }else{
-           GameManager.instance_.ShowState.text= "It's other's turn";
-        };
+        if (_pv.IsMine)
+        {
+            if (GetState() is PlayerTurn)
+            {
+                GameManager.instance_.ShowState.text = "It's your turn!";
+            }
+            else
+            {
+                GameManager.instance_.ShowState.text = "It's other's turn";
+            };
+        }
+        foreach (Card c in Hands)
+        {
+            c.SetPlayer(this);
+        }
+        
     }
 
     [PunRPC]
@@ -134,7 +145,7 @@ public class PlayerSystem : StateMeachine
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
         // GameManager.instance_.SetCardPlayerSystem(newCard.getId());
-        GameManager.instance_.SetRPCPlayerSystem(newCard.getId());
+        // GameManager.instance_.SetRPCPlayerSystem(newCard.getId());
         // newCard.SetPlayer(this);
         newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());

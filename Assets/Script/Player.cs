@@ -38,42 +38,17 @@ public class Player : MonoBehaviour
         GetComponent<PlayerSystem>().OnDrawButton();
     }
 
-    /*
-    public async Task WaitInit()
-    {
-        while (!(player_.GetState() is EnemyTurn))
-        {
-            //Debug.Log(player_.GetState());
-            await Task.Delay(1000);
-        }
-    }
 
-    public void EndInit()
-    {
-        player_.EndInit();
-
-    }
-    */
-
-
-
-
-    public async void StartTurn()
+    public void StartTurn()
     {
         PhotonView.Get(this).RPC("StartTurn", RpcTarget.All);
-        await Turn();
-        EndTurn();
+        StartCoroutine(Turn());
     }
 
-    public async Task Turn()
+    public IEnumerator Turn()
     {
-
-
-        while (!(player_.GetState() is EndTurn))
-        {
-            //Debug.Log(player_.GetState());
-            await Task.Delay(500);
-        }
+        yield return new WaitUntil(() => player_.GetState() is EndTurn );
+        EndTurn();
     }
 
     public void EndTurn()

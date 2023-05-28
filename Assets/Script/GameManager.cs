@@ -31,10 +31,6 @@ public class GameManager : MonoBehaviour
 
     private int enemyIndex = 0;
 
-    //private int CheckDeck = 0;
-
-    private int turn = 0;
-
     public enum Point{
         HintPoint,
         ErrorPoint
@@ -86,7 +82,7 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void SetCardPlayerSystem(int card_id)
     {
-
+        print("player count in card " + players_.Count);
         if (playerIndex < players_.Count)
         {
             Card tmpCard = this.GetCardbyId(card_id);
@@ -96,24 +92,6 @@ public class GameManager : MonoBehaviour
             tmpCard.SetPlayer(tmpPlayerSystem);
         }
     }
-    /*
-
-    [PunRPC]
-    private void CheckDeckUpdate(int option)
-    {
-        switch (option)
-        {
-            case 0:
-                CheckDeck = 0;
-                break;
-            case 1:
-                CheckDeck += 1;
-                break;
-        }
-    }
-
-    */
-
 
     IEnumerator InitGame()
     {
@@ -159,10 +137,6 @@ public class GameManager : MonoBehaviour
         playerIndex %= players_.Count;
         Debug.LogFormat("start player {0} turn", playerIndex);
         players_[playerIndex].StartTurn();
-        if (turn < players_.Count * 5) {
-            players_[playerIndex].Initialize();
-            turn++;
-        }
     }
 
     public void TurnEnds()
