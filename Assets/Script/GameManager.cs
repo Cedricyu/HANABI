@@ -29,13 +29,15 @@ public class GameManager : MonoBehaviour
     public int PlayerIndex { get { return playerIndex; } }
 
     private int enemyIndex = 0;
-    public bool IsHintLeft { get{ return number_of_hint > hint_max; } }
+    public bool IsHintLeft { get { return number_of_hint > hint_max; } }
 
-    public bool ErrorLessThanMax { get { return errorPoint < errorPoint_max ; } }
+    public bool ErrorLessThanMax { get { return errorPoint < errorPoint_max; } }
+    public bool HintEqualTen { get { return number_of_hint == hint_max; } }
 
     private int turn = 0;
 
-    public enum Point{
+    public enum Point
+    {
         HintPoint,
         ErrorPoint
     }
@@ -45,22 +47,24 @@ public class GameManager : MonoBehaviour
         instance_ = this;
         StartCoroutine(InitGame());
         number_of_hint = 10;
-        hint_max = 0;
+        hint_max = 10;
         errorPoint_max = 3;
     }
 
-    public void updatePoints(Point p){
+    public void updatePoints(Point p)
+    {
         PhotonView.Get(this).RPC("UpdatePoints", RpcTarget.All, p);
     }
 
     [PunRPC]
     private void UpdatePoints(Point option)
     {
-        switch (option) {
-            case Point.HintPoint :
+        switch (option)
+        {
+            case Point.HintPoint:
                 number_of_hint -= 1;
                 break;
-            case Point.ErrorPoint :
+            case Point.ErrorPoint:
                 errorPoint += 1;
                 break;
         }
@@ -84,7 +88,7 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
-   
+
     // [PunRPC]
     // private void CheckDeckUpdate(int option)
     // {
