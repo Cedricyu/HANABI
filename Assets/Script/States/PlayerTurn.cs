@@ -24,18 +24,31 @@ public class PlayerTurn : State
         if (!player_.PlayCard())
         {
             GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
+            Debug.Log("ERROR points:");
+            Debug.Log(GameManager.instance_.errorPoint);
+            Debug.Log(GameManager.instance_.ErrorLessThanMax);
             if (!GameManager.instance_.ErrorLessThanMax)
             {
                 player_.SetState(new EndGame(player_, 0));
             }
+            else
+            {
+                SceneManager.LoadScene("GameOverScene");
+                
+            }
             yield return null;
         }
-        if (FieldManager.Instance.canWinGame())
+        if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame())
         {
-            Debug.Log("GameWin");
+            SceneManager.LoadScene("GameSuccessScene");
+            Debug.Log("GameWin1");
             player_.SetState(new EndGame(player_, 1));
             yield return new WaitForSeconds(1f);
 
+        }
+        else if (DeckManager.Instance.DeckCount <= 0) {
+            SceneManager.LoadScene("GameSuccessScene");
+            Debug.Log("GameWin2");
         }
         else
         {

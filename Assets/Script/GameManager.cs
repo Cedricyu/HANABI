@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -161,4 +162,15 @@ public class GameManager : MonoBehaviour
         ChangeTurn();
     }
 
+    public void IsEndGame() {
+        if (errorPoint == errorPoint_max) {
+            SceneManager.LoadScene("GameOverScene");
+        }
+        else if (DeckManager.Instance.DeckCount > 0 ||FieldManager.Instance.canWinGame()) {
+            SceneManager.LoadScene("GameClearScene");
+        }
+        else if (DeckManager.Instance.DeckCount <= 0) {
+            SceneManager.LoadScene("GameClearScene");
+        }
+    }
 }
