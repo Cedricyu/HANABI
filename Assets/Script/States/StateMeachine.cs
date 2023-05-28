@@ -8,7 +8,7 @@ public abstract class StateMeachine : MonoBehaviour
     public void SetState(State state)
     {
         state_ = state;
-        StartCoroutine(state_.Start());
+        //StartCoroutine(state_.Start());
     }
 
     public State GetState()
