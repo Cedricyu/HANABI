@@ -74,6 +74,11 @@ public class FieldManager : MonoBehaviourPun
         // add to disacrd pile
         else
         {
+            GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
+            if (!GameManager.instance_.ErrorLessThanMax)
+            {
+                 /// end game 
+            }
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
             AdjustLayerOrder(playCard, discardPile);
         }
