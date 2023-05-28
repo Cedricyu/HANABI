@@ -31,29 +31,24 @@ public class Player : MonoBehaviour
             GameManager.instance_.SetPlayer(this);
         ///
     }
+
+   
     public void Initialize()
     {
-        PhotonView.Get(this).RPC("InitializePlayer", RpcTarget.All);
+        GetComponent<PlayerSystem>().OnDrawButton();
     }
 
 
-    public async void StartTurn()
+    public void StartTurn()
     {
         PhotonView.Get(this).RPC("StartTurn", RpcTarget.All);
-        await Turn();
-        EndTurn();
+        StartCoroutine(Turn());
     }
 
-    public async Task Turn()
+    public IEnumerator Turn()
     {
-
-
-        while (!(player_.GetState() is EndTurn))
-        {
-            //Debug.Log(player_.GetState());
-            await Task.Delay(3000);
-
-        }
+        yield return new WaitUntil(() => player_.GetState() is EndTurn );
+        EndTurn();
     }
 
     public void EndTurn()
