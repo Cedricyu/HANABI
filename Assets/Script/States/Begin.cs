@@ -10,7 +10,7 @@ public class Begin : State
     {
         for(int i = 0; i < 5; i ++)
             player_.DrawCard();
-        player_.SetState(new EnemyTurn(player_));
+        player_.FinishInit();
         yield return new WaitForSeconds(3f);
     }
 

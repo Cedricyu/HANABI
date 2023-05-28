@@ -21,8 +21,10 @@ public class PlayerTurn : State
 
     public override IEnumerator PlayCard()
     {
+        // check card is clicked
         if (!player_.PlayCard())
         {
+<<<<<<< HEAD
             GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
             Debug.Log("ERROR points:");
             Debug.Log(GameManager.instance_.errorPoint);
@@ -50,11 +52,25 @@ public class PlayerTurn : State
             SceneManager.LoadScene("GameSuccessScene");
             Debug.Log("GameWin2");
         }
+=======
+            yield return null;
+        }
+>>>>>>> 6261e6095fc21abef133ae73968ad58f0276fd4e
         else
         {
-            player_.SetState(new EndTurn(player_));
-            Debug.Log("player turn to end state");
-            yield return new WaitForSeconds(1f);
+            if (FieldManager.Instance.canWinGame())
+            {
+                Debug.Log("GameWin");
+                player_.SetState(new EndGame(player_, 1));
+                yield return new WaitForSeconds(1f);
+
+            }
+            else
+            {
+                player_.SetState(new EndTurn(player_));
+                Debug.Log("player turn to end state");
+                yield return new WaitForSeconds(1f);
+            }
         }
 
     }
