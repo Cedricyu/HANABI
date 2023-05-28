@@ -67,6 +67,18 @@ public class PlayerSystem : StateMeachine
         StartCoroutine(state_.Start());
     }
 
+    public void FinishInit()
+    {
+        PhotonView.Get(this).RPC("FinishInitRPC", RpcTarget.All);
+    }
+
+
+    [PunRPC]
+    public void FinishInitRPC()
+    {
+        SetState(new EnemyTurn(this));
+    }
+
 
     // Update is called once per frame
     void Update()
