@@ -36,6 +36,7 @@ public class FieldManager : MonoBehaviourPun
                 c.transform.rotation = fields[i].rotation;
 
             }
+            AdjustLayerOrder(field[i]);
         }
 
     }
@@ -48,27 +49,32 @@ public class FieldManager : MonoBehaviourPun
         {
             Debug.Log("red");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 0);
+            playCard.ShowCardOriginalImage();
 
         }
         else if (playCard is blueCard && (blueCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("blue");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 1);
+            playCard.ShowCardOriginalImage();
         }
         else if (playCard is whiteCard && (whiteCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("white");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 2);
+            playCard.ShowCardOriginalImage();
         }
         else if (playCard is greenCard && (greenCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("green");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 3);
+            playCard.ShowCardOriginalImage();
         }
         else if (playCard.GetType() == typeof(yellowCard) && (yellowCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("yellow");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 4);
+            playCard.ShowCardOriginalImage();
         }
         // add to disacrd pile
         else
@@ -85,11 +91,10 @@ public class FieldManager : MonoBehaviourPun
     public void Discard(Card playCard)
     {
         PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 5);
-        AdjustLayerOrder(playCard, discardPile);
-        //GameManager.instance_.number_of_hint += 1;  // not sure want this code is doing
+        GameManager.instance_.updatePoints(GameManager.Point.HintPointPlus);
+
 
     }
-
 
     [PunRPC]
     public void UpdateField(int id, int pos)
@@ -99,24 +104,30 @@ public class FieldManager : MonoBehaviourPun
         {
             tmp.transform.position = discard.position;
             discardPile.Add(tmp);
-            tmp.SetClickable(false);
+            tmp.SetOnFieldOrNot(true);
         }
         else
         {
             tmp.transform.position = fields[pos].position;
             field[pos].Add(tmp);
-            tmp.SetClickable(false);
+            tmp.SetOnFieldOrNot(true);
         }
     }
 
-    public void AdjustLayerOrder(Card playCard, List<Card> colorPile)
+    public void AdjustLayerOrder(List<Card> colorPile)
     {
-        foreach (Card playedCard in colorPile)
+        for (int num = 0; num < colorPile.Count; num++)
         {
-            playedCard.GetComponent<SpriteRenderer>().sortingOrder = 1;
-        }
+            if (num == colorPile.Count - 1)
+            {
+                colorPile[num].GetComponent<SpriteRenderer>().sortingOrder = 2;
+            }
+            else
+            {
+                colorPile[num].GetComponent<SpriteRenderer>().sortingOrder = 1;
+            }
 
-        playCard.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        }
     }
     public bool canWinGame()
     {

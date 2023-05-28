@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public abstract class Card : MonoBehaviour //public abstract class Card : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -13,9 +14,11 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     //public static int hint_control;    
     public static int hint_mousedown;//查看是按下hint_color還是hint_number
 
-    [SerializeField] private bool clickable = true;
+    [SerializeField] private bool clicked = true;
+    [SerializeField] private bool OnFieldOrNot = false;
     DeckManager dm;
     [SerializeField] PlayerSystem player_;
+    [SerializeField] Sprite originalImage_;
 
 
     protected virtual void Start()
@@ -51,43 +54,61 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         id_ = id;
         return;
     }
-    public void SetClickable(bool tmp)
+    public void SetOnFieldOrNot(bool tmp)
     {
-        clickable = tmp;
+        OnFieldOrNot = tmp;
+    }
+
+    public void SetCardOriginalImage(Sprite cardSprite)
+    {
+        this.originalImage_ = cardSprite;
+    }
+
+    public void ShowCardOriginalImage()
+    {
+        SpriteRenderer cardSprite = this.GetComponent<SpriteRenderer>();
+        cardSprite.sprite = originalImage_;
     }
 
     void OnMouseDown()
     {
 
         //Debug.Log(player_); //抓到是誰的
-
-        if (clickable)
+        if (!OnFieldOrNot && GameManager.instance_.OnYourTurnOrNot())
         {
-
-            // Destroy the gameObject after clicking on it
-            player_.SetClickCardId(id_);
-            Debug.Log("clicked ! " + color_ + " " + number_);
-            //Destroy(gameObject);
-
-            if (PlayerSystem.hint_color_control == 1)
+            if (clicked)
             {
-                hint_mousedown = 1;
 
-                Debug.Log("hint_mousedown111111111111");
-                Gernerate_color_Hints(); 
+                // Destroy the gameObject after clicking on it
+                player_.SetClickCardId(id_);
+                Debug.Log("clicked ! " + color_ + " " + number_);
+                //Destroy(gameObject);
 
+                if (PlayerSystem.hint_color_control == 1)
+                {
+                    hint_mousedown = 1;
+
+                    Debug.Log("hint_mousedown111111111111");
+                    Gernerate_color_Hints();
+
+                }
+                else if (PlayerSystem.hint_number_control == 1)
+                {
+                    hint_mousedown = 2;
+                    Gernerate_numbers_Hints();
+                }
+                clicked = !clicked;
             }
-            else if (PlayerSystem.hint_number_control == 1)
+
+            else
             {
-                hint_mousedown = 2;
-                Gernerate_numbers_Hints();
+                player_.InitClickCardId();
+                clicked = !clicked;
             }
         }
 
-        else
-        {
-            return;
-        }
+
+
     }
 
 
@@ -95,13 +116,11 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
 
     public virtual void Gernerate_color_Hints()
     {
-        GameManager.instance_.number_of_hint = GameManager.instance_.number_of_hint - 1;
-        Debug.Log(GameManager.instance_.number_of_hint);
+        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
     }
 
     public virtual void Gernerate_numbers_Hints()
     {
-        GameManager.instance_.number_of_hint = GameManager.instance_.number_of_hint - 1;
-        Debug.Log(GameManager.instance_.number_of_hint);
+        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
     }
 }

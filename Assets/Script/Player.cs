@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     public List<Card> Hands;
     private PhotonView pv_;
+    public PhotonView Pv_ { get { return pv_; } }
     private PlayerSystem player_;
     public PlayerSystem Player_ { get { return player_; } }
 
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
         ///
     }
 
-   
+
     public void Initialize()
     {
         PhotonView.Get(this).RPC("InitializePlayer", RpcTarget.All);
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator Turn()
     {
-        yield return new WaitUntil(() => player_.GetState() is EndTurn );
+        yield return new WaitUntil(() => player_.GetState() is EndTurn);
         EndTurn();
     }
 
