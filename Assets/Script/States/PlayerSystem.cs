@@ -44,8 +44,7 @@ public class PlayerSystem : StateMeachine
         playbutton.onClick.AddListener(OnPlayButton);
         discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
         discardbutton.onClick.AddListener(OnDiscardButton);
-        quitbutton = GameManager.instance_.qgb.GetComponent<Button>();
-        quitbutton.onClick.AddListener(EndTurn);
+
 
 
         hint_color_control=0;
@@ -55,8 +54,6 @@ public class PlayerSystem : StateMeachine
 
         hint_number_button = GameManager.instance_.h_n_b.GetComponent<Button>();
         hint_number_button.onClick.AddListener(hint_number);
-
-
         GameManager.instance_.AddPlayer(this.GetComponent<Player>());
         SetState(new Begin(this));
         Debug.Log(state_);
