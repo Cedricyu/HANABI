@@ -57,6 +57,10 @@ MonoBehaviour:
   - finishInit
   - FinishInitRPC
   - UpdateHintPoint
+  - prc_create_hint_color
+  - prc_create_hint_number
+  - rpc_create_hint_color
+  - rpc_create_hint_number
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
