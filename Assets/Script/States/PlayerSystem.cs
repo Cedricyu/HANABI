@@ -31,10 +31,10 @@ public class PlayerSystem : StateMeachine
 
     public static int hint_color_control;
     public static int hint_number_control;
+    HintManager hh;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
-
     void Start()
     {
         player_ = GetComponent<Player>();
@@ -47,7 +47,6 @@ public class PlayerSystem : StateMeachine
         playbutton.onClick.AddListener(OnPlayButton);
         discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
         discardbutton.onClick.AddListener(OnDiscardButton);
-
 
 
         //hint_color_control = 0;
@@ -249,25 +248,20 @@ public class PlayerSystem : StateMeachine
     }
 
     [PunRPC]
-    public void rpc_create_hint_color()
-    {
-        //Debug.Log(GameManager.instance_.GetCardbyId(clickcard_id)); //red 4
-        Card my_card = GameManager.instance_.GetCardbyId(clickcard_id);
-        my_card.tigger_color_Hints();
+    public void rpc_create_hint_color(){
+        HintManager hh= new HintManager();
+        hh.hint_manager_color();
     }
 
 
-    public void create_hint_number()
-    {
+    public void create_hint_number(){  
         PhotonView.Get(this).RPC("rpc_create_hint_number", RpcTarget.All);
     }
 
     [PunRPC]
-    public void rpc_create_hint_number()
-    {
-        Card my_card = GameManager.instance_.GetCardbyId(clickcard_id);
-        my_card.tigger_numbers_Hints();
-        //Debug.Log("2222");
+    public void rpc_create_hint_number(){
+        HintManager hh= new HintManager();
+        hh.hint_manager_numbers();
     }
 
 }
