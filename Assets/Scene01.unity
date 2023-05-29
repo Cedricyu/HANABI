@@ -426,7 +426,6 @@ MonoBehaviour:
   db: {fileID: 1045522803}
   pb: {fileID: 1544587815}
   dcb: {fileID: 1310910906}
-  qgb: {fileID: 357535084}
   ShowState: {fileID: 84608025}
   h_c_b: {fileID: 1370987861}
   h_n_b: {fileID: 943679846}
@@ -672,7 +671,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330053189}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.91, y: 2.76, z: 0}
+  m_LocalPosition: {x: -20.38, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -724,6 +723,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f42b926927d39c4439a15781fc2260e8, type: 3}
   - {fileID: 21300000, guid: a4db7fdd673601545b31df2e0c7f37f3, type: 3}
   - {fileID: 21300000, guid: 3bc92c64eb578dc429109dc0eb8543bd, type: 3}
+  back:
+  - {fileID: 21300000, guid: 313c958a3ed111f4cbc86b1bf8150c62, type: 3}
   colors_: []
 --- !u!212 &330053192
 SpriteRenderer:
@@ -973,7 +974,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1214714883}
         m_TargetAssemblyTypeName: GamesceneManager, Assembly-CSharp
-        m_MethodName: FailedTheGame
+        m_MethodName: GiveUpTheGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2495,7 +2496,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e95a80596b564497bb97b9357a605a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5ade3042ac694050bbcd067aef23fc6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2514,7 +2515,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259899973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 0.33, z: 0}
+  m_LocalPosition: {x: -0.7, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
