@@ -221,7 +221,6 @@ public class PlayerSystem : StateMeachine
             Debug.Log("No click card operation");
             return false;
         }
-
         FieldManager.Instance.PlayCard(GameManager.instance_.GetCardbyId(clickcard_id));
         UpdatePlayerHands(1, clickcard_id);
         Debug.Log("PlayCard success");
