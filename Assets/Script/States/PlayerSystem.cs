@@ -209,10 +209,21 @@ public class PlayerSystem : StateMeachine
             return false;
         }
 
+
         FieldManager.Instance.Discard(GameManager.instance_.GetCardbyId(clickcard_id));
         UpdatePlayerHands(1, clickcard_id);
         Debug.Log("Discard success");
         return true;
+
+
+    public void create_hint_color(){
+       Debug.Log(clickcard_id);///////////hint在這裡    
+        //clickcard_id.Gernerate_color_Hints();
+    }
+    public void create_hint_number(){
+        //clickcard_id.Gernerate_number_Hints();
+        Debug.Log(clickcard_id); ///////////hint在這裡
+    }
 
     }
 }

@@ -76,6 +76,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         //Debug.Log(player_); //抓到是誰的
         if (!OnFieldOrNot && GameManager.instance_.OnYourTurnOrNot())
         {
+
             if (clicked)
             {
 
@@ -105,6 +106,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
                 player_.InitClickCardId();
                 clicked = !clicked;
             }
+
         }
 
 
