@@ -150,6 +150,8 @@ public class PlayerSystem : StateMeachine
 
 
 
+
+
     public bool DrawCard()
     {
         if (Hands.Count >= hand_max)
@@ -188,17 +190,33 @@ public class PlayerSystem : StateMeachine
     {
         clickcard_id = -1;
     }
+
     public void SetShowClickCardId(int id)
     {
         showClickCard_id = id;
     }
+
     public void InitShowClickCardId()
     {
         showClickCard_id = -1;
     }
+
+    public bool IsClickCardOnMyHands()
+    {
+        Card c = GameManager.instance_.GetCardbyId(clickcard_id);
+        PlayerSystem ps = c.Player_;
+        if (this == ps)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public bool PlayCard()
     {
-        if (clickcard_id == -1)
+        if (clickcard_id == -1 || !IsClickCardOnMyHands())
         {
             Debug.Log("No click card operation");
             return false;
@@ -213,7 +231,7 @@ public class PlayerSystem : StateMeachine
     public bool Discard()
     {
         print("discard");
-        if (clickcard_id == -1 || GameManager.instance_.HintEqualTen)
+        if (clickcard_id == -1 || GameManager.instance_.HintEqualTen || !IsClickCardOnMyHands())
         {
             Debug.Log("No click card operation");
             return false;
@@ -226,26 +244,30 @@ public class PlayerSystem : StateMeachine
         return true;
     }
 
-    public void create_hint_color(){
-        PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);       
+    public void create_hint_color()
+    {
+        PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);
     }
 
     [PunRPC]
-    public void rpc_create_hint_color(){
+    public void rpc_create_hint_color()
+    {
         //Debug.Log(GameManager.instance_.GetCardbyId(clickcard_id)); //red 4
-        Card my_card=GameManager.instance_.GetCardbyId(clickcard_id);
-        my_card.tigger_color_Hints(); 
+        Card my_card = GameManager.instance_.GetCardbyId(clickcard_id);
+        my_card.tigger_color_Hints();
     }
 
 
-    public void create_hint_number(){
+    public void create_hint_number()
+    {
         PhotonView.Get(this).RPC("rpc_create_hint_number", RpcTarget.All);
     }
 
     [PunRPC]
-    public void rpc_create_hint_number(){
-        Card my_card=GameManager.instance_.GetCardbyId(clickcard_id);
-        my_card.tigger_numbers_Hints(); 
+    public void rpc_create_hint_number()
+    {
+        Card my_card = GameManager.instance_.GetCardbyId(clickcard_id);
+        my_card.tigger_numbers_Hints();
         //Debug.Log("2222");
     }
 
