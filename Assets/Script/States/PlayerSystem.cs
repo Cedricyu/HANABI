@@ -48,8 +48,8 @@ public class PlayerSystem : StateMeachine
 
 
 
-        hint_color_control = 0;
-        hint_number_control = 0;
+        //hint_color_control = 0;
+        //hint_number_control = 0;
         hint_color_button = GameManager.instance_.h_c_b.GetComponent<Button>();
         hint_color_button.onClick.AddListener(hint_color);
 
@@ -215,15 +215,18 @@ public class PlayerSystem : StateMeachine
         Debug.Log("Discard success");
         return true;
 
+    }
 
     public void create_hint_color(){
-       Debug.Log(clickcard_id);///////////hint在這裡    
-        //clickcard_id.Gernerate_color_Hints();
-    }
-    public void create_hint_number(){
-        //clickcard_id.Gernerate_number_Hints();
-        Debug.Log(clickcard_id); ///////////hint在這裡
+        //Debug.Log(GameManager.instance_.GetCardbyId(clickcard_id)); //red 4
+        Card my_card=GameManager.instance_.GetCardbyId(clickcard_id);
+        my_card.tigger_color_Hints(); 
+        //Card.card_hint_color.SetActive(true); 
     }
 
+    public void create_hint_number(){
+        Card my_card=GameManager.instance_.GetCardbyId(clickcard_id);
+        my_card.tigger_numbers_Hints(); 
+    
     }
 }
