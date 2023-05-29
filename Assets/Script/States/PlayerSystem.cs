@@ -227,16 +227,26 @@ public class PlayerSystem : StateMeachine
     }
 
     public void create_hint_color(){
+        PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);       
+    }
+
+    [PunRPC]
+    public void rpc_create_hint_color(){
         //Debug.Log(GameManager.instance_.GetCardbyId(clickcard_id)); //red 4
         Card my_card=GameManager.instance_.GetCardbyId(clickcard_id);
         my_card.tigger_color_Hints(); 
-        //Card.card_hint_color.SetActive(true); 
     }
+
 
     public void create_hint_number(){
+        PhotonView.Get(this).RPC("rpc_create_hint_number", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void rpc_create_hint_number(){
         Card my_card=GameManager.instance_.GetCardbyId(clickcard_id);
         my_card.tigger_numbers_Hints(); 
-    
-
+        //Debug.Log("2222");
     }
+
 }

@@ -87,8 +87,8 @@ public class PlayerTurn : State
 
     public override IEnumerator click_hint_color()
     {
-        PlayerSystem.hint_color_control = 1;
-        // player_.create_hint_color();
+        //PlayerSystem.hint_color_control = 1;
+        player_.create_hint_color();
         //Debug.Log("click_hint_color_success");
         yield return new WaitForSeconds(1f);
     }
@@ -96,8 +96,8 @@ public class PlayerTurn : State
 
     public override IEnumerator click_hint_number()
     {
-
-        PlayerSystem.hint_number_control = 1;
+        player_.create_hint_number();
+        //PlayerSystem.hint_number_control = 1;
         yield return new WaitForSeconds(1f);
     }
 
