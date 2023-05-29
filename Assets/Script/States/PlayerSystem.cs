@@ -17,7 +17,8 @@ public class PlayerSystem : StateMeachine
 
     private int hand_max = 5;
     GameObject Card;
-    private int clickcard_id = -1;
+    [SerializeField] private int clickcard_id = -1;
+    public int Clickcard_id { get { return clickcard_id; } }
     private PhotonView _pv;
     private Button drawbutton;
     private Button playbutton;
@@ -47,8 +48,8 @@ public class PlayerSystem : StateMeachine
 
 
 
-        hint_color_control=0;
-        hint_number_control=0;
+        hint_color_control = 0;
+        hint_number_control = 0;
         hint_color_button = GameManager.instance_.h_c_b.GetComponent<Button>();
         hint_color_button.onClick.AddListener(hint_color);
 
@@ -58,7 +59,7 @@ public class PlayerSystem : StateMeachine
         SetState(new Begin(this));
         Debug.Log(state_);
     }
-   
+
     [PunRPC]
     public void InitializePlayer()
     {
@@ -84,19 +85,20 @@ public class PlayerSystem : StateMeachine
     void Update()
     {
         stateView = GetState().GetType().ToString();
-        if(_pv.IsMine)
+        if (_pv.IsMine)
         {
-            if(GetState() is PlayerTurn)
+            if (GetState() is PlayerTurn)
             {
-                GameManager.instance_.ShowState.text= "It's your turn!";
+                GameManager.instance_.ShowState.text = "It's your turn!";
             }
             else
             {
-                GameManager.instance_.ShowState.text= "It's other's turn";
+                GameManager.instance_.ShowState.text = "It's other's turn";
             }
         }
 
-        foreach(Card c in Hands){
+        foreach (Card c in Hands)
+        {
             c.SetPlayer(this);
         }
     }
@@ -151,7 +153,6 @@ public class PlayerSystem : StateMeachine
         if (Hands.Count >= hand_max)
             return false;
         Card newCard = DeckManager.Instance.DrawCard();
-        newCard.SetClickable(true);
         UpdatePlayerHands(0, newCard.getId());
 
         return true;
@@ -165,7 +166,7 @@ public class PlayerSystem : StateMeachine
     [PunRPC]
     public void UpdateHands(int option, int id)
     {
-        Debug.Log("Info : "+ id);
+        Debug.Log("Info : " + id);
         if (option == 0)
         {
             Hands.Add(GameManager.instance_.GetCardbyId(id));
@@ -181,11 +182,10 @@ public class PlayerSystem : StateMeachine
         clickcard_id = id;
     }
 
-    public int GetClickCardId()
+    public void InitClickCardId()
     {
-        return clickcard_id;
+        clickcard_id = -1;
     }
-
     public bool PlayCard()
     {
         if (clickcard_id == -1)
@@ -203,23 +203,18 @@ public class PlayerSystem : StateMeachine
     public bool Discard()
     {
         print("discard");
-        if (clickcard_id == -1)
+        if (clickcard_id == -1 || GameManager.instance_.HintEqualTen)
         {
             Debug.Log("No click card operation");
             return false;
         }
 
-        if (FieldManager.Instance.canDiscard(GameManager.instance_.GetCardbyId(clickcard_id)))
-        {
-            UpdatePlayerHands(1, clickcard_id);
-            Debug.Log("Discard success");
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+
+        FieldManager.Instance.Discard(GameManager.instance_.GetCardbyId(clickcard_id));
+        UpdatePlayerHands(1, clickcard_id);
+        Debug.Log("Discard success");
+        return true;
+
 
     public void create_hint_color(){
        Debug.Log(clickcard_id);///////////hint在這裡    
@@ -230,7 +225,5 @@ public class PlayerSystem : StateMeachine
         Debug.Log(clickcard_id); ///////////hint在這裡
     }
 
-
-
-
+    }
 }

@@ -22,6 +22,7 @@ public class DeckManager : MonoBehaviourPun
     [SerializeField] Sprite[] green;
     [SerializeField] Sprite[] blue;
     [SerializeField] Sprite[] yellow;
+    [SerializeField] Sprite[] back;
 
 
     public List<string> colors_;
@@ -44,6 +45,7 @@ public class DeckManager : MonoBehaviourPun
         CardImages.Add(yellow);
         CardImages.Add(white);
         CardImages.Add(green);
+        CardImages.Add(back);
         generateCards();
     }
 
@@ -138,7 +140,10 @@ public class DeckManager : MonoBehaviourPun
             return null;
 
         Card randomCard = Deck[Random.Range(0, Deck.Count)];
-
+        SpriteRenderer CardSprite = randomCard.GetComponent<SpriteRenderer>();
+        Sprite originalCardImage = CardSprite.sprite;
+        CardSprite.sprite = CardImages[5][0]; //set hand cards image to card_back
+        randomCard.SetCardOriginalImage(originalCardImage);
         Deck.Remove(randomCard);
         cardIds.Remove(randomCard.getId());
         CallRPC(randomCard.getId());
