@@ -76,14 +76,14 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         //Debug.Log(player_); //抓到是誰的
         if (!OnFieldOrNot && GameManager.instance_.OnYourTurnOrNot())
         {
-
+            GameManager.instance_.InitAllPlayerShowClickCardId();
+            PlayerSystem tmpPlayerSystem = GameManager.instance_.WhoIsPlayNow();
             if (clicked)
             {
 
-                // Destroy the gameObject after clicking on it
-                player_.SetClickCardId(id_);
+                tmpPlayerSystem.SetClickCardId(id_);
+                player_.SetShowClickCardId(id_);
                 Debug.Log("clicked ! " + color_ + " " + number_);
-                //Destroy(gameObject);
 
                 if (PlayerSystem.hint_color_control == 1)
                 {
@@ -103,9 +103,11 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
 
             else
             {
-                player_.InitClickCardId();
+
+                tmpPlayerSystem.InitClickCardId();
                 clicked = !clicked;
             }
+
 
         }
 

@@ -181,6 +181,20 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
+    public void InitAllPlayerShowClickCardId()
+    {
+        foreach (Player p in players_)
+        {
+            PlayerSystem ps = p.Player_;
+            ps.InitShowClickCardId();
+        }
+    }
+    public PlayerSystem WhoIsPlayNow()
+    {
+        Player player = this.players_[playerIndex];
+        PlayerSystem ps = player.Player_;
+        return ps;
+    }
     public void IsEndGame()
     {
         if (errorPoint == errorPoint_max)

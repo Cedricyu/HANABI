@@ -19,6 +19,8 @@ public class PlayerSystem : StateMeachine
     GameObject Card;
     [SerializeField] private int clickcard_id = -1;
     public int Clickcard_id { get { return clickcard_id; } }
+    [SerializeField] public int showClickCard_id = -1; // 僅是為了呈現點擊效果而設置的變數
+    public int ShowClickCard_id { get { return showClickCard_id; } }
     private PhotonView _pv;
     private Button drawbutton;
     private Button playbutton;
@@ -186,6 +188,14 @@ public class PlayerSystem : StateMeachine
     {
         clickcard_id = -1;
     }
+    public void SetShowClickCardId(int id)
+    {
+        showClickCard_id = id;
+    }
+    public void InitShowClickCardId()
+    {
+        showClickCard_id = -1;
+    }
     public bool PlayCard()
     {
         if (clickcard_id == -1)
@@ -214,16 +224,6 @@ public class PlayerSystem : StateMeachine
         UpdatePlayerHands(1, clickcard_id);
         Debug.Log("Discard success");
         return true;
-
-
-    public void create_hint_color(){
-       Debug.Log(clickcard_id);///////////hint在這裡    
-        //clickcard_id.Gernerate_color_Hints();
-    }
-    public void create_hint_number(){
-        //clickcard_id.Gernerate_number_Hints();
-        Debug.Log(clickcard_id); ///////////hint在這裡
-    }
 
     }
 }
