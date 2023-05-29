@@ -6,6 +6,19 @@ using UnityEngine.UI;
 
 public class HintManager : MonoBehaviour
 {
+    public static HintManager instance_;
+
+    public void Start()
+    {
+        instance_ = this;
+    }
+
+
+    public void Click()
+    {
+        Debug.Log("Yes");
+    }
+
     GameObject Card;
     public Card test_id;
     public int hint_id;
@@ -21,4 +34,5 @@ public class HintManager : MonoBehaviour
 public void hint_manager_numbers(){
     test_id.tigger_numbers_Hints(); 
   }
+
 }

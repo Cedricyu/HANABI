@@ -19,6 +19,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     [SerializeField] private bool OnFieldOrNot = false;
     DeckManager dm;
     [SerializeField] PlayerSystem player_;
+    public PlayerSystem Player_ { get { return player_; } }
     [SerializeField] Sprite originalImage_;
 
     [SerializeField] protected GameObject card_hint_color;
@@ -106,7 +107,8 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         }
     }
 
-    public void Gernerate_Hints(){
+    public void Gernerate_Hints()
+    {
         //color_hint_setting
         card_hint_color = new GameObject("my_hint_color");//----
         card_hint_color.SetActive(false);
@@ -128,7 +130,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
         // 設定文字的位置
         textRectTransform = textObject.GetComponent<RectTransform>();
         textObject.SetActive(false);
-        
+
         if (number_ == 1)
         {
             textComponent.text = "1";

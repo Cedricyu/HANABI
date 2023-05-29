@@ -149,6 +149,8 @@ public class PlayerSystem : StateMeachine
 
 
 
+
+
     public bool DrawCard()
     {
         if (Hands.Count >= hand_max)
@@ -187,22 +189,37 @@ public class PlayerSystem : StateMeachine
     {
         clickcard_id = -1;
     }
+
     public void SetShowClickCardId(int id)
     {
         showClickCard_id = id;
     }
+
     public void InitShowClickCardId()
     {
         showClickCard_id = -1;
     }
+
+    public bool IsClickCardOnMyHands()
+    {
+        Card c = GameManager.instance_.GetCardbyId(clickcard_id);
+        PlayerSystem ps = c.Player_;
+        if (this == ps)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public bool PlayCard()
     {
-        if (clickcard_id == -1)
+        if (clickcard_id == -1 || !IsClickCardOnMyHands())
         {
             Debug.Log("No click card operation");
             return false;
         }
-
         FieldManager.Instance.PlayCard(GameManager.instance_.GetCardbyId(clickcard_id));
         UpdatePlayerHands(1, clickcard_id);
         Debug.Log("PlayCard success");
@@ -212,7 +229,7 @@ public class PlayerSystem : StateMeachine
     public bool Discard()
     {
         print("discard");
-        if (clickcard_id == -1 || GameManager.instance_.HintEqualTen)
+        if (clickcard_id == -1 || GameManager.instance_.HintEqualTen || !IsClickCardOnMyHands())
         {
             Debug.Log("No click card operation");
             return false;
@@ -225,8 +242,9 @@ public class PlayerSystem : StateMeachine
         return true;
     }
 
-    public void create_hint_color(){
-        PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);       
+    public void create_hint_color()
+    {
+        PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);
     }
 
     [PunRPC]
