@@ -29,9 +29,8 @@ public class PlayerSystem : StateMeachine
     private Button hint_color_button;
     private Button hint_number_button;
 
-    public static int hint_color_control;
-    public static int hint_number_control;
-    HintManager hh;
+    //public static int hint_color_control;
+    //public static int hint_number_control;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
@@ -183,6 +182,7 @@ public class PlayerSystem : StateMeachine
     public void SetClickCardId(int id)
     {
         clickcard_id = id;
+
     }
 
     public void InitClickCardId()
@@ -244,24 +244,25 @@ public class PlayerSystem : StateMeachine
 
     public void create_hint_color()
     {
+        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
         PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);
     }
 
     [PunRPC]
     public void rpc_create_hint_color(){
-        HintManager hh= new HintManager();
-        hh.hint_manager_color();
+        HintManager.instance_.hint_manager_color();
+        //Debug.Log("rpc_create_hint_color");
     }
 
 
     public void create_hint_number(){  
+        
+        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
         PhotonView.Get(this).RPC("rpc_create_hint_number", RpcTarget.All);
     }
 
     [PunRPC]
     public void rpc_create_hint_number(){
-        HintManager hh= new HintManager();
-        hh.hint_manager_numbers();
+       HintManager.instance_.hint_manager_numbers();
     }
-
 }
