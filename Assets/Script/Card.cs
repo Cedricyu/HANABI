@@ -84,36 +84,24 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
 
         if (!OnFieldOrNot && GameManager.instance_.OnYourTurnOrNot())
         {
-
+            GameManager.instance_.InitAllPlayerShowClickCardId();
+            PlayerSystem tmpPlayerSystem = GameManager.instance_.WhoIsPlayNow();
             if (clicked)
             {
 
-                // Destroy the gameObject after clicking on it
-                player_.SetClickCardId(id_);
+                tmpPlayerSystem.SetClickCardId(id_);
+                player_.SetShowClickCardId(id_);
                 Debug.Log("clicked ! " + color_ + " " + number_);
-                //Destroy(gameObject);
-                //tigger_color_Hints();
-                /*if (PlayerSystem.hint_color_control == 1)
-                {
-                    hint_mousedown = 1;
-
-                    Debug.Log("hint_mousedown111111111111");
-                    tigger_color_Hints();
-
-                }
-                else if (PlayerSystem.hint_number_control == 1)
-                {
-                    hint_mousedown = 2;
-                    tigger_numbers_Hints();
-                }*/
                 clicked = !clicked;
             }
 
             else
             {
-                player_.InitClickCardId();
+
+                tmpPlayerSystem.InitClickCardId();
                 clicked = !clicked;
             }
+
 
         }
     }
