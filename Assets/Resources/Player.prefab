@@ -138,6 +138,7 @@ MonoBehaviour:
   Hands: []
   stateView: 
   clickcard_id: -1
+  showClickCard_id: -1
   active: 0
 --- !u!1 &2372236552087520034
 GameObject:
