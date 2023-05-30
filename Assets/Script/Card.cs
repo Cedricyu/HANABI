@@ -82,17 +82,17 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
 
     void OnMouseDown()
     {
-
         if (!OnFieldOrNot && GameManager.instance_.OnYourTurnOrNot())
         {
+            HintManager.instance_.HintSetClickCardId(id_);
             GameManager.instance_.InitAllPlayerShowClickCardId();
             PlayerSystem tmpPlayerSystem = GameManager.instance_.WhoIsPlayNow();
             if (clicked)
             {
-
                 tmpPlayerSystem.SetClickCardId(id_);
                 player_.SetShowClickCardId(id_);
                 Debug.Log("clicked ! " + color_ + " " + number_);
+                
                 clicked = !clicked;
             }
 
@@ -158,13 +158,13 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     public void tigger_color_Hints() //public virtual void tigger_color_Hints()
     {
         card_hint_color.SetActive(true);
-        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
+        //GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
     }
 
     public void tigger_numbers_Hints()
     {
         textObject.SetActive(true);
-        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
+        //GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
     }
 
     public void destory_hint()

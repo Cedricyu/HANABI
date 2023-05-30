@@ -29,12 +29,11 @@ public class PlayerSystem : StateMeachine
     private Button hint_color_button;
     private Button hint_number_button;
 
-    public static int hint_color_control;
-    public static int hint_number_control;
+    //public static int hint_color_control;
+    //public static int hint_number_control;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
-
     void Start()
     {
         player_ = GetComponent<Player>();
@@ -47,7 +46,6 @@ public class PlayerSystem : StateMeachine
         playbutton.onClick.AddListener(OnPlayButton);
         discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
         discardbutton.onClick.AddListener(OnDiscardButton);
-
 
 
         //hint_color_control = 0;
@@ -184,6 +182,7 @@ public class PlayerSystem : StateMeachine
     public void SetClickCardId(int id)
     {
         clickcard_id = id;
+
     }
 
     public void InitClickCardId()
@@ -245,29 +244,25 @@ public class PlayerSystem : StateMeachine
 
     public void create_hint_color()
     {
+        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
         PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);
     }
 
     [PunRPC]
-    public void rpc_create_hint_color()
-    {
-        //Debug.Log(GameManager.instance_.GetCardbyId(clickcard_id)); //red 4
-        Card my_card = GameManager.instance_.GetCardbyId(clickcard_id);
-        my_card.tigger_color_Hints();
+    public void rpc_create_hint_color(){
+        HintManager.instance_.hint_manager_color();
+        //Debug.Log("rpc_create_hint_color");
     }
 
 
-    public void create_hint_number()
-    {
+    public void create_hint_number(){  
+        
+        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
         PhotonView.Get(this).RPC("rpc_create_hint_number", RpcTarget.All);
     }
 
     [PunRPC]
-    public void rpc_create_hint_number()
-    {
-        Card my_card = GameManager.instance_.GetCardbyId(clickcard_id);
-        my_card.tigger_numbers_Hints();
-        //Debug.Log("2222");
+    public void rpc_create_hint_number(){
+       HintManager.instance_.hint_manager_numbers();
     }
-
 }
