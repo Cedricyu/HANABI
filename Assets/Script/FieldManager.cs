@@ -57,24 +57,28 @@ public class FieldManager : MonoBehaviourPun
             Debug.Log("blue");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 1);
             playCard.ShowCardOriginalImage();
+            
         }
         else if (playCard is whiteCard && (whiteCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("white");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 2);
             playCard.ShowCardOriginalImage();
+            
         }
         else if (playCard is greenCard && (greenCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("green");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 3);
             playCard.ShowCardOriginalImage();
+            
         }
         else if (playCard.GetType() == typeof(yellowCard) && (yellowCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("yellow");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 4);
             playCard.ShowCardOriginalImage();
+            
         }
         // add to disacrd pile
         else
@@ -105,12 +109,14 @@ public class FieldManager : MonoBehaviourPun
             tmp.transform.position = discard.position;
             discardPile.Add(tmp);
             tmp.SetOnFieldOrNot(true);
+            tmp.destory_hint();
         }
         else
         {
             tmp.transform.position = fields[pos].position;
             field[pos].Add(tmp);
             tmp.SetOnFieldOrNot(true);
+            tmp.destory_hint();
         }
     }
 
