@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: c84f36b9bd3ef664d89964b433975ce6
   - enabled: 1
-    path: Assets/Sprites/LobbyScene.unity
+    path: Assets/Scenes/LobbyScene.unity
     guid: 8953f04776dce5f4cb6ccf4297baa24a
   - enabled: 1
     path: Assets/Scenes/RoomScene.unity
@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Scene01.unity
     guid: 2b5f8c9ed264b4310a476a5251022a64
   - enabled: 1
-    path: Assets/Script/GameSuccessScene.unity
+    path: Assets/Scenes/GameSuccessScene.unity
     guid: d53c5d1429c07f14b8249d9ee74c426e
   - enabled: 1
     path: Assets/Scenes/GameOverScene.unity

@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public int errorPoint = 0;
     public int errorPoint_max;
     private int playerIndex = 0;
+    public int score = 0;
     public int PlayerIndex { get { return playerIndex; } }
 
     private int enemyIndex = 0;
@@ -199,15 +200,30 @@ public class GameManager : MonoBehaviour
     {
         if (errorPoint == errorPoint_max)
         {
-            SceneManager.LoadScene("GameOverScene");
+            PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                SceneManager.LoadScene("GameOverScene");
+            }
         }
-        else if (DeckManager.Instance.DeckCount > 0 || FieldManager.Instance.canWinGame())
+        else if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame()==true)
         {
-            SceneManager.LoadScene("GameClearScene");
+            score = 25;
+            PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                SceneManager.LoadScene("GameClearScene");
+            }
+                
         }
         else if (DeckManager.Instance.DeckCount <= 0)
         {
-            SceneManager.LoadScene("GameClearScene");
+            score = FieldManager.Instance.get_score();
+            PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                SceneManager.LoadScene("GameClearScene");
+            }
         }
     }
 
