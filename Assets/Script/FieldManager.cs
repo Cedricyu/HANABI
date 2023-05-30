@@ -140,4 +140,9 @@ public class FieldManager : MonoBehaviourPun
             return false;
         }
     }
+    public int get_score() 
+    {
+        int score = redCards.Count + blueCards.Count + yellowCards.Count + whiteCards.Count + greenCards.Count;
+        return score;
+    }
 }

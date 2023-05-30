@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public int errorPoint = 0;
     public int errorPoint_max;
     private int playerIndex = 0;
+    public int score = 0;
     public int PlayerIndex { get { return playerIndex; } }
 
     private int enemyIndex = 0;
@@ -195,20 +196,4 @@ public class GameManager : MonoBehaviour
         PlayerSystem ps = player.Player_;
         return ps;
     }
-    public void IsEndGame()
-    {
-        if (errorPoint == errorPoint_max)
-        {
-            SceneManager.LoadScene("GameOverScene");
-        }
-        else if (DeckManager.Instance.DeckCount > 0 || FieldManager.Instance.canWinGame())
-        {
-            SceneManager.LoadScene("GameClearScene");
-        }
-        else if (DeckManager.Instance.DeckCount <= 0)
-        {
-            SceneManager.LoadScene("GameClearScene");
-        }
-    }
-
 }

@@ -16,13 +16,11 @@ public class EndGame : State
     public override IEnumerator End()
     {
         if (WinorLose == 1) {
-            SceneManager.LoadScene("GameSuccessScene");
             return base.End();
         }
 
         else
-        {
-            SceneManager.LoadScene("GameoverScene");
+        {  
             return base.End();
         }
     }
