@@ -18,6 +18,7 @@ public class GameoverScene : MonoBehaviourPunCallbacks
      print("leave the room");
      SceneManager.LoadScene("LobbyScene");
     }
+    // show on game success scene
     public void show_score() {
         if (GameManager.instance_.score <= 5)
         {
