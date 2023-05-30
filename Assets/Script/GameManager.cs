@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public List<Enemy> enemies_ = new List<Enemy>();
     public Enemy player_;
     public static GameManager instance_;
-    public int number_of_hint;
+    [SerializeField] public int number_of_hint;
     public int hint_max;
     public int errorPoint = 0;
     public int errorPoint_max;
@@ -39,8 +39,10 @@ public class GameManager : MonoBehaviour
 
     public enum Point
     {
-        HintPoint,
-        ErrorPoint
+        HintPointMinus,
+        ErrorPoint,
+        HintPointPlus
+
     }
 
     private void Start()
@@ -62,11 +64,14 @@ public class GameManager : MonoBehaviour
     {
         switch (option)
         {
-            case Point.HintPoint:
+            case Point.HintPointMinus:
                 number_of_hint -= 1;
                 break;
             case Point.ErrorPoint:
                 errorPoint += 1;
+                break;
+            case Point.HintPointPlus:
+                number_of_hint += 1;
                 break;
         }
     }
@@ -89,22 +94,6 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
-
-    // [PunRPC]
-    // private void CheckDeckUpdate(int option)
-    // {
-    //     switch (option)
-    //     {
-    //         case 0:
-    //             CheckDeck = 0;
-    //             break;
-    //         case 1:
-    //             CheckDeck += 1;
-    //             break;
-    //     }
-    // }
-
-
 
     IEnumerator InitGame()
     {
@@ -179,16 +168,47 @@ public class GameManager : MonoBehaviour
         Debug.Log("Turn Ends");
         ChangeTurn();
     }
-
-    public void IsEndGame() {
-        if (errorPoint == errorPoint_max) {
+    public bool OnYourTurnOrNot()
+    {
+        Player player = this.players_[playerIndex];
+        PhotonView pv_ = player.Pv_;
+        if (pv_.IsMine)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void InitAllPlayerShowClickCardId()
+    {
+        foreach (Player p in players_)
+        {
+            PlayerSystem ps = p.Player_;
+            ps.InitShowClickCardId();
+        }
+    }
+    public PlayerSystem WhoIsPlayNow()
+    {
+        Player player = this.players_[playerIndex];
+        PlayerSystem ps = player.Player_;
+        return ps;
+    }
+    public void IsEndGame()
+    {
+        if (errorPoint == errorPoint_max)
+        {
             SceneManager.LoadScene("GameOverScene");
         }
-        else if (DeckManager.Instance.DeckCount > 0 ||FieldManager.Instance.canWinGame()) {
+        else if (DeckManager.Instance.DeckCount > 0 || FieldManager.Instance.canWinGame())
+        {
             SceneManager.LoadScene("GameClearScene");
         }
-        else if (DeckManager.Instance.DeckCount <= 0) {
+        else if (DeckManager.Instance.DeckCount <= 0)
+        {
             SceneManager.LoadScene("GameClearScene");
         }
     }
+
 }

@@ -6,12 +6,6 @@ using TMPro;
 
 public class redCard : Card
 {
-    private GameObject card_hint_color;
-    private GameObject textObject;
-    private RectTransform textRectTransform;
-    private Transform cardHintTransform;
-    private SpriteRenderer sr;
-    private Sprite sprite;
     // Start is called before the first frame update
     protected override void Start()
 
@@ -19,58 +13,8 @@ public class redCard : Card
 
         base.Start();    // Call the base class Start() method first
         color_ = "Red"; // Initialize the color_ variable in the derived class
-
-        //color_hint_setting
-        card_hint_color = new GameObject("Red");
-        card_hint_color.SetActive(false);
-        card_hint_color.transform.parent = transform;
-        sr = card_hint_color.AddComponent<SpriteRenderer>() as SpriteRenderer;
-        card_hint_color.GetComponent<SpriteRenderer>().sortingOrder = 1;
-        card_hint_color.transform.localScale = new Vector3(transform.localScale.x * 15, transform.localScale.y * 67, transform.localScale.z * 2);
-        sprite = Resources.Load<Sprite>("color");//放入color.png
         sr.color = new Color(1.0f, 0.0f, 0.0f, 1.0f); //給顏色
         sr.sprite = sprite;
-        //color_hint_setting
-
-        //數字的提示
-        Canvas canvas = FindObjectOfType<Canvas>();
-        textObject = new GameObject("number_");
-        textObject.transform.SetParent(canvas.transform, false);//放在畫布下
-
-        TextMeshProUGUI textComponent = textObject.AddComponent<TextMeshProUGUI>();
-        textComponent.fontSize = 56;
-        textComponent.color = Color.black; // 設定文字顏色為黑色
-        // 設定文字的位置
-        textRectTransform = textObject.GetComponent<RectTransform>();
-        textObject.SetActive(false);
-        //textObject.transform.parent = transform;
-        //textObject.transform.localScale = new Vector3(transform.localScale.x*15,  transform.localScale.y*67, transform.localScale.z*2);;
-        //textObject.sortingOrder = 3;
-        if (number_ == 1)
-        {
-            textComponent.text = "1";
-        }
-        else if (number_ == 2)
-        {
-            textComponent.text = "2";
-        }
-        else if (number_ == 3)
-        {
-            textComponent.text = "3";
-        }
-        else if (number_ == 4)
-        {
-            textComponent.text = "4";
-        }
-        else
-        {
-            textComponent.text = "5";
-        }
-        //數字的提示
-
-
-
-
     }
 
     private void Update()
@@ -89,20 +33,20 @@ public class redCard : Card
 
     }
 
-    public override void Gernerate_color_Hints()
+    /*public override void tigger_color_Hints()
     {
-        base.Gernerate_color_Hints();
+        base.tigger_color_Hints();
         card_hint_color.SetActive(true);
         Debug.Log("提示紅色成功");
-        PlayerSystem.hint_color_control = 0;
+        //PlayerSystem.hint_color_control = 0;
         Card.hint_mousedown = 0;
     }
-    public override void Gernerate_numbers_Hints()
+    public override void tigger_numbers_Hints()
     {
-        base.Gernerate_numbers_Hints();
+        base.tigger_numbers_Hints();
         textObject.SetActive(true);
         Debug.Log("提示數字成功");
-        PlayerSystem.hint_number_control = 0;
+        //PlayerSystem.hint_number_control = 0;
         Card.hint_mousedown = 0;
     }
 
@@ -110,5 +54,5 @@ public class redCard : Card
     {
         card_hint_color.SetActive(false);
         textObject.SetActive(false);
-    }
+    }*/
 }
