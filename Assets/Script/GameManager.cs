@@ -196,35 +196,4 @@ public class GameManager : MonoBehaviour
         PlayerSystem ps = player.Player_;
         return ps;
     }
-    public void IsEndGame()
-    {
-        if (errorPoint == errorPoint_max)
-        {
-            PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
-            if (PhotonNetwork.IsMasterClient)
-            {
-                SceneManager.LoadScene("GameOverScene");
-            }
-        }
-        else if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame()==true)
-        {
-            score = 25;
-            PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
-            if (PhotonNetwork.IsMasterClient)
-            {
-                SceneManager.LoadScene("GameClearScene");
-            }
-                
-        }
-        else if (DeckManager.Instance.DeckCount <= 0)
-        {
-            score = FieldManager.Instance.get_score();
-            PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
-            if (PhotonNetwork.IsMasterClient)
-            {
-                SceneManager.LoadScene("GameClearScene");
-            }
-        }
-    }
-
 }
