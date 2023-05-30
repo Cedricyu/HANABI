@@ -241,28 +241,16 @@ public class PlayerSystem : StateMeachine
         Debug.Log("Discard success");
         return true;
     }
-
     public void create_hint_color()
     {
+        HintManager.instance_.RpcHintManagerColor(clickcard_id);
         GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
-        PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);
     }
 
-    [PunRPC]
-    public void rpc_create_hint_color(){
-        HintManager.instance_.hint_manager_color();
-        //Debug.Log("rpc_create_hint_color");
-    }
-
-
-    public void create_hint_number(){  
-        
+    public void create_hint_number()
+    {
+        HintManager.instance_.RpcHintManagerNumbers(clickcard_id);
         GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
-        PhotonView.Get(this).RPC("rpc_create_hint_number", RpcTarget.All);
     }
 
-    [PunRPC]
-    public void rpc_create_hint_number(){
-       HintManager.instance_.hint_manager_numbers();
-    }
 }

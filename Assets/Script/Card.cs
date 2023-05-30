@@ -11,8 +11,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     [SerializeField] private int id_;
     [SerializeField] protected int number_;
     [SerializeField] protected string color_;
-    //[SerializeField] public int hint_control;
-    //public static int hint_control;    
+
     public static int hint_mousedown;//查看是按下hint_color還是hint_number
 
     [SerializeField] private bool clicked = true;
@@ -84,7 +83,6 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     {
         if (!OnFieldOrNot && GameManager.instance_.OnYourTurnOrNot())
         {
-            HintManager.instance_.HintSetClickCardId(id_);
             GameManager.instance_.InitAllPlayerShowClickCardId();
             PlayerSystem tmpPlayerSystem = GameManager.instance_.WhoIsPlayNow();
             if (clicked)
@@ -92,7 +90,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
                 tmpPlayerSystem.SetClickCardId(id_);
                 player_.SetShowClickCardId(id_);
                 Debug.Log("clicked ! " + color_ + " " + number_);
-                
+
                 clicked = !clicked;
             }
 
@@ -158,13 +156,11 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     public void tigger_color_Hints() //public virtual void tigger_color_Hints()
     {
         card_hint_color.SetActive(true);
-        //GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
     }
 
     public void tigger_numbers_Hints()
     {
         textObject.SetActive(true);
-        //GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
     }
 
     public void destory_hint()

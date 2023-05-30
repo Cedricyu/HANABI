@@ -5,7 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class EndTurn : State
 {
-    public EndTurn(PlayerSystem player) : base(player) { player.InitClickCardId(); }
+    public EndTurn(PlayerSystem player) : base(player)
+    {
+        player.InitClickCardId();
+        GameManager.instance_.InitAllPlayerShowClickCardId();
+    }
 
     public override IEnumerator End()
     {
