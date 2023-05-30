@@ -17,17 +17,22 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         if (player_ != null)
+        {
             for (int i = 0; i < player_.Hands.Count; i++)
             {
                 Card tmp = player_.Hands[i];
                 tmp.transform.position = transforms_[i].position;
                 tmp.transform.rotation = transforms_[i].rotation;
                 PlayerSystem tmpPlayerSystem = player_.GetPlayerSystem();
-                if (tmpPlayerSystem.GetClickCardId() == tmp.getId())
+                if (tmpPlayerSystem.ShowClickCard_id == tmp.getId())
                 {
                     tmp.transform.Translate(new Vector3(0, 0.5f));
                 }
             }
+
+        }
+
+
     }
 
     public void AddPlayer(Player p)
