@@ -452,7 +452,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1960105453}
+
   - {fileID: 1859014877}
+
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -596,6 +598,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979192602}
   m_CullTransparentMesh: 1
+
 --- !u!1 &1859014874
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +734,7 @@ RectTransform:
   m_AnchoredPosition: {x: 307, y: 349}
   m_SizeDelta: {x: 542.5818, y: 145.1743}
   m_Pivot: {x: 0.5, y: 0.5}
+
 --- !u!1 &1892851220
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,7 +764,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d1b1f468996c4fbb50fa8819b9649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+
   Score: {fileID: 1859014875}
+
 --- !u!4 &1892851222
 Transform:
   m_ObjectHideFlags: 0

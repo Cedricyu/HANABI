@@ -17,14 +17,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RoomScene.unity
     guid: 3d8b0cb72349f7a45bd39f42c7871972
-  - enabled: 1
-    path: Assets/Scenes/Scene01.unity
-    guid: 2b5f8c9ed264b4310a476a5251022a64
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/GameSuccessScene.unity
     guid: d53c5d1429c07f14b8249d9ee74c426e
   - enabled: 1
     path: Assets/Scenes/GameOverScene.unity
     guid: f0a0d39bdca4ced48b2daf6945dacddb
+  - enabled: 1
+    path: Assets/Scenes/Scene01.unity
+    guid: b109e5f29217b574e8688ea92286e114
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: af6e2de6090c1be44b4618e0e9b34f99, type: 2}

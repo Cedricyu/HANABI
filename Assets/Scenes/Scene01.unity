@@ -441,7 +441,6 @@ MonoBehaviour:
   hint_max: 0
   errorPoint: 0
   errorPoint_max: 0
-  score: 0
 --- !u!4 &98795203
 Transform:
   m_ObjectHideFlags: 0
@@ -725,7 +724,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a4db7fdd673601545b31df2e0c7f37f3, type: 3}
   - {fileID: 21300000, guid: 3bc92c64eb578dc429109dc0eb8543bd, type: 3}
   back:
-  - {fileID: 21300000, guid: 256be43f1838f6d4089c319aca258809, type: 3}
+
+  - {fileID: 21300000, guid: 313c958a3ed111f4cbc86b1bf8150c62, type: 3}
+
   colors_: []
 --- !u!212 &330053192
 SpriteRenderer:
@@ -4243,6 +4244,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1914842673}
   - component: {fileID: 1914842672}
+
+  - component: {fileID: 1914842674}
+
   m_Layer: 0
   m_Name: HintManager
   m_TagString: Untagged
@@ -4262,8 +4266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56f004dac24a99429c297d072bdd00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test_id: {fileID: 0}
-  hint_id: 0
+
+
+  player_: {fileID: 0}
+
 --- !u!4 &1914842673
 Transform:
   m_ObjectHideFlags: 0
@@ -4279,6 +4285,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+
+--- !u!114 &1914842674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914842671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1964788113
 GameObject:
   m_ObjectHideFlags: 0
