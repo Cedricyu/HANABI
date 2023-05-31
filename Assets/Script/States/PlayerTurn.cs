@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 [System.Serializable]
 public class PlayerTurn : State
 {
@@ -32,21 +33,33 @@ public class PlayerTurn : State
             //Debug.Log(GameManager.instance_.ErrorLessThanMax);
             if (!GameManager.instance_.ErrorLessThanMax)
             {
-                SceneManager.LoadScene("GameOverScene");
+                PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    SceneManager.LoadScene("GameOverScene");
+                }
 
             }
             else if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame())
             {
-                SceneManager.LoadScene("GameSuccessScene");
-                Debug.Log("GameWin1");
-                player_.SetState(new EndGame(player_, 1));
-                yield return new WaitForSeconds(1f);
+                GameManager.instance_.score = 25;
+                PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    SceneManager.LoadScene("GameClearScene");
+                }
 
             }
             else if (DeckManager.Instance.DeckCount <= 0)
             {
-                SceneManager.LoadScene("GameSuccessScene");
-                Debug.Log("GameWin2");
+                GameManager.instance_.score = FieldManager.Instance.get_score();
+                PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    SceneManager.LoadScene("GameClearScene");
+                    Debug.Log("GameWin2");
+                }
+                
             }
             else
             {
