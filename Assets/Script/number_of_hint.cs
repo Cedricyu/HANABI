@@ -55,9 +55,13 @@ public class number_of_hint : MonoBehaviour
         {
             textComponent.text = "2";
         }
-        else
+        else if (GameManager.instance_.number_of_hint == 1)
         {
             textComponent.text = "1";
+        }
+        else
+        {
+            textComponent.text = "0";
         }
 
     }

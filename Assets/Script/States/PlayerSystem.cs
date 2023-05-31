@@ -237,26 +237,36 @@ public class PlayerSystem : StateMeachine
         return true;
     }
 
-    public void create_hint_color()
+    public bool create_hint_color()
     {
-        if(!IsClickCardOnMyHands()){
+        if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
             GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
             HintManager.instance_.RpcHintManagerColor(clickcard_id);
-        }
+            return true;
+        }    
+
+        /*if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
+            GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
+            HintManager.instance_.RpcHintManagerColor(clickcard_id);
+            return true;
+        }*/
         else{
             Debug.Log("You can't hint your card");
+            return false;
         }
 
     }
 
-    public void create_hint_number()
+    public bool create_hint_number()
     {
-        if(!IsClickCardOnMyHands()){
-        GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
-        HintManager.instance_.RpcHintManagerNumbers(clickcard_id);
+        if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
+            GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
+            HintManager.instance_.RpcHintManagerNumbers(clickcard_id);
+            return true;
         }
         else{
             Debug.Log("You can't hint your card");
+            return false;
         }
     }
 }
