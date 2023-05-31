@@ -268,5 +268,6 @@ public class PlayerSystem : StateMeachine
             Debug.Log("You can't hint your card");
             return false;
         }
+
     }
 }

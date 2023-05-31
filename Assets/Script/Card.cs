@@ -86,7 +86,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
                 tmpPlayerSystem.SetClickCardId(id_);
                 player_.SetShowClickCardId(id_);
                 Debug.Log("clicked ! " + color_ + " " + number_);
-                
+
                 clicked = !clicked;
             }
 
