@@ -2,33 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 
 public class HintManager : MonoBehaviour
 {
-    public Card test_id;
     
     public static HintManager instance_;
-    public static int hint_id;
+    [SerializeField] PlayerSystem player_;
 
     public void Start()
     {
         instance_ = this;
     }
 
-    public void HintSetClickCardId(int id)
+    public void RpcHintManagerColor(int Id)
     {
-        hint_id = id;
-        Debug.Log(hint_id);
-        test_id = GameManager.instance_.GetCardbyId(hint_id); 
+      PhotonView.Get(this).RPC("hint_manager_color", RpcTarget.All, Id);
     }
-   
-  public void hint_manager_color(){
-    test_id.tigger_color_Hints(); 
-  }
 
-public void hint_manager_numbers(){
-    test_id.tigger_numbers_Hints(); 
-  }
+    [PunRPC]
+    public void hint_manager_color(int Id){
+      Card card_id= GameManager.instance_.GetCardbyId(Id);
+      card_id.tigger_color_Hints();    
+    }
+
+    public void RpcHintManagerNumbers(int Id)
+    {
+      PhotonView.Get(this).RPC("hint_manager_numbers", RpcTarget.All, Id);
+    }
+
+    [PunRPC]
+    public void hint_manager_numbers(int Id){
+        Card card_id= GameManager.instance_.GetCardbyId(Id);
+        card_id.tigger_numbers_Hints(); 
+    }
 
 }

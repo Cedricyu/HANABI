@@ -61,6 +61,8 @@ MonoBehaviour:
   - prc_create_hint_number
   - rpc_create_hint_color
   - rpc_create_hint_number
+  - hint_manager_color
+  - hint_manager_numbers
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
