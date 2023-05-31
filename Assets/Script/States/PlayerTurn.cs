@@ -13,7 +13,7 @@ public class PlayerTurn : State
         Debug.Log("draw one card");
         if (!player_.DrawCard())
         {
-
+            yield return null;
         }
         player_.SetState(new EndTurn(player_));
         Debug.Log("player turn to end state");
@@ -59,7 +59,7 @@ public class PlayerTurn : State
                     SceneManager.LoadScene("GameClearScene");
                     Debug.Log("GameWin2");
                 }
-                
+
             }
             else
             {
@@ -100,11 +100,13 @@ public class PlayerTurn : State
 
     public override IEnumerator click_hint_color()
     {
-        if(player_.create_hint_color()){
+        if (player_.create_hint_color())
+        {
             player_.SetState(new EndTurn(player_));
             yield return new WaitForSeconds(1f);
         }
-        else {
+        else
+        {
             yield return new WaitForSeconds(1f);
         }
     }
@@ -113,11 +115,13 @@ public class PlayerTurn : State
     public override IEnumerator click_hint_number()
     {
 
-        if(player_.create_hint_number()){
+        if (player_.create_hint_number())
+        {
             player_.SetState(new EndTurn(player_));
             yield return new WaitForSeconds(1f);
         }
-       else {
+        else
+        {
             yield return new WaitForSeconds(1f);
         }
 

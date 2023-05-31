@@ -8,7 +8,7 @@ public class EndTurn : State
     public EndTurn(PlayerSystem player) : base(player)
     {
         player.InitClickCardId();
-        GameManager.instance_.InitAllPlayerShowClickCardId();
+        GameManager.instance_.InitAllPlayerShowClickCardId(); // avoid click card and then draw card situation
     }
 
     public override IEnumerator End()
