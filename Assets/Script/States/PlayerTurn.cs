@@ -112,6 +112,7 @@ public class PlayerTurn : State
 
     public override IEnumerator click_hint_number()
     {
+
         if(player_.create_hint_number()){
             player_.SetState(new EndTurn(player_));
             yield return new WaitForSeconds(1f);
@@ -119,6 +120,7 @@ public class PlayerTurn : State
        else {
             yield return new WaitForSeconds(1f);
         }
+
     }
 
 }

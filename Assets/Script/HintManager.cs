@@ -9,6 +9,7 @@ public class HintManager : MonoBehaviour
     
     public static HintManager instance_;
     [SerializeField] PlayerSystem player_;
+
     public void Start()
     {
         instance_ = this;

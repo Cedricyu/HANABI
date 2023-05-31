@@ -79,6 +79,7 @@ public abstract class Card : MonoBehaviour //public abstract class Card : MonoBe
     {
         if (!OnFieldOrNot && GameManager.instance_.OnYourTurnOrNot())
         {
+            HintManager.instance_.HintSetClickCardId(id_);
             GameManager.instance_.InitAllPlayerShowClickCardId();
             PlayerSystem tmpPlayerSystem = GameManager.instance_.WhoIsPlayNow();
             if (clicked)
