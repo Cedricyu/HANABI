@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 [System.Serializable]
 public class PlayerTurn : State
 {
@@ -12,7 +13,7 @@ public class PlayerTurn : State
         Debug.Log("draw one card");
         if (!player_.DrawCard())
         {
-
+            yield return null;
         }
         player_.SetState(new EndTurn(player_));
         Debug.Log("player turn to end state");
@@ -32,21 +33,33 @@ public class PlayerTurn : State
             //Debug.Log(GameManager.instance_.ErrorLessThanMax);
             if (!GameManager.instance_.ErrorLessThanMax)
             {
-                SceneManager.LoadScene("GameOverScene");
+                PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    SceneManager.LoadScene("GameOverScene");
+                }
 
             }
             else if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame())
             {
-                SceneManager.LoadScene("GameSuccessScene");
-                Debug.Log("GameWin1");
-                player_.SetState(new EndGame(player_, 1));
-                yield return new WaitForSeconds(1f);
+                GameManager.instance_.score = 25;
+                PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    SceneManager.LoadScene("GameClearScene");
+                }
 
             }
             else if (DeckManager.Instance.DeckCount <= 0)
             {
-                SceneManager.LoadScene("GameSuccessScene");
-                Debug.Log("GameWin2");
+                GameManager.instance_.score = FieldManager.Instance.get_score();
+                PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    SceneManager.LoadScene("GameClearScene");
+                    Debug.Log("GameWin2");
+                }
+
             }
             else
             {
@@ -87,18 +100,31 @@ public class PlayerTurn : State
 
     public override IEnumerator click_hint_color()
     {
-        //PlayerSystem.hint_color_control = 1;
-        player_.create_hint_color();
-        //Debug.Log("click_hint_color_success");
-        yield return new WaitForSeconds(1f);
+        if (player_.create_hint_color())
+        {
+            player_.SetState(new EndTurn(player_));
+            yield return new WaitForSeconds(1f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f);
+        }
     }
 
 
     public override IEnumerator click_hint_number()
     {
-        player_.create_hint_number();
-        //PlayerSystem.hint_number_control = 1;
-        yield return new WaitForSeconds(1f);
+
+        if (player_.create_hint_number())
+        {
+            player_.SetState(new EndTurn(player_));
+            yield return new WaitForSeconds(1f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f);
+        }
+
     }
 
 }

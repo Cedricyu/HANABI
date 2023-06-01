@@ -29,7 +29,11 @@ public class GamesceneManager : MonoBehaviourPunCallbacks
 
     // test the failed and finish work correctly 
     public void GiveUpTheGame() {
-        SceneManager.LoadScene("GameOverScene");
+        PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SceneManager.LoadScene("GameOverScene");
+        }
     }
     public void FinishTheGame() {
         SceneManager.LoadScene("GameSuccessScene");
