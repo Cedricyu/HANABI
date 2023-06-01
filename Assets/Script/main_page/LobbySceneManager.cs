@@ -64,25 +64,27 @@ public class LobbySceneManager : MonoBehaviourPunCallbacks
         //string message;
         bool roomexist = new_room_list.Contains(RoomName);
 
-        if (PlayerName.Length > 0) {
+        if (PlayerName.Length > 0)
+        {
             if (roomexist)
             {
                 int index = new_room_list.IndexOf(RoomName);
-                if (new_room_count[index] < 4 &&new_room_state[index]!=false)
+                if (new_room_count[index] < 4 && new_room_state[index] != false)
                 {
                     PhotonNetwork.JoinRoom(RoomName);
                     PhotonNetwork.LocalPlayer.NickName = PlayerName;
                     print("join room:" + RoomName);
                 }
-                else 
+                else
                 {
                     string message = "full or locked, try another one!";
                     print("full or locked, try another one!");
                     messageshow(message);
-                     
+
                 }
             }
-            else {
+            else
+            {
                 PhotonNetwork.CreateRoom(RoomName);
                 PhotonNetwork.LocalPlayer.NickName = PlayerName;
                 print("create room:" + RoomName);
@@ -107,6 +109,6 @@ public class LobbySceneManager : MonoBehaviourPunCallbacks
     }
     public void messageshow(string message)
     {
-        LobbyInfo.text = "¡¶ "+message.ToString();
+        LobbyInfo.text = "ï¿½ï¿½ " + message.ToString();
     }
 }

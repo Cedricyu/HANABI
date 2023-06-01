@@ -57,32 +57,33 @@ public class FieldManager : MonoBehaviourPun
             Debug.Log("blue");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 1);
             playCard.ShowCardOriginalImage();
-            
+
         }
         else if (playCard is whiteCard && (whiteCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("white");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 2);
             playCard.ShowCardOriginalImage();
-            
+
         }
         else if (playCard is greenCard && (greenCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("green");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 3);
             playCard.ShowCardOriginalImage();
-            
+
         }
         else if (playCard.GetType() == typeof(yellowCard) && (yellowCards.Count + 1 == playCard.getNumber()))
         {
             Debug.Log("yellow");
             PhotonView.Get(this).RPC("UpdateField", RpcTarget.All, playCard.getId(), 4);
             playCard.ShowCardOriginalImage();
-            
+
         }
         // add to disacrd pile
         else
         {
+            GameManager.instance_.playSoundEffect(GameManager.SoundEffect.PlayCardfail);
             GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
             if (!GameManager.instance_.ErrorLessThanMax)
             {
@@ -113,6 +114,7 @@ public class FieldManager : MonoBehaviourPun
         }
         else
         {
+            GameManager.instance_.playSoundEffect(GameManager.SoundEffect.PlayCardSuccess);
             tmp.transform.position = fields[pos].position;
             field[pos].Add(tmp);
             tmp.SetOnFieldOrNot(true);
@@ -146,7 +148,7 @@ public class FieldManager : MonoBehaviourPun
             return false;
         }
     }
-    public int get_score() 
+    public int get_score()
     {
         int score = redCards.Count + blueCards.Count + yellowCards.Count + whiteCards.Count + greenCards.Count;
         return score;
