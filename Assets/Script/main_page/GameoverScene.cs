@@ -9,23 +9,33 @@ public class GameoverScene : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     TMPro.TMP_Text Score;
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     public void OnclickLeaveRoom()
-   {
-     PhotonNetwork.LeaveRoom();
-   }
+    {
+        GameObject startSound = GameObject.Find("StartBackGroundSound");
+        AudioSource startSceneAudio = startSound.GetComponent<AudioSource>();
+        StartCoroutine(FadeMusic(startSceneAudio, 5, 1));
+        PhotonNetwork.LeaveRoom();
+    }
     public override void OnLeftRoom()
     {
-     print("leave the room");
-     SceneManager.LoadScene("LobbyScene");
+        print("leave the room");
+        SceneManager.LoadScene("LobbyScene");
+
+
     }
     // show on game success scene
-    public void show_score() {
+    public void show_score()
+    {
         if (GameManager.instance_.score <= 5)
         {
             Debug.Log("unbearably tragic");
-            Score.text = GameManager.instance_.score.ToString()+ "points, unbearably tragic";
+            Score.text = GameManager.instance_.score.ToString() + "points, unbearably tragic";
         }
-        
+
         else if (GameManager.instance_.score <= 10)
         {
             Debug.Log("not too bad");
@@ -55,6 +65,20 @@ public class GameoverScene : MonoBehaviourPunCallbacks
         {
             Debug.Log("score error");
         }
-        
+
     }
+    public IEnumerator FadeMusic(AudioSource audio, float duration, float targetVolume)
+    {
+
+        float currentTime = 0;
+        float start = audio.volume;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audio.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        yield break;
+    }
+
 }

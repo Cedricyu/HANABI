@@ -30,6 +30,7 @@ public class PlayerSystem : StateMeachine
     private Button hint_number_button;
 
 
+
     [HideInInspector] public bool active = false;
     //DeckManager DM;
     void Start()
@@ -149,6 +150,7 @@ public class PlayerSystem : StateMeachine
     {
         if (Hands.Count >= hand_max)
             return false;
+        GameManager.instance_.playSoundEffect(GameManager.SoundEffect.DrawCard);
         Card newCard = DeckManager.Instance.DrawCard();
         UpdatePlayerHands(0, newCard.getId());
 
@@ -229,8 +231,7 @@ public class PlayerSystem : StateMeachine
             Debug.Log("No click card operation");
             return false;
         }
-
-
+        GameManager.instance_.playSoundEffect(GameManager.SoundEffect.Discard);
         FieldManager.Instance.Discard(GameManager.instance_.GetCardbyId(clickcard_id));
         UpdatePlayerHands(1, clickcard_id);
         Debug.Log("Discard success");
@@ -239,18 +240,15 @@ public class PlayerSystem : StateMeachine
 
     public bool create_hint_color()
     {
-        if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
+        if (!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint > 0)
+        {
+            GameManager.instance_.playSoundEffect(GameManager.SoundEffect.Hint);
             GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
             HintManager.instance_.RpcHintManagerColor(clickcard_id);
             return true;
-        }    
-
-        /*if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
-            GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
-            HintManager.instance_.RpcHintManagerColor(clickcard_id);
-            return true;
-        }*/
-        else{
+        }
+        else
+        {
             Debug.Log("You can't hint your card");
             return false;
         }
@@ -259,12 +257,15 @@ public class PlayerSystem : StateMeachine
 
     public bool create_hint_number()
     {
-        if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
+        if (!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint > 0)
+        {
+            GameManager.instance_.playSoundEffect(GameManager.SoundEffect.Hint);
             GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
             HintManager.instance_.RpcHintManagerNumbers(clickcard_id);
             return true;
         }
-        else{
+        else
+        {
             Debug.Log("You can't hint your card");
             return false;
         }

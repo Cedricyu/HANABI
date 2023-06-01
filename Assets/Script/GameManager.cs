@@ -45,6 +45,15 @@ public class GameManager : MonoBehaviour
         HintPointPlus
 
     }
+    public enum SoundEffect
+    {
+        DrawCard,
+        Discard,
+        PlayCardSuccess,
+        PlayCardfail,
+        Hint
+
+    }
 
     private void Start()
     {
@@ -73,6 +82,27 @@ public class GameManager : MonoBehaviour
                 break;
             case Point.HintPointPlus:
                 number_of_hint += 1;
+                break;
+        }
+    }
+    public void playSoundEffect(SoundEffect s)
+    {
+        switch (s)
+        {
+            case SoundEffect.DrawCard:
+                db.playSoundEffect();
+                break;
+            case SoundEffect.Discard:
+                dcb.playSoundEffect();
+                break;
+            case SoundEffect.PlayCardSuccess:
+                pb.playSoundEffect(true);
+                break;
+            case SoundEffect.PlayCardfail:
+                pb.playSoundEffect(false);
+                break;
+            case SoundEffect.Hint:
+                h_c_b.playSoundEffect();
                 break;
         }
     }
