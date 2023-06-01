@@ -29,9 +29,6 @@ public class PlayerSystem : StateMeachine
     private Button hint_color_button;
     private Button hint_number_button;
 
-    public static int hint_color_control;
-    public static int hint_number_control;
-    HintManager hh;
 
     [HideInInspector] public bool active = false;
     //DeckManager DM;
@@ -48,9 +45,6 @@ public class PlayerSystem : StateMeachine
         discardbutton = GameManager.instance_.dcb.GetComponent<Button>();
         discardbutton.onClick.AddListener(OnDiscardButton);
 
-
-        //hint_color_control = 0;
-        //hint_number_control = 0;
         hint_color_button = GameManager.instance_.h_c_b.GetComponent<Button>();
         hint_color_button.onClick.AddListener(hint_color);
 
@@ -183,6 +177,7 @@ public class PlayerSystem : StateMeachine
     public void SetClickCardId(int id)
     {
         clickcard_id = id;
+
     }
 
     public void InitClickCardId()
@@ -242,26 +237,37 @@ public class PlayerSystem : StateMeachine
         return true;
     }
 
-    public void create_hint_color()
+    public bool create_hint_color()
     {
-        PhotonView.Get(this).RPC("rpc_create_hint_color", RpcTarget.All);
+        if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
+            GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
+            HintManager.instance_.RpcHintManagerColor(clickcard_id);
+            return true;
+        }    
+
+        /*if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
+            GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
+            HintManager.instance_.RpcHintManagerColor(clickcard_id);
+            return true;
+        }*/
+        else{
+            Debug.Log("You can't hint your card");
+            return false;
+        }
+
     }
 
-    [PunRPC]
-    public void rpc_create_hint_color(){
-        HintManager hh= new HintManager();
-        hh.hint_manager_color();
+    public bool create_hint_number()
+    {
+        if(!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint>0){
+            GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
+            HintManager.instance_.RpcHintManagerNumbers(clickcard_id);
+            return true;
+        }
+        else{
+            Debug.Log("You can't hint your card");
+            return false;
+        }
+
     }
-
-
-    public void create_hint_number(){  
-        PhotonView.Get(this).RPC("rpc_create_hint_number", RpcTarget.All);
-    }
-
-    [PunRPC]
-    public void rpc_create_hint_number(){
-        HintManager hh= new HintManager();
-        hh.hint_manager_numbers();
-    }
-
 }

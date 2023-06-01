@@ -23,15 +23,19 @@ public class Enemy : MonoBehaviour
                 Card tmp = player_.Hands[i];
                 tmp.transform.position = transforms_[i].position;
                 tmp.transform.rotation = transforms_[i].rotation;
+                tmp.card_hint_color.transform.position = transforms_[i].position;  
+                tmp.card_hint_color.transform.Translate(new Vector3(0, 0.3f));
+                //tmp.card_hint_color.transform.rotation = transforms_[i].rotation;
+
                 PlayerSystem tmpPlayerSystem = player_.GetPlayerSystem();
                 if (tmpPlayerSystem.ShowClickCard_id == tmp.getId())
                 {
                     tmp.transform.Translate(new Vector3(0, 0.5f));
+                    tmp.card_hint_color.transform.Translate(new Vector3(0, 0.5f));
                 }
             }
 
         }
-
 
     }
 
