@@ -17,19 +17,29 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
     [SerializeField]
     Button buttonStartGame;
     void Start()
-    {   
-            if (PhotonNetwork.CurrentRoom == null)
-            {
-                SceneManager.LoadScene("LobbyScene");
-                print("Room does not exist");
-            }
-            else
-            {
-                textRoomName.text = "Room: " + PhotonNetwork.CurrentRoom.Name;
-                UpdatePlayerList();
-                //print(PhotonNetwork.CurrentRoom.IsOpen);
+    {
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            SceneManager.LoadScene("LobbyScene");
+            print("Room does not exist");
         }
-            buttonStartGame.interactable = PhotonNetwork.IsMasterClient;
+        else
+        {
+            textRoomName.text = "Room: " + PhotonNetwork.CurrentRoom.Name;
+            UpdatePlayerList();
+            //print(PhotonNetwork.CurrentRoom.IsOpen);
+        }
+        buttonStartGame.interactable = PhotonNetwork.IsMasterClient;
+
+        if (GameObject.Find("GameOverScene") != null)
+        {
+            Destroy(GameObject.Find("GameOverScene"));
+        }
+
+        if (GameObject.Find("RoomAudio") != null)
+        {
+            Destroy(GameObject.Find("RoomAudio"));
+        }
     }
     public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
     {
@@ -42,10 +52,12 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
         StringBuilder sb = new StringBuilder();
         int count = 1;
         string playerlist;
-        foreach (var kvp in PhotonNetwork.PlayerList) {
-            switch(count) {
+        foreach (var kvp in PhotonNetwork.PlayerList)
+        {
+            switch (count)
+            {
                 default:
-                    playerlist = "  " + count.ToString() + "TH\t\t" + kvp.NickName;break;
+                    playerlist = "  " + count.ToString() + "TH\t\t" + kvp.NickName; break;
                 case 1:
                     playerlist = "  " + count.ToString() + "ST\t\t" + kvp.NickName; break;
                 case 2:
@@ -60,25 +72,28 @@ public class RoomSceneManager : MonoBehaviourPunCallbacks
         textPlayerList.text = sb.ToString();
 
     }
-    
+
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         UpdatePlayerList();
     }
-    
+
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         UpdatePlayerList();
     }
-    public void OnclickStartGame() {
-        SceneManager.LoadScene("Scene01");  
+    public void OnclickStartGame()
+    {
+        SceneManager.LoadScene("Scene01");
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        
+
     }
-    public void OnclickLeaveRoom() {
+    public void OnclickLeaveRoom()
+    {
         PhotonNetwork.LeaveRoom();
     }
-    public override void OnLeftRoom() {
+    public override void OnLeftRoom()
+    {
         print("leave the room");
         SceneManager.LoadScene("LobbyScene");
     }
