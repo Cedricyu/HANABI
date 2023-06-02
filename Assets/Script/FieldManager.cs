@@ -83,7 +83,7 @@ public class FieldManager : MonoBehaviourPun
         // add to disacrd pile
         else
         {
-            GameManager.instance_.playSoundEffect(GameManager.SoundEffect.PlayCardfail);
+            GameManager.instance_.RPCPlaySoundEffect(GameManager.SoundEffect.PlayCardfail);
             GameManager.instance_.updatePoints(GameManager.Point.ErrorPoint);
             if (!GameManager.instance_.ErrorLessThanMax)
             {
@@ -114,7 +114,7 @@ public class FieldManager : MonoBehaviourPun
         }
         else
         {
-            GameManager.instance_.playSoundEffect(GameManager.SoundEffect.PlayCardSuccess);
+            GameManager.instance_.RPCPlaySoundEffect(GameManager.SoundEffect.PlayCardSuccess);
             tmp.transform.position = fields[pos].position;
             field[pos].Add(tmp);
             tmp.SetOnFieldOrNot(true);

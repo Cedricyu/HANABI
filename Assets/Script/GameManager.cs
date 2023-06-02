@@ -85,7 +85,14 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    public void playSoundEffect(SoundEffect s)
+
+    public void RPCPlaySoundEffect(SoundEffect s)
+    {
+        PhotonView.Get(this).RPC("playSoundEffect", RpcTarget.All, s);
+    }
+
+    [PunRPC]
+    private void playSoundEffect(SoundEffect s)
     {
         switch (s)
         {

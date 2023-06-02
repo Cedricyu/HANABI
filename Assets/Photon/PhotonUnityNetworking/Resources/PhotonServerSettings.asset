@@ -63,6 +63,7 @@ MonoBehaviour:
   - rpc_create_hint_number
   - hint_manager_color
   - hint_manager_numbers
+  - playSoundEffect
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

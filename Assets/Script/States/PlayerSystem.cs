@@ -150,7 +150,7 @@ public class PlayerSystem : StateMeachine
     {
         if (Hands.Count >= hand_max)
             return false;
-        GameManager.instance_.playSoundEffect(GameManager.SoundEffect.DrawCard);
+        GameManager.instance_.RPCPlaySoundEffect(GameManager.SoundEffect.DrawCard);
         Card newCard = DeckManager.Instance.DrawCard();
         UpdatePlayerHands(0, newCard.getId());
 
@@ -231,7 +231,7 @@ public class PlayerSystem : StateMeachine
             Debug.Log("No click card operation");
             return false;
         }
-        GameManager.instance_.playSoundEffect(GameManager.SoundEffect.Discard);
+        GameManager.instance_.RPCPlaySoundEffect(GameManager.SoundEffect.Discard);
         FieldManager.Instance.Discard(GameManager.instance_.GetCardbyId(clickcard_id));
         UpdatePlayerHands(1, clickcard_id);
         Debug.Log("Discard success");
@@ -242,7 +242,7 @@ public class PlayerSystem : StateMeachine
     {
         if (!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint > 0)
         {
-            GameManager.instance_.playSoundEffect(GameManager.SoundEffect.Hint);
+            GameManager.instance_.RPCPlaySoundEffect(GameManager.SoundEffect.Hint);
             GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
             HintManager.instance_.RpcHintManagerColor(clickcard_id);
             return true;
@@ -259,7 +259,7 @@ public class PlayerSystem : StateMeachine
     {
         if (!IsClickCardOnMyHands() && GameManager.instance_.number_of_hint > 0)
         {
-            GameManager.instance_.playSoundEffect(GameManager.SoundEffect.Hint);
+            GameManager.instance_.RPCPlaySoundEffect(GameManager.SoundEffect.Hint);
             GameManager.instance_.updatePoints(GameManager.Point.HintPointMinus);
             HintManager.instance_.RpcHintManagerNumbers(clickcard_id);
             return true;
