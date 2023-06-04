@@ -39,32 +39,22 @@ public class PlayerTurn : State
             if (!GameManager.instance_.ErrorLessThanMax)
             {
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    SceneManager.LoadScene("GameOverScene");
-                }
-
+                yield return new WaitUntil(() => PhotonNetwork.IsMasterClient);
+                SceneManager.LoadScene("GameOverScene");
             }
             else if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame())
             {
                 GameManager.instance_.score = 25;
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    SceneManager.LoadScene("GameSuccessScene");
-                }
-
+                yield return new WaitUntil(() => PhotonNetwork.IsMasterClient);
+                SceneManager.LoadScene("GameSuccessScene");
             }
             else if (DeckManager.Instance.DeckCount <= 0)
             {
                 GameManager.instance_.score = FieldManager.Instance.get_score();
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    SceneManager.LoadScene("GameSuccessScene");
-                    Debug.Log("GameWin2");
-                }
-
+                yield return new WaitUntil(() => PhotonNetwork.IsMasterClient);
+                SceneManager.LoadScene("GameSuccessScene");
             }
             else
             {
