@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         number_of_hint = 10;
         hint_max = 10;
         errorPoint_max = 3;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void updatePoints(Point p)
