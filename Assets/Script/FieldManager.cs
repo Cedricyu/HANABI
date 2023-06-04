@@ -142,7 +142,7 @@ public class FieldManager : MonoBehaviourPun
     {
         if (redCards.Count == 1 || blueCards.Count == 1 || yellowCards.Count == 1 || whiteCards.Count == 1 || greenCards.Count == 1)
         {
-            PhotonView.Get(this).RPC("SetWin", RpcTarget.All);
+            PhotonView.Get(GameManager.instance_).RPC("SetWin", RpcTarget.All);
             return true;
         }
         else
