@@ -81,16 +81,20 @@ public class PlayerSystem : StateMeachine
     void Update()
     {
         stateView = GetState().GetType().ToString();
-        string CurrentPlayerName = GameManager.instance_.WhoIsPlayNow()._pv.Controller.NickName;
-        if (_pv.IsMine)
+        PlayerSystem tmp = GameManager.instance_.WhoIsPlayNow();
+        if (tmp != null)
         {
-            if (GetState() is PlayerTurn)
+            string CurrentPlayerName = GameManager.instance_.WhoIsPlayNow()._pv.Controller.NickName;
+            if (_pv.IsMine)
             {
-                GameManager.instance_.ShowState.text = "It's your turn!";
-            }
-            else
-            {
-                GameManager.instance_.ShowState.text = "It's " + CurrentPlayerName +  "'s turn";
+                if (GetState() is PlayerTurn)
+                {
+                    GameManager.instance_.ShowState.text = "It's your turn!";
+                }
+                else
+                {
+                    GameManager.instance_.ShowState.text = "It's " + CurrentPlayerName + "'s turn";
+                }
             }
         }
 
