@@ -17,6 +17,9 @@ public class FieldManager : MonoBehaviourPun
     [SerializeField] List<Transform> fields;
     [SerializeField] Transform discard;
 
+
+    public bool isWin = false;
+
     public void Start()
     {
         Instance = this;
@@ -25,6 +28,7 @@ public class FieldManager : MonoBehaviourPun
         field.Add(whiteCards);
         field.Add(greenCards);
         field.Add(yellowCards);
+        DontDestroyOnLoad(this.gameObject);
     }
     private void FixedUpdate()
     {
@@ -141,7 +145,8 @@ public class FieldManager : MonoBehaviourPun
     {
         if (redCards.Count == 5 && blueCards.Count == 5 && yellowCards.Count == 5 && whiteCards.Count == 5 && greenCards.Count == 5)
         {
-                return true;
+            isWin = true;
+            return true;
         }
         else
         {
