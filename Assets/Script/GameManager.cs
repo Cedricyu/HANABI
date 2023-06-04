@@ -230,6 +230,8 @@ public class GameManager : MonoBehaviour
     }
     public PlayerSystem WhoIsPlayNow()
     {
+        if (players_.Count == 0)
+            return null;
         Player player = this.players_[playerIndex];
         PlayerSystem ps = player.Player_;
         return ps;
