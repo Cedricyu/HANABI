@@ -41,7 +41,7 @@ public class PlayerTurn : State
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    SceneManager.LoadScene("GameOverScene");
+                    SceneManager.LoadScene("GameSuccessScene");
                 }
 
             }
@@ -51,7 +51,7 @@ public class PlayerTurn : State
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    SceneManager.LoadScene("GameClearScene");
+                    SceneManager.LoadScene("GameSuccessScene");
                 }
 
             }
