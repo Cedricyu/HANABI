@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 public class GamesceneManager : MonoBehaviourPunCallbacks
 {
+
     // Start is called before the first frame update
     void Start()
     {
-        if(PhotonNetwork.CurrentRoom == null)
+        if (PhotonNetwork.CurrentRoom == null)
         {
             SceneManager.LoadScene("LobbyScene");
         }
@@ -23,19 +24,21 @@ public class GamesceneManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
     // test the failed and finish work correctly 
-    public void GiveUpTheGame() {
+    public void GiveUpTheGame()
+    {
         PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
         if (PhotonNetwork.IsMasterClient)
         {
             SceneManager.LoadScene("GameOverScene");
         }
     }
-    public void FinishTheGame() {
+    public void FinishTheGame()
+    {
         SceneManager.LoadScene("GameSuccessScene");
     }
 }
