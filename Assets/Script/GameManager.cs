@@ -46,6 +46,13 @@ public class GameManager : MonoBehaviour
         isWin = true;
     }
 
+
+    [PunRPC]
+    public void SetScore(int score_)
+    {
+        this.score = score_;
+    }
+
     public enum Point
     {
         HintPointMinus,

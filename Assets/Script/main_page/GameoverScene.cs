@@ -12,7 +12,7 @@ public class GameoverScene : MonoBehaviourPunCallbacks
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        if(FieldManager.Instance.isWin)
+        if(GameManager.instance_.isWin)
             show_score();
     }
     public void OnclickLeaveRoom()
