@@ -12,7 +12,8 @@ public class GameoverScene : MonoBehaviourPunCallbacks
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        show_score();
+        if(GameManager.instance_.isWin)
+            show_score();
     }
     public void OnclickLeaveRoom()
     {

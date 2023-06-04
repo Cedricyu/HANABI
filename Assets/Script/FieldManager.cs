@@ -25,6 +25,7 @@ public class FieldManager : MonoBehaviourPun
         field.Add(whiteCards);
         field.Add(greenCards);
         field.Add(yellowCards);
+        // DontDestroyOnLoad(this.gameObject);
     }
     private void FixedUpdate()
     {
@@ -141,7 +142,8 @@ public class FieldManager : MonoBehaviourPun
     {
         if (redCards.Count == 5 && blueCards.Count == 5 && yellowCards.Count == 5 && whiteCards.Count == 5 && greenCards.Count == 5)
         {
-                return true;
+            PhotonView.Get(GameManager.instance_).RPC("SetWin", RpcTarget.All);
+            return true;
         }
         else
         {
