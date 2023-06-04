@@ -17,9 +17,6 @@ public class FieldManager : MonoBehaviourPun
     [SerializeField] List<Transform> fields;
     [SerializeField] Transform discard;
 
-
-    public bool isWin = false;
-
     public void Start()
     {
         Instance = this;
@@ -28,7 +25,7 @@ public class FieldManager : MonoBehaviourPun
         field.Add(whiteCards);
         field.Add(greenCards);
         field.Add(yellowCards);
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this.gameObject);
     }
     private void FixedUpdate()
     {
@@ -143,9 +140,9 @@ public class FieldManager : MonoBehaviourPun
     }
     public bool canWinGame()
     {
-        if (redCards.Count == 5 && blueCards.Count == 5 && yellowCards.Count == 5 && whiteCards.Count == 5 && greenCards.Count == 5)
+        if (redCards.Count == 1 || blueCards.Count == 1 || yellowCards.Count == 1 || whiteCards.Count == 1 || greenCards.Count == 1)
         {
-            isWin = true;
+            PhotonView.Get(this).RPC("SetWin", RpcTarget.All);
             return true;
         }
         else

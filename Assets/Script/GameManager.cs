@@ -38,6 +38,14 @@ public class GameManager : MonoBehaviour
 
     private int turn = 0;
 
+    public bool isWin = false;
+
+    [PunRPC]
+    public void SetWin()
+    {
+        isWin = true;
+    }
+
     public enum Point
     {
         HintPointMinus,
