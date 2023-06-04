@@ -44,14 +44,14 @@ public class PlayerTurn : State
             }
             else if (DeckManager.Instance.DeckCount > 0 && FieldManager.Instance.canWinGame())
             {
-                GameManager.instance_.score = 25;
+                PhotonView.Get(GameManager.instance_).RPC("SetScore", RpcTarget.All,25);
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
                 yield return new WaitUntil(() => PhotonNetwork.IsMasterClient);
                 SceneManager.LoadScene("GameSuccessScene");
             }
             else if (DeckManager.Instance.DeckCount <= 0)
             {
-                GameManager.instance_.score = FieldManager.Instance.get_score();
+                PhotonView.Get(GameManager.instance_).RPC("SetScore", RpcTarget.All, FieldManager.Instance.get_score());
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
                 yield return new WaitUntil(() => PhotonNetwork.IsMasterClient);
                 SceneManager.LoadScene("GameSuccessScene");
